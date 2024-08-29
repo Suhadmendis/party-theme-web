@@ -1,0 +1,313 @@
+body{
+
+}
+
+
+.custom-navbar {
+    height: 80px; /* Adjust this value to increase or decrease the height */
+    display: flex;
+    align-items: center;
+}
+
+.custom-navbar .navbar-brand img {
+    height: 50px; /* Adjust the logo size if needed */
+    width: auto;
+}
+
+.custom-navbar .navbar-nav .nav-link {
+    padding-top: 30px; /* Adjust padding to center the links vertically */
+    padding-bottom: 30px;
+}
+
+.custom-navbar .form-inline {
+    flex-grow: 1; /* Ensure the search bar stays within the navbar and looks good on different screen sizes */
+}
+
+.custom-navbar .form-control {
+    width: 250px; /* Set a fixed width for the search bar, adjust as needed */
+}
+
+
+.navbar-nav .nav-link {
+    color: #f867ca; /* Change this hex code to your preferred color */
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f867ca; /* Darker shade for hover effect */
+    font-weight: 600;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    color: #f867ca; /* Color for the active link */
+}
+
+
+#logo-area{
+    margin-top: 70px;
+    margin-left: 20px;
+}
+
+#logo{
+    width: 170px;
+    height: 170px;
+}
+
+
+
+#search-bar{
+    background-color: 'red';
+    height: 50px;
+    margin-left: 100px;
+    width: 600px;
+    max-width: 600px;
+    outline: none;
+    border: none;
+    border-color: rgb(233, 233, 233);
+    -webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.09);
+    -moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.09);
+    box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.09);
+
+}
+
+
+
+
+#search-bar:focus {
+    border: none;
+    outline: none; /* Remove the default outline */
+    -webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+.scrolling-photo-slider {
+    overflow: hidden;
+    background-color: #fff;
+}
+.slider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.slider {
+    display: flex;
+    gap: 10px;
+    animation: scroll 20s linear infinite;
+}
+.slider img {
+    height: 200px; /* Adjust height as needed */
+    width: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+
+
+.about-section {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-section h1 {
+    color: #00a3c7;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.about-section h2 {
+    color: #444;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about-section .underline {
+    width: 150px;
+    height: 4px;
+    background-color: #ff3399;
+    margin: 10px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer .footer-columns {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer .footer-column {
+    flex: 1;
+    padding: 20px;
+}
+
+.footer .footer-column h4 {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.footer .footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer .footer-column ul li {
+    margin: 10px 0;
+}
+
+.footer .footer-column ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.footer .footer-column ul li a:hover {
+    color: #ff3399;
+}
+
+.footer .footer-center img {
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+.footer .footer-center p {
+    font-size: 16px;
+    color: #555;
+}
+
+.footer .social-icons {
+    margin-top: 20px;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    font-size: 20px;
+    color: #333;
+    text-decoration: none;
+}
+
+.footer .social-icons a:hover {
+    color: #ff3399;
+}
+
+.footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #999;
+}
+
+.footer-bottom a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: #ff3399;
+}
+
+.contact-info {
+    margin: 10px 0;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #ff3399;
+}
+
+.to-top-btn {
+    background-color: transparent;
+    border: 2px solid #ff3399;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 14px;
+    color: #ff3399;
+    text-decoration: none;
+}
+
+.to-top-btn:hover {
+    background-color: #ff3399;
+    color: white;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    .footer .footer-columns {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .footer .footer-column {
+        margin-bottom: 20px;
+    }
+}
