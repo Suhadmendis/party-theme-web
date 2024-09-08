@@ -9,7 +9,11 @@ if ($_GET['COMMAND'] == 'GET_PRODUCTS') {
     $cloudinaryKey = "933634414754845";
     $cloudinarySecret = "DunCWR1RWwNFH_hgfMaaPwl8rOs";
     $cloudinaryName = "dic13326d";
-    $assetFolder = "Arch_Backdrops";
+    $assetFolder = $_GET['FOLDER_NAME'];
+    // $assetFolder = "Light Numbers";
+    $encodedAssetFolder = urlencode($assetFolder);
+    $max_results = "50";
+
 
     // Create the authentication string
     $auth = base64_encode("$cloudinaryKey:$cloudinarySecret");
@@ -18,7 +22,7 @@ if ($_GET['COMMAND'] == 'GET_PRODUCTS') {
     $ch = curl_init();
 
     // Set the cURL options
-    curl_setopt($ch, CURLOPT_URL, "https://api.cloudinary.com/v1_1/$cloudinaryName/resources/by_asset_folder?asset_folder=$assetFolder");
+    curl_setopt($ch, CURLOPT_URL, "https://api.cloudinary.com/v1_1/$cloudinaryName/resources/by_asset_folder?asset_folder=$encodedAssetFolder&max_results=$max_results");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "Authorization: Basic $auth",
@@ -126,7 +130,7 @@ if ($_GET['COMMAND'] == 'GET_PRODUCT') {
 
 
 
-    $assetId = 'aba4318d8395172c3607b4685d3be616';
+    $assetId = $_GET['ASSET_ID'];
 
     curl_setopt_array($ch, array(
         CURLOPT_URL => 'https://api.cloudinary.com/v1_1/dic13326d/resources/by_asset_ids',
