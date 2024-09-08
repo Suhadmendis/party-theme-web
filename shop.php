@@ -15,14 +15,27 @@
         <input id="search-bar-product" v-model="SEARCH_QUERY" @input="onSearchInput()"  class="form-control" type="search" placeholder="Search" aria-label="Search" />
       </form>
 
-      <div v-if="fetchedData.length" class="row">
-        <div v-for="(product, index) in fetchedData" :key="product.asset_id" class="col-md-3">
+
+      <div class="folder-name-area">
+
+        <div v-for="name in folderNames" :class="selectedFolderId == name.external_id ? 'folder-name folder-name-active' : 'folder-name'"  @click="selectFolder(name.external_id)">
+          <p :class="selectedFolderId == name.external_id ? 'folder-name-text folder-name-text-active' : 'folder-name-text'">{{ name.name }}</p>
+        </div>
+      </div>
+
+  <br>
+
+      <div v-if="fetchedFilferdData.length" class="row">
+        <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3">
           <div class="card border-0 shadow" id="productCard">
             <img :src="product.url" class="card-img-top" alt="Offer 1" />
             <div class="card-body">
               <h5 class="card-title" v-if="product.metadata">{{ product.metadata.name }}</h5>
               <h5 class="card-title" v-else>no</h5>
-              <p class="card-text">On selected party decor items.</p>
+              <p class="card-text" v-if="product.metadata">
+              {{ product.metadata.description.substring(0, 40) }}{{ product.metadata.description.length > 40 ? '...' : '' }}
+            </p>
+              <p class="card-text" v-else>On selected party decor items.</p>
 
               <!-- <div class="colorArea">
                 <div class="colorPlot" :style="{ backgroundColor: 'blue' }"></div>
@@ -30,7 +43,7 @@
 
 
               <div class="product-view-button-area">
-              <button class="product-view-button" @click="GoTo('PRODUCT')"><i class="fa-solid fa-eye" id="product-view-button-icon"></i></button>
+              <button class="product-view-button" @click="GoTo('PRODUCT', product.asset_id)"><i class="fa-solid fa-eye" id="product-view-button-icon"></i></button>
               </div>
             </div>
           </div>

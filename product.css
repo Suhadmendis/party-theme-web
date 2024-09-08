@@ -10,35 +10,41 @@
 
 .card-img-top {
   border-radius: 2rem;
+
 }
 
-
-.colorArea{
+.colorArea {
   display: flex;
-  width: '100%';
+  width: "100%";
   height: 2rem;
   justify-content: center;
   align-items: center;
 }
-.colorPlot{
-  width: .8rem;
-  height: .8rem;
-  border-radius: .8rem;
+.colorPlot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 0.8rem;
   background-color: red;
 }
 
-/* .card-title{
-  align-self: flex-end;
-} */
+.card-title{
+  margin-top: .8rem;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.card-text{
+  font-size: 1rem;
+}
 
 .product-view-button {
-  display: inline-block;
+  /* display: inline-block; */
   border-radius: 2rem;
   background-color: #f867ca;
   border: none;
   color: #ffffff;
-  text-align: center;
-  font-size: 18px;
+  /* text-align: center; */
+  font-size: 14px;
   /* padding: 10px; */
   width: 3rem;
   height: 3rem;
@@ -47,70 +53,29 @@
   margin: 3px;
 }
 
-#product-view-button-icon{
-  font-size: 1rem;
+#product-view-button-icon {
+  font-size: .7rem;
 }
 
-.product-view-button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.product-view-button span:after {
-  content: "\00bb";
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.product-view-button:hover span {
-  padding-right: 25px;
-}
-
-.product-view-button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
 
 #map {
-  height: 500px; /* Adjust the height as needed */
-  width: 100%; /* The width will cover the full width of the page */
+  height: 100px; /* Adjust the height as needed */
+  width: 100px; /* The width will cover the full width of the page */
 }
 
-
-#product{
-
+#product {
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*---------------------------------- product-area ---------------------------------*/
 
-
-#product-area{
-  width: '100%';
-  height: 50rem;
-
+#product-area {
+  width: "100%";
+  /* height: 50rem; */
 }
 
-#left{
-  width: '100%';
-  height: 40rem;
+#left {
+  width: "100%";
+
   background-color: white;
   border-radius: 2rem;
   padding: 1rem;
@@ -119,36 +84,31 @@
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.09);
 }
 
-#left-inner{
-  width: '100%';
-  height: 38rem;
+.product-img {
+  width: 100%;
+  height: auto; /* Let height adjust automatically based on width */
+  aspect-ratio: 100 / 140; /* Maintain a 100:60 ratio */
+  object-fit: cover;
   border-radius: 2rem;
-  background-color: rgb(147, 80, 80);
 }
 
-#right{
-  width: '100%';
-  height: 40rem;
+#left-inner {
+  width: "100%";
 
   border-radius: 2rem;
+  background-color: rgb(228, 228, 228);
+}
+
+#right {
+  width: "100%";
+
+  border-radius: 2rem 2rem 0 0;
   background-color: rgb(241, 241, 241);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.info-pallet-box{
-  margin-top: 1rem;
+.info-pallet-box {
+  margin-top: 0.5rem;
 }
-
 
 .container-box {
   max-width: 600px;
@@ -158,18 +118,15 @@
   border-radius: 10px;
 }
 
-.category-text{
+.category-text {
   font-weight: 600;
   color: #a3a3a3;
   margin-bottom: 1rem;
 }
 
-.title-text{
+.title-text {
   font-weight: 600;
-
 }
-
-
 
 .rating {
   display: flex;
@@ -192,8 +149,12 @@
   border: 1px solid #ddd;
   cursor: pointer;
 }
-.color.white { background-color: #f1f1f1; }
-.color.blue { background-color: #1a1f71; }
+.color.white {
+  background-color: #f1f1f1;
+}
+.color.blue {
+  background-color: #1a1f71;
+}
 .price {
   font-size: 1.5rem;
   font-weight: bold;
@@ -234,4 +195,153 @@
 .buy-now {
   background-color: #25d366;
   color: #fff;
+}
+
+.info-product-bottom {
+  /* margin-top: 1rem; */
+  width: "100%";
+  height: 50px;
+  background-color: #be519c;
+  border-radius: 0 0 2rem 2rem;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.info-product-bottom-text {
+  margin-top: 12px;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+}
+
+@media (max-width: 992px) {
+  #productCard {
+    margin-bottom: .8rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+  }
+
+  .card-img-top {
+    border-radius: 1rem;
+    height: 10rem;
+  }
+
+
+
+  .card-title{
+    margin-top: .2rem;
+    font-size: 1rem;
+    margin-bottom: .3rem;
+  }
+
+
+  #left {
+    border-radius: 1rem;
+  }
+
+  .product-img {
+    border-radius: 1rem;
+  }
+
+  #right {
+    border-radius: 1rem 1rem 0 0;
+  }
+  .container-box {
+    padding: 2.4rem;
+  }
+
+
+  .product-view-button {
+    /* display: inline-block; */
+    border-radius: 2rem;
+    background-color: #f867ca;
+    border: none;
+    color: #ffffff;
+    /* text-align: center; */
+    font-size: 13px;
+    /* padding: 10px; */
+    width: 2rem;
+    height: 2rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    /* margin: 3px; */
+  }
+
+  #product-view-button-icon {
+    font-size: .7rem;
+  }
+
+
+  .info-product-bottom {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 60px;
+    border-radius: 0 0 1rem 1rem;
+  }
+  .info-product-bottom-text {
+    margin-top: 12px;
+    /* font-size: 1rem; */
+    text-align: center;
+    color: white;
+    font-weight: 500;
+  }
+}
+
+.flatpickr-input {
+  width: 100px; /* Adjust width */
+}
+
+/* Change calendar background */
+.flatpickr-calendar {
+  background-color: white; /* Light blue */
+}
+
+/* Change header color */
+.flatpickr-month {
+  background-color: white; /* Hot pink */
+  color: white;
+}
+
+/* Change the color of the selected date */
+.flatpickr-day.selected {
+  background-color: #be519c; /* Teal */
+  color: white;
+}
+
+/* Change the color of other days */
+.flatpickr-day {
+  background-color: #ffffff; /* White */
+  color: #333; /* Dark text */
+}
+
+/* Change hover effect */
+.flatpickr-day:hover {
+  background-color: #f867ca; /* Light red */
+  color: white;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.startRange.prevMonthDay,
+.flatpickr-day.endRange.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay,
+.flatpickr-day.startRange.nextMonthDay,
+.flatpickr-day.endRange.nextMonthDay {
+  background: #be519c;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: white;
+  border-color: #be519c;
 }
