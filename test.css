@@ -1,43 +1,33 @@
-/* Basic styles for the dropdown */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+.navbar-toggler {
+    border: none; /* Removes the border */
+    outline: none; /* Removes the outline when focused */
+}
 
-    .dropdown-content {
-      /* display: none; */
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
 
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
 
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 30px; /* Adjust the width of the icon */
+    height: 2px; /* Adjust the thickness of the lines */
+    background-color: black; /* Change the color as needed */
+    position: relative;
+}
 
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: black; /* Same color as the main line */
+    position: absolute;
+    left: 0;
+}
 
-    /* Button styling */
-    .dropbtn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
+.navbar-toggler-icon::before {
+    top: -8px; /* Adjust the spacing between lines */
+}
 
-    .dropbtn:hover {
-      background-color: #3e8e41;
-    }
+.navbar-toggler-icon::after {
+    top: 8px; /* Adjust the spacing between lines */
+}

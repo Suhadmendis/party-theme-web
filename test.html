@@ -1,164 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<html>
+<head>
+  <title>3D Model Viewer</title>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+</head>
+<body>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.3/cloudinary-core.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="_js/axios.min.js"></script>
-
-    <link rel="stylesheet" href="test.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="product.css" />
-  </head>
-  <body>
-
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
-        <a id="logo-area" class="navbar-brand" href="index.php">
-          <img
-          id="logo"
-          src="logo.png"
-          width="30"
-          height="30"
-          alt="Party Theme Logo"
-        />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php"
-                >Home <span class="sr-only"></span
-              ></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="shop.php">Shop</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="packages.php">Packages</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item"></li>
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-
-          <!-- Search Bar -->
-          <form class="form-inline justify-content-end">
-            <input
-              id="search-bar"
-              class="form-control custom-width"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-        </div>
-      </nav>
+  <iframe
+   src="https://www.canva.com/design/DAGQSJL5zoA/12qaDw5ZlYHvpYcGEWXPvA/edit?ui=eyJFIjp7IkE_IjoiTiIsIlMiOiJBQUdRUnlZdlRhUSIsIlQiOjF9fQ"
+   style="width: 100%; height: 600px; border: none;">
+</iframe>
 
 
+  <!-- Canva Button Integration -->
+<script>
+  (function(d,s,id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://sdk.canva.com/button/v2/button.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'canva-sdk'));
+</script>
 
+<!-- The Button that opens Canva -->
 
-
-
-      <br><br><br>
-      <br><br><br>
-      <br><br><br>
-      <br><br><br>
-
-
-
-      <!-- Footer -->
- <!-- Footer section -->
-  <footer class="footer">
-    <div class="footer-columns">
-      <!-- Navigation Links -->
-      <div class="footer-column">
-        <h4>Navigate</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Center Logo and Info -->
-      <div class="footer-column footer-center">
-        <img src="logo.png" alt="Company Logo" />
-        <p>
-          We provide luxury balloon decor for birthdays, bridal and baby
-          showers, gender reveals, corporate events, and more. Serving
-          Westchester County and surrounding areas.
-        </p>
-      </div>
-
-      <!-- Contact Information -->
-      <div class="footer-column">
-        <h4>Contact</h4>
-        <div class="contact-info">
-          <i class="fa fa-envelope"></i>
-          <a href="mailto:email@example.com">Email Us</a>
-        </div>
-        <div class="contact-info">
-          <i class="fa fa-phone"></i>
-          <a href="tel:+1234567890">Call or Text Me</a>
-        </div>
-        <div class="contact-info">
-          <i class="fa fa-map-marker"></i> 658/1A Havelock Rd, Colombo 00600
-        </div>
-        <a href="#top" class="to-top-btn">To Top</a>
-      </div>
-    </div>
-
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <a href="#">Privacy Policy</a> &amp;
-      <a href="#">Terms of Use</a>
-      <br />
-      Site by Party Theme
-    </div>
-  </footer>
-
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-
-
-
+<a href="https://www.canva.com/design/DAGQSJL5zoA/12qaDw5ZlYHvpYcGEWXPvA/edit?ui=eyJFIjp7IkE_IjoiTiIsIlMiOiJBQUdRUnlZdlRhUSIsIlQiOjF9fQ"
+   data-canva-design-button data-button-href
+   style="font-size:16px; text-decoration:none; padding:10px 20px; background-color:#00C4CC; color:white; border-radius:5px;">
+   Design with Canva
+</a>
 
 </body>
 </html>

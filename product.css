@@ -27,6 +27,10 @@
   background-color: red;
 }
 
+.card-body{
+  padding: 1rem;
+}
+
 .card-title{
   margin-top: .8rem;
   font-size: 1.4rem;
@@ -35,6 +39,7 @@
 
 .card-text{
   font-size: 1rem;
+  color: #7d7d7d;
 }
 
 .product-view-button {
@@ -106,8 +111,29 @@
   background-color: rgb(241, 241, 241);
 }
 
+
 .info-pallet-box {
+  position: relative;
   margin-top: 0.5rem;
+}
+
+.availability-area{
+  position: absolute;
+  top: 10;
+  right: 10;
+  width: 5rem;
+  height: 3rem;
+  border-radius: 1rem;
+  background-color: rgb(255, 255, 255);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.availability-icon{
+  color: #25d366;
+  font-size: 1rem;
 }
 
 .container-box {
@@ -126,6 +152,24 @@
 
 .title-text {
   font-weight: 600;
+}
+
+.description-text{
+  font-size: 1rem;
+}
+
+.date-text{
+  font-weight: 600;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0px 0px 0px;
+}
+
+.delivery-fee-text{
+  font-size: .8rem;
 }
 
 .rating {
@@ -155,11 +199,7 @@
 .color.blue {
   background-color: #1a1f71;
 }
-.price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 10px 0;
-}
+
 .dimensions {
   display: flex;
   gap: 20px;
@@ -215,6 +255,15 @@
   font-weight: 500;
 }
 
+
+
+@media (max-width: 1400px) {
+  .card-img-top {
+    border-radius: 1rem;
+    height: 14rem;
+  }
+}
+
 @media (max-width: 992px) {
   #productCard {
     margin-bottom: .8rem;
@@ -228,13 +277,25 @@
   }
 
 
+  .card-body{
+    padding: .5rem;
+  }
 
   .card-title{
     margin-top: .2rem;
     font-size: 1rem;
+    margin-bottom: .5rem;
+  }
+
+  .card-text{
+    margin-top: .2rem;
+    font-size: .7rem;
     margin-bottom: .3rem;
   }
 
+  .description-text{
+    font-size: .8rem;
+  }
 
   #left {
     border-radius: 1rem;
@@ -259,19 +320,20 @@
     border: none;
     color: #ffffff;
     /* text-align: center; */
-    font-size: 13px;
+    font-size: 10px;
     /* padding: 10px; */
     width: 2rem;
     height: 2rem;
     transition: all 0.2s;
     cursor: pointer;
+
     /* margin: 3px; */
   }
 
   #product-view-button-icon {
     font-size: .7rem;
+    align-self: center;
   }
-
 
   .info-product-bottom {
     padding-left: 1rem;
@@ -286,6 +348,34 @@
     color: white;
     font-weight: 500;
   }
+}
+
+@media (max-width: 842px) {
+
+
+.card-text{
+  margin-top: .2rem;
+  font-size: .7rem;
+  margin-bottom: .3rem;
+}
+}
+
+
+
+
+
+
+@media (max-width: 767px) {
+  .card-img-top {
+    border-radius: 1rem;
+    height: 24rem;
+  }
+}
+
+
+
+.flatpickr-calendar.inline {
+  border-radius: 12px;
 }
 
 .flatpickr-input {

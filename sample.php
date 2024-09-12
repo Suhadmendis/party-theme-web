@@ -1,21 +1,13 @@
+<style>
+    /* Make the div cover the full viewport */
 
 
 
-<?php include 'header.html'; ?>
+</style>
+<?php include 'header.php'; ?>
 <!-- Promotion Section -->
 <div id="app">
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
 
-
-
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-
-</div>
 
 
 
@@ -24,4 +16,4 @@
 
 
 
-<?php include 'footer.html'; ?>
+<?php include 'footer.php'; ?>

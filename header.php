@@ -3,24 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="theme-color" content="black">
+    <title>Party Theme</title>
+
+    <link rel="icon" type="image/png" href="logo_result.webp">
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="_js/slim.min.js"></script>
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      href="_css/bootstrap.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.3/cloudinary-core.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.3/cloudinary-core.min.js"></script> -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
     <script src="_js/axios.min.js"></script>
+    <script src="_js/vue.js"></script>
+
+    <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script> -->
 
     <link rel="stylesheet" href="test.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="product.css" />
+
+    <link rel="stylesheet" href="_css/header.css" />
+    <link rel="stylesheet" href="_css/footer.css" />
+
+
+
+    <link rel="stylesheet" href="_css/index.css" />
+
+
   </head>
   <body>
 
@@ -29,7 +45,7 @@
         <a id="logo-area" class="navbar-brand" href="index.php">
           <img
           id="logo"
-          src="logo.png"
+          src="logo_result.webp"
           width="30"
           height="30"
           alt="Party Theme Logo"
@@ -66,7 +82,7 @@
               <a class="nav-link" href="#">Contact</a>
             </li>
             <li class="nav-item"></li>
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="test.html">Contact</a>
             </li>
           </ul>
 
