@@ -11,16 +11,15 @@ new Vue({
     routeDetails: null, // Store route details like distance and duration
     selectedDate: "",
     asset_id: "",
+    relatedProducts: [],
   },
   created() {
     // this.fetchCloudinaryData(); // Call the fetchData method when the instance is created
 
     this.getAsset_id();
-
-
   },
   mounted() {
-    this.getUserLocation();
+    // this.getUserLocation();
   },
   methods: {
     initCalendar() {
@@ -35,24 +34,29 @@ new Vue({
       const assetId = urlObj.searchParams.get("asset_id");
       this.asset_id = assetId;
       setTimeout(() => {
-      this.fetchCloudinaryData(); // Fetch Cloudinary data
-    }, 400);
+        this.fetchCloudinaryData(); // Fetch Cloudinary data
+      }, 1000);
     },
     fetchCloudinaryData() {
       axios
-        .get(`server/PRODUCTS.php?COMMAND=GET_PRODUCT&ASSET_ID=${this.asset_id}`) // Replace with your API endpoint
+        .get(
+          `server/PRODUCTS.php?COMMAND=GET_PRODUCT&ASSET_ID=${this.asset_id}`
+        ) // Replace with your API endpoint
         .then((response) => {
           this.PRODUCT = this.refactorProduct(response.data); // Set fetched data
           setTimeout(() => {
             this.initCalendar();
-          }, 400);
+          }, 1000);
         })
         .catch((error) => {
           console.error("There was an error fetching the data:", error);
         });
     },
     refactorProduct(product) {
+      console.log(product);
+      this.getRelatedProducts("GET_PRODUCTS", product.asset_folder);
       let refactoredProduct = {
+        asset_folder: product.asset_folder,
         asset_id: product.asset_id,
         categoryName: product.asset_folder.replace(/_/g, " "),
         last_updated: product.last_updated.update_at,
@@ -64,11 +68,68 @@ new Vue({
 
       return refactoredProduct;
     },
+    getRelatedProducts(FLAG, asset_folder) {
+      axios
+        .get(`server/PRODUCTS.php?COMMAND=${FLAG}&FOLDER_NAME=${asset_folder}`)
+        .then((response) => {
+          const re_pro = response.data.filter(
+            (element) => element.asset_id != this.PRODUCT.asset_id
+          );
+
+          // this.relatedProducts = re_pro;
+          this.relatedProducts = this.maximizeProducts(re_pro);
+        })
+        .catch((error) => {
+          console.error("There was an error fetching the data:", error);
+        });
+    },
     GoTo(navigate) {
       if (navigate == "PRODUCT") {
         window.location.href = "product.php";
       }
     },
+    maximizeProducts(products) {
+      let pre_products = [];
+      for (let index = 0; index < 100; index++) {
+        products.map((product) => {
+          if (pre_products.length < 20) {
+            pre_products.push(product);
+          }
+        });
+      }
+      return pre_products;
+    },
+    GoTo(navigate, asset_id) {
+      if (navigate == "PRODUCT") {
+        window.location.href = `product.php?asset_id=${asset_id}`;
+      }
+    },
+    calculateDeliveryFee(){
+      let distanceM = this.routeDetails.distance.value;
+      let fee = 0;
+      let restfee = 0;
+      const per_KM = 300;
+      const per_M = per_KM / 1000;
+
+
+      distanceM -= 5000;
+      fee = 4000;
+
+      if (distanceM > 0) {
+
+        restfee = distanceM * per_M;
+      }
+
+
+
+
+      fee += restfee;
+      fee = Math.floor(fee);
+
+
+      return `LKR ${fee}.00`
+    },
+    // location specific
     initMap() {
       if (this.userLocation.lat && this.userLocation.lng) {
         // Initialize the map centered at the user's location

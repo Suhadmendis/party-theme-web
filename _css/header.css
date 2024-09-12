@@ -1,0 +1,117 @@
+body {
+  height: 100%;
+  background-color: white;
+  font-family: Montserrat, sans-serif;
+}
+
+.custom-navbar {
+  /* height: 80px;  */
+  /* display: flex; */
+  /* align-items: center; */
+}
+
+.navbar-toggler {
+  margin: 1rem;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none; /* Optional: Remove any box-shadow if applied */
+}
+
+.custom-navbar .navbar-brand img {
+  height: 50px; /* Adjust the logo size if needed */
+  width: auto;
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  /* padding-top: 30px;  */
+  /* padding-bottom: 30px; */
+  padding-left: 1.6rem;
+}
+
+.custom-navbar .form-inline {
+  flex-grow: 1; /* Ensure the search bar stays within the navbar and looks good on different screen sizes */
+}
+
+.custom-navbar .form-control {
+  width: "98%" !important;
+}
+
+.navbar-nav .nav-link {
+  color: #f867ca; /* Change this hex code to your preferred color */
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f867ca; /* Darker shade for hover effect */
+  font-weight: 600;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: #f867ca; /* Color for the active link */
+}
+
+#logo-area {
+  /* margin-top: 70px; */
+  margin-left: 20px;
+}
+
+#logo {
+  width: 60px;
+  height: 60px;
+}
+
+.custom-width {
+  width: 600px;
+}
+
+
+#search-bar {
+  height: 50px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-left: 1rem;
+  width: "100%";
+  border-radius: 0.7rem;
+  font-family: Helvetica, Arial, sans-serif;
+  outline: none;
+  border: none;
+  border-color: rgb(233, 233, 233);
+  -webkit-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+}
+
+form.form-inline {
+  display: flex;
+  /* justify-content: flex-end; */
+}
+
+@media (max-width: 992px) {
+  #search-bar {
+    height: 50px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    width: "100%";
+    border-radius: 0.7rem;
+    font-family: Helvetica, Arial, sans-serif;
+    outline: none;
+    border: none;
+    border-color: rgb(233, 233, 233);
+
+    -webkit-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+    -moz-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
+  }
+}
+
+#search-bar:focus {
+  border: none;
+  outline: none; /* Remove the default outline */
+  -webkit-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.1);
+}

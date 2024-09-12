@@ -8,13 +8,14 @@ new Vue({
     SEARCH_QUERY: '',
     folderNames: [],
     selectedFolderId: '',
+    pageVisibilityLock: true
 
   },
   created() {
 
 setTimeout(() => {
   this.fetchCloudinaryData('ALL_FOLDERS');
-  }, 1000);
+  }, 10);
 
 
 
@@ -55,7 +56,7 @@ setTimeout(() => {
         axios
         .get(`server/GENERAL.php?COMMAND=${FLAG}`)
         .then((response) => {
-
+          this.pageVisibilityLock = false;
           this.folderNames = response.data.folders; // Set fetched data
           this.selectedFolderId = response.data.folders[0].external_id;
 
@@ -97,7 +98,7 @@ setTimeout(() => {
 
     },
     localFilter(){
-      this.fetchedData.filter
+      // this.fetchedData.filter
     },
     onSearchInput() {
       this.fetchCloudinaryDataSearch()

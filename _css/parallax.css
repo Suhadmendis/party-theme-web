@@ -1,0 +1,62 @@
+.content {
+  text-align: center;
+
+  padding: 3rem;
+  border-radius: 2rem;
+  width: 35rem;
+  height: 400px;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.parallax {
+  background-image: url("../hero-bg.jpg");
+
+  height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Flexbox for centering content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parallax-head-text {
+  font-size: 1.1rem;
+  color: rgb(94, 167, 213);
+  margin-bottom: 1.7rem;
+  text-transform: uppercase;
+}
+
+.parallax-sub-text {
+  font-size: 2.2rem;
+  color: rgba(245, 143, 171, 1);
+  margin-bottom: 2rem;
+}
+
+.parallax-button {
+
+        background-color: rgba(245, 143, 171, 1);
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+
+        border-radius: 2rem;
+
+}
+
+.parallax-button-text {
+    margin: 0px;
+    font-size: 16px;
+    text-transform: uppercase;
+}

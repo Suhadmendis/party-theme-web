@@ -1,0 +1,139 @@
+.footer {
+  background-color: black;
+  padding: 40px 0;
+  text-align: center;
+  /* border-top: 1px solid #e0e0e0; */
+  /* position: fixed;
+   left: 0;
+   bottom: 0; */
+}
+
+.footer .footer-columns {
+  display: flex;
+  /* justify-content: space-between; */
+  /* max-width: 1000px; */
+  color: white;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.footer .footer-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer .footer-column h4 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #dbdbdb;
+  margin-bottom: 20px;
+}
+
+.footer .footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer .footer-column ul li {
+  margin: 10px 0;
+}
+
+.footer .footer-column ul li a {
+  text-decoration: none;
+  color: #d2d2d2;
+}
+
+.footer .footer-column ul li a:hover {
+  color: #ff3399;
+}
+
+.footer .footer-logo img {
+  width: 140px;
+  margin-bottom: 10px;
+}
+
+.footer .footer-center p {
+  font-size: 14px;
+  color: #dcdcdc;
+}
+
+.footer .social-icons {
+  margin-top: 20px;
+}
+
+.footer .social-icons a {
+  margin: 0 10px;
+  font-size: 20px;
+  color: #c8c8c8;
+  text-decoration: none;
+}
+
+.footer .social-icons a:hover {
+  color: #ff3399;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  border-top: 1px solid #ffffff20;
+  font-size: 14px;
+  color: #999;
+}
+
+.footer-bottom a {
+  color: #d9d9d9;
+  text-decoration: none;
+  margin-bottom: 10rem;
+}
+
+.footer-bottom a:hover {
+  color: #ff3399;
+}
+
+.contact-info {
+  margin: 10px 0;
+}
+
+.contact-info i {
+  margin-right: 10px;
+  color: #ff3399;
+}
+
+.to-top-btn {
+  background-color: transparent;
+  border: 2px solid #ff3399;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  color: #ff3399;
+  text-decoration: none;
+}
+
+.to-top-btn:hover {
+  background-color: #ff3399;
+  color: white;
+}
+
+.footer-link{
+  color: white;
+  text-decoration: none;
+}
+
+
+@media (max-width: 992px) {
+
+  .footer .footer-columns {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer .footer-column {
+    margin-bottom: 20px;
+  }
+  .contact-info {
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+}
+
+
+
