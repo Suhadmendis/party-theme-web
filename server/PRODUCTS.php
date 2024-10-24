@@ -202,19 +202,38 @@ if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
 
 }
 
+if ($_GET['COMMAND'] == 'TEST') {
+
+    $QUERY = $_GET['QUERY'];
+
+    // $querySet = 'where';
+    $table_data = searchProduct($QUERY);
+
+    // Use usort() to sort the array by 'match_count'
+    // usort($table_data, function ($a, $b) {
+    //     // Compare the 'match_count' values and sort in descending order
+    //     return (float) $b['match_count'] - (float) $a['match_count'];
+    // });
+
+    // Output or further process the sorted data
+    echo json_encode($table_data);
+
+
+}
+
 
 function searchProduct($QUERY)
 {
     require '../config/db.php';
 
     // Now you can run queries
-    if($QUERY == ""){
-        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products"; // Example query
-    }else{
-        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%'"; // Example query
-    }
+    // if($QUERY == ""){
+    //     $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products"; // Example query
+    // }else{
+    //     $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%'"; // Example query
+    // }
 
-
+    $sql = "SELECT * from m_products"; // Example query
     $result = $conn->query($sql);
 
     $data = []; // Initialize an array to hold the rows
