@@ -206,24 +206,7 @@ if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
 }
 
 
-if ($_GET['COMMAND'] == 'TEST') {
 
-    $QUERY = $_GET['QUERY'];
-
-    // $querySet = 'where';
-    $table_data = searchProduct($QUERY);
-
-    // Use usort() to sort the array by 'match_count'
-    usort($table_data, function ($a, $b) {
-        // Compare the 'match_count' values and sort in descending order
-        return (float) $b['match_count'] - (float) $a['match_count'];
-    });
-
-    // Output or further process the sorted data
-    echo json_encode($table_data);
-
-
-}
 
 
 function utf8ize($data)
