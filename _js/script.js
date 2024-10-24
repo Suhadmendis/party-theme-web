@@ -14,7 +14,7 @@ new Vue({
   created() {
     setTimeout(() => {
       this.fetchCloudinaryData("ALL_FOLDERS");
-      this.getProducts();
+
     }, 10);
 
     // this.fetchCloudinaryData(); // Fetch Cloudinary data
@@ -52,6 +52,7 @@ new Vue({
             this.folderNames = response.data.folders; // Set fetched data
             this.selectedFolderName = response.data.folders[0].name;
             // this.fetchCloudinaryData("GET_PRODUCTS");
+            this.getProducts();
           })
           .catch((error) => {
             console.error("There was an error fetching the data:", error);
