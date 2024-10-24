@@ -200,7 +200,9 @@ if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
     header('Content-Type: application/json');
     // Output or further process the sorted data
     echo json_encode($table_data);
-
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo 'JSON error: ' . json_last_error_msg();
+    }
 
 }
 
