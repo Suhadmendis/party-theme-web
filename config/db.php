@@ -11,8 +11,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost:8888') {
     $dbname = "party_theme_db";   // Database name
 }
 if ($_SERVER['HTTP_HOST'] == 'partytheme.lk') {
-    $servername = "170.249.212.20"; // Your database server
-    $username = "partythe_akila"; // Database username
+    $servername = "170.249.212.10"; // Your database server
+    $username = "partythe_akilaq"; // Database username
     $password = "SaGaRa4000"; // Database password
     $dbname = "partythe_me_db";   // Database name
 }
