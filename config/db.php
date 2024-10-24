@@ -20,10 +20,10 @@ if ($_SERVER['HTTP_HOST'] == 'partytheme.lk') {
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-print_r($conn);
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully\n";
+// echo "Connected successfully\n";
 ?>
