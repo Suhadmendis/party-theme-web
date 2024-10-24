@@ -145,9 +145,9 @@ new Vue({
     },
     getProductCountByFolder(name){
 
-      let productCount = this.fetchedData.filter(product => product.asset_folder == name).length;
+      // let productCount = this.fetchedData.filter(product => product.asset_folder == name).length;
 
-      return this.SEARCH_QUERY == "" ? "" : productCount;
+      // return this.SEARCH_QUERY == "" ? "" : productCount;
     },
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
