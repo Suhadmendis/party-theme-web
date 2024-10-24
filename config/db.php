@@ -25,5 +25,26 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-// echo "Connected successfully\n";
+echo "Connected successfully\n";
+
+// Now you can run queries
+$sql = "SELECT * FROM m_products"; // Example query
+$result = $conn->query($sql);
+
+print_r($result);
+$data = []; // Initialize an array to hold the rows
+
+if ($result->num_rows > 0) {
+    // Fetch and store data of each row into the array
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+} else {
+    $data = ["message" => "0 results"]; // Send a message if no data is found
+}
+
+print_r($data);
+$conn->close(); // Close connection when done
+
+
 ?>
