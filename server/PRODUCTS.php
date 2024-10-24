@@ -196,16 +196,13 @@ if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
         return (float) $b['match_count'] - (float) $a['match_count'];
     });
 
-    print_r($table_data);
-    header('Content-Type: application/json');
-    // Output or further process the sorted data
-    $json = json_encode($table_data);
-    if ($json === false) {
-        echo 'JSON encoding error: ' . json_last_error_msg();
-    } else {
-        echo $json;
-    }
 
+
+
+    $table_data = utf8ize($table_data);
+
+    header('Content-Type: application/json');
+    echo json_encode($table_data);
 }
 
 
@@ -229,14 +226,28 @@ if ($_GET['COMMAND'] == 'TEST') {
 }
 
 
+function utf8ize($data)
+{
+    if (is_array($data)) {
+        foreach ($data as $key => $value) {
+            $data[$key] = utf8ize($value);
+        }
+    } else if (is_string($data)) {
+        return mb_convert_encoding($data, 'UTF-8', 'UTF-8');
+    }
+    return $data;
+}
+
+
+
 function searchProduct($QUERY)
 {
     require '../config/db.php';
 
     // Now you can run queries
-    if($QUERY == ""){
+    if ($QUERY == "") {
         $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products"; // Example query
-    }else{
+    } else {
         $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%'"; // Example query
     }
 
