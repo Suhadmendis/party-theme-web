@@ -199,9 +199,13 @@ if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
     print_r($table_data);
     header('Content-Type: application/json');
     // Output or further process the sorted data
-    ob_start();
-echo json_encode($table_data);
-ob_end_flush();
+    $json = json_encode($table_data);
+    if ($json === false) {
+        echo 'JSON encoding error: ' . json_last_error_msg();
+    } else {
+        echo $json;
+    }
+
 }
 
 
