@@ -44,6 +44,8 @@ new Vue({
     ]
   },
   created() {
+    this.GoTo('SHOP');
+
     this.fetchCloudinaryData("GET_PRODUCTS");
     this.select_testimonial(1);
   },
@@ -103,6 +105,9 @@ new Vue({
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
         window.location.href = `product.php?asset_id=${asset_id}`;
+      }
+      if (navigate == "SHOP") {
+        window.location.href = `shop.php`;
       }
     },
   },

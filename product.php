@@ -3,7 +3,7 @@
 <!-- Include Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<link rel="stylesheet" href="product.css" />
+<link rel="stylesheet" href="product.css?v=00000000001" />
 <?php include 'header.php'; ?>
 <!-- Promotion Section -->
 
@@ -187,7 +187,7 @@
 
 
 
-<script src="_js/product.js"></script>
+<script src="_js/product.js?v=00000000001"></script>
 
 
 ]

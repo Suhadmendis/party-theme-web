@@ -12,7 +12,7 @@
 
 
 
-<script src="_js/script.js"></script>
+<script src="_js/script.js?v=00000000001"></script>
 
 
 

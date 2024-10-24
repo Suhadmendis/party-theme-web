@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-<link rel="stylesheet" href="package.css" />
+<link rel="stylesheet" href="package.css?v=00000000001" />
 
 <div id="package-section">
 
@@ -39,5 +39,5 @@
 </div>
 
 
-<script src="_js/package.js"></script>
+<script src="_js/package.js?v=00000000001"></script>
 <?php include 'footer.php'; ?>

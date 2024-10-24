@@ -19,12 +19,36 @@
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
+          <li>
+            <!-- <a href="#"> -->
+              Home
+            <!-- </a> -->
+          </li>
+          <li>
+            <!-- <a href="#"> -->
+              About
+            <!-- </a> -->
+          </li>
+          <li>
+            <!-- <a href="#"> -->
+              Services
+            <!-- </a> -->
+          </li>
+          <li>
+            <!-- <a href="#"> -->
+              Size Guide
+            <!-- </a> -->
+          </li>
+          <li>
+            <!-- <a href="#"> -->
+              FAQ
+            <!-- </a> -->
+          </li>
+          <li>
+            <!-- <a href="#"> -->
+              Contact
+            <!-- </a> -->
+          </li>
         </ul>
       </div>
 

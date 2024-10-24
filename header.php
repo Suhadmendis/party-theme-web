@@ -75,7 +75,7 @@
             <li class="nav-item">
               <a class="nav-link" href="packages.php">Packages</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#">About Us</a>
             </li>
             <li class="nav-item">
@@ -83,7 +83,7 @@
             </li>
             <li class="nav-item"></li>
               <a class="nav-link" href="test.html">Contact</a>
-            </li>
+            </li> -->
           </ul>
 
           <!-- Search Bar -->

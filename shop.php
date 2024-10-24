@@ -1,5 +1,5 @@
 <?php include 'header.php'; ?>
-<link rel="stylesheet" href="product.css" />
+<link rel="stylesheet" href="product.css?v=00000000001" />
 
 <!-- Promotion Section -->
 <div id="app">
@@ -82,5 +82,5 @@
 
 
 
-<script src="_js/script.js"></script>
+<script src="_js/script.js?v=00000000001"></script>
 <?php include 'footer.php'; ?>
