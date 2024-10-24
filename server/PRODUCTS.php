@@ -186,9 +186,13 @@ if ($_GET['COMMAND'] == 'GET_PRODUCT') {
 if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
 
     $QUERY = $_GET['QUERY'];
+    $LIMIT = 1000;
 
+    if (isset($_GET['OPERATION'])) {
+        $LIMIT = 10;
+    };
     // $querySet = 'where';
-    $table_data = searchProduct($QUERY);
+    $table_data = searchProduct($QUERY, $LIMIT);
 
     // Use usort() to sort the array by 'match_count'
     usort($table_data, function ($a, $b) {
@@ -223,15 +227,15 @@ function utf8ize($data)
 
 
 
-function searchProduct($QUERY)
+function searchProduct($QUERY, $LIMIT)
 {
     require '../config/db.php';
 
     // Now you can run queries
     if ($QUERY == "") {
-        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products"; // Example query
+        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products limit ". $LIMIT; // Example query
     } else {
-        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%'"; // Example query
+        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%' limit ". $LIMIT; // Example query
     }
 
 

@@ -74,10 +74,10 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item"></li>
-              <a class="nav-link" href="test.html">Contact</a>
             </li> -->
+            <li class="nav-item"></li>
+              <a class="nav-link" href="quotation.php">Quotation</a>
+            </li>
       </ul>
 
       <!-- Search Bar -->
