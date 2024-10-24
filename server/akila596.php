@@ -142,7 +142,7 @@ function getFolderProducts($folder)
     $assetFolder = $folder->name;
     // $assetFolder = "Light Numbers";
     $encodedAssetFolder = urlencode($assetFolder);
-    $max_results = "50";
+    $max_results = "500";
 
 
     // Create the authentication string
