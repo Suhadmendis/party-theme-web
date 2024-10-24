@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="_css/about.css" />
 <link rel="stylesheet" href="_css/stripe-information.css" />
 <link rel="stylesheet" href="_css/parallax.css" />
+<link rel="stylesheet" href="_css/testimonial.css" />
 
 <!-- <img
         src="your-image-url.jpg"
@@ -13,19 +14,22 @@
         class="float-image"
       /> -->
 
-<!-- Hero Section -->
-<section class="hero-section text-center hero-section">
-
-  <div class="container">
-    <!-- <h1 class="display-4">Welcome to Party Theme</h1> -->
-    <!-- <p class="lead">Your one-stop shop for all your party decor needs!</p> -->
-    <!-- <a href="#" class="btn btn-primary btn-lg">Shop Now</a> -->
-  </div>
-
-</section>
+<div id="app">
 
 
-<!--
+  <!-- Hero Section -->
+  <section class="hero-section text-center hero-section">
+
+    <div class="container">
+      <!-- <h1 class="display-4">Welcome to Party Theme</h1> -->
+      <!-- <p class="lead">Your one-stop shop for all your party decor needs!</p> -->
+      <!-- <a href="#" class="btn btn-primary btn-lg">Shop Now</a> -->
+    </div>
+
+  </section>
+
+
+  <!--
 <model-viewer src="3dmodel/Bottle/model.glb" alt="Big Bird Decor" auto-rotate camera-controls style="background-color: black; width: 100%; height: 500px;"></model-viewer>
 <model-viewer src="3dmodel/Elmo4/model-2.glb" alt="Big Bird Decor" auto-rotate camera-controls style="background-color: black; width: 100%; height: 500px;"></model-viewer> -->
 
@@ -34,8 +38,8 @@
 
 
 
-<!-- Promotion Section -->
-<!-- <section class="promotion-section py-5 text-center" style="background-color: #f8f9fa">
+  <!-- Promotion Section -->
+  <!-- <section class="promotion-section py-5 text-center" style="background-color: #f8f9fa">
   <div class="container">
     <h2 class="mb-4">{{ offer_title }}</h2>
     <div class="row">
@@ -75,63 +79,90 @@
   </div>
 </section> -->
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<!-- About Us Section -->
-<section class="stripe-information-section py-5 text-center">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
-          Discover the Magic
-        </h2>
-        <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
-          Transform every celebration into a captivating experience with
-          Party Theme’s exquisite decor.
-        </p>
-        <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+  <!-- About Us Section -->
+  <section class="stripe-information-section py-5 text-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
+            Discover the Magic
+          </h2>
+          <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
+            Transform every celebration into a captivating experience with
+            Party Theme’s exquisite decor.
+          </p>
+          <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
 
-<br><br>
+  <br><br>
 
-<!-- About Us Section -->
-<section class="stripe-information-section py-5 text-center">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
-          Discover the Magic
-        </h2>
-        <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
-          Transform every celebration into a captivating experience with
-          Party Theme’s exquisite decor.
-        </p>
-        <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+  <!-- About Us Section -->
+  <section class="stripe-information-section py-5 text-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
+            Discover the Magic
+          </h2>
+          <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
+            Transform every celebration into a captivating experience with
+            Party Theme’s exquisite decor.
+          </p>
+          <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+        </div>
       </div>
     </div>
+  </section>
+
+
+  <br><br><br><br><br>
+
+
+  <section class="testimonial-section">
+    <div class="testimonial-area">
+      <h2>Kind Words From Clients</h2>
+
+      <div class="stars">
+
+        <span v-for="star in SELECTED_TESTIMONIALS.rating">&#9733;</span>
+
+      </div>
+      <p class="testimonial-text">
+        "{{ SELECTED_TESTIMONIALS.testimonial }}"
+      </p>
+      <p class="client-name">- {{ SELECTED_TESTIMONIALS.name }}</p>
+      <div class="arrow-area">
+        <div class="arrow" @click="navigate_testimonial('P', SELECTED_TESTIMONIALS.id)" v-if="SELECTED_TESTIMONIALS.id != 1">
+          &#8592;
+        </div>
+        <div class="arrow" @click="navigate_testimonial('N', SELECTED_TESTIMONIALS.id)" v-if="SELECTED_TESTIMONIALS.id != 5">
+          &#8594;
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br><br><br><br><br>
+
+  <div class="parallax">
+    <div class="container content">
+      <h1 class="parallax-head-text">LET'S WORK TOGETHER</h1>
+      <p class="parallax-sub-text">Ready For A Website Worth Celebrating?</p>
+
+      <div class="parallax-button">
+        <p class="parallax-button-text">Inquire Now</p>
+      </div>
+    </div>
+
+
   </div>
-</section>
-
-
-
-
-<div class="parallax">
-<div class="container content">
-  <h1 class="parallax-head-text">LET'S WORK TOGETHER</h1>
-  <p class="parallax-sub-text">Ready For A Website Worth Celebrating?</p>
-
-  <div class="parallax-button">
-    <p class="parallax-button-text">Inquire Now</p>
-  </div>
-</div>
-
-
-</div>
 
 
 
@@ -141,8 +172,8 @@
 
 
 
-<!-- Full-Width Horizontal Scrolling Photo Slider -->
-<!-- <section class="scrolling-photo-slider py-4">
+  <!-- Full-Width Horizontal Scrolling Photo Slider -->
+  <!-- <section class="scrolling-photo-slider py-4">
   <div class="slider-wrapper">
     <div class="slider">
       <img src="party/party1.jpg" alt="Photo 1" />
@@ -164,13 +195,13 @@
 </section> -->
 
 
-<br>
+  <br>
 
 
 
 
-<!-- Promotion Section -->
-<div id="app">
+  <!-- Promotion Section -->
+
   <section class="promotion-section py-5 text-center" style="background-color: #f8f9fa">
     <div class="container">
       <h2 class="mb-4">{{ offer_title }}</h2>
@@ -209,7 +240,7 @@
 
     </div>
   </section>
-</div>
+
 
 
 
@@ -233,6 +264,6 @@
 <br><br><br>
 
 
-
+</div>
 <script src="_js/index.js"></script>
 <?php include 'footer.php'; ?>

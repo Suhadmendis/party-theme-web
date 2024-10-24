@@ -24,22 +24,23 @@
       <div class="folder-name-area">
 
         <div v-for="name in folderNames"
-          :class="selectedFolderId == name.external_id ? 'folder-name folder-name-active' : 'folder-name'"
-          @click="selectFolder(name.external_id)">
+          v-if="getProductCountByFolder(name.name) !== 0"
+          :class="selectedFolderName == name.name ? 'folder-name folder-name-active' : 'folder-name'"
+          @click="selectFolder(name.name)">
           <p
-            :class="selectedFolderId == name.external_id ? 'folder-name-text folder-name-text-active' : 'folder-name-text'">
-            {{ name.name }}</p>
+            :class="selectedFolderName == name.name ? 'folder-name-text folder-name-text-active' : 'folder-name-text'">
+            {{ name.name }} {{ getProductCountByFolder(name.name) }}</p>
         </div>
       </div>
 
       <br>
 
       <div v-if="fetchedFilferdData.length" class="row">
-        <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3">
+        <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3" v-if="product.asset_folder == selectedFolderName">
           <div class="card border-0 shadow" id="productCard">
             <img :src="product.url" class="card-img-top" alt="Offer 1" />
             <div class="card-body">
-              <h5 class="card-title" v-if="product.metadata">{{ product.metadata.name }}</h5>
+              <h5 class="card-title" v-if="product.name">{{ product.name }}</h5>
               <h5 class="card-title" v-else>no</h5>
               <p class="card-text" v-if="product.metadata">
                 {{ product.metadata.description.substring(0, 40) }}{{ product.metadata.description.length > 40 ? '...' :

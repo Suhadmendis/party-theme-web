@@ -69,7 +69,8 @@
                                 </div> -->
 
                                 <div class="price" v-if="PRODUCT.data.amount">LKR {{ PRODUCT.data.amount }}.00</div>
-                                <p class="delivery-fee-text" v-if="routeDetails">Approximate truck delivery fee {{ calculateDeliveryFee() }}.  Final charges may vary.</p>
+                                <p class="delivery-fee-text" v-if="routeDetails">Approximate truck delivery fee {{
+                                    calculateDeliveryFee() }}. Final charges may vary.</p>
 
                                 <!-- <i class="fas fa-shipping-fast"></i> -->
 
@@ -81,12 +82,30 @@
 
                                 <div class="actions">
                                     <!-- <button class="add-to-cart">Add to Cart</button> -->
-                                    <a v-if="selectedDate != ''" :href="`https://wa.me/+94778182596?text=Need%20this%20product%20${PRODUCT.image_secure_url}%20on%20*${selectedDate}*`" target="_blank">
-                                        <button class="buy-now">Book Now <i class="fa-brands fa-whatsapp fa-lg"></i></button>
+                                    <a v-if="selectedDate != ''"
+                                        :href="`https://wa.me/+94778182596?text=Need%20this%20product%20${PRODUCT.image_secure_url}%20on%20*${selectedDate}*`"
+                                        target="_blank">
+                                        <button class="buy-now">Book Now <i
+                                                class="fa-brands fa-whatsapp fa-lg"></i></button>
                                     </a>
-                                    <a v-else :href="`https://wa.me/+94778182596?text=Need%20this%20product%20${PRODUCT.image_secure_url}`" target="_blank">
-                                        <button class="buy-now">Book Now <i class="fa-brands fa-whatsapp fa-lg"></i></button>
+                                    <a v-else
+                                        :href="`https://wa.me/+94778182596?text=Need%20this%20product%20${PRODUCT.image_secure_url}`"
+                                        target="_blank">
+                                        <button class="buy-now">Book Now <i
+                                                class="fa-brands fa-whatsapp fa-lg"></i></button>
                                     </a>
+
+
+                                    <a :href="`https://www.facebook.com/sharer/sharer.php?u=${PRODUCT.image_secure_url}`"
+                                        target="_blank">
+                                        <button class="facebook-share">
+                                            Facebook
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </button>
+
+                                    </a>
+
+
 
                                 </div>
                             </div>
@@ -159,6 +178,12 @@
 
 </div>
 
+
+
+<script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0"
+        nonce="ABC123">
+</script>
 
 
 

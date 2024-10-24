@@ -66,10 +66,10 @@ if ($_GET['COMMAND'] == 'PRODUCT_SEARCH') {
     $ch = curl_init();
 
 
-    $SEARCH = 'expression=metadata.name:'.$_GET['QUERY'].'*&with_field=metadata';
+    $SEARCH = 'expression=metadata.name:' . $_GET['QUERY'] . '*&with_field=metadata';
 
     curl_setopt_array($ch, array(
-        CURLOPT_URL => 'https://api.cloudinary.com/v1_1/dic13326d/resources/search?'.$SEARCH,
+        CURLOPT_URL => 'https://api.cloudinary.com/v1_1/dic13326d/resources/search?' . $SEARCH,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -78,11 +78,11 @@ if ($_GET['COMMAND'] == 'PRODUCT_SEARCH') {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
-          'Content-Type: application/json',
-          "Authorization: Basic $auth",
-          "Access-Control-Allow-Origin: *"
+            'Content-Type: application/json',
+            "Authorization: Basic $auth",
+            "Access-Control-Allow-Origin: *"
         ),
-      ));
+    ));
 
     // Set the cURL options
     // curl_setopt($ch, CURLOPT_URL, "https://api.cloudinary.com/v1_1/$cloudinaryName/resources/search");
@@ -97,7 +97,7 @@ if ($_GET['COMMAND'] == 'PRODUCT_SEARCH') {
 
     $response = curl_exec($ch);
 
-    if(curl_errno($ch)) {
+    if (curl_errno($ch)) {
         echo 'cURL Error: ' . curl_error($ch);
     } else {
         $result = json_decode($response, true); // Parse the response as JSON
@@ -107,6 +107,7 @@ if ($_GET['COMMAND'] == 'PRODUCT_SEARCH') {
 
     curl_close($ch);
 }
+
 
 
 
@@ -142,12 +143,12 @@ if ($_GET['COMMAND'] == 'GET_PRODUCT') {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
-          'Content-Type: application/json',
-          "Authorization: Basic $auth",
-          "Access-Control-Allow-Origin: *"
+            'Content-Type: application/json',
+            "Authorization: Basic $auth",
+            "Access-Control-Allow-Origin: *"
         ),
         CURLOPT_POSTFIELDS => json_encode(array('asset_ids' => array($assetId))),
-      ));
+    ));
 
     // Set the cURL options
     // curl_setopt($ch, CURLOPT_URL, "https://api.cloudinary.com/v1_1/$cloudinaryName/resources/search");
@@ -162,7 +163,7 @@ if ($_GET['COMMAND'] == 'GET_PRODUCT') {
 
     $response = curl_exec($ch);
 
-    if(curl_errno($ch)) {
+    if (curl_errno($ch)) {
         echo 'cURL Error: ' . curl_error($ch);
     } else {
 
@@ -175,6 +176,97 @@ if ($_GET['COMMAND'] == 'GET_PRODUCT') {
 
     curl_close($ch);
 }
+
+
+
+
+
+
+
+if ($_GET['COMMAND'] == 'DB_PRODUCT_SEARCH') {
+
+    $QUERY = $_GET['QUERY'];
+
+    // $querySet = 'where';
+    $table_data = searchProduct($QUERY);
+
+    // Use usort() to sort the array by 'match_count'
+    usort($table_data, function ($a, $b) {
+        // Compare the 'match_count' values and sort in descending order
+        return (float) $b['match_count'] - (float) $a['match_count'];
+    });
+
+    // Output or further process the sorted data
+    echo json_encode($table_data);
+
+
+}
+
+
+function searchProduct($QUERY)
+{
+    require '../config/db.php';
+
+    // Now you can run queries
+    if($QUERY == ""){
+        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products"; // Example query
+    }else{
+        $sql = "SELECT *, CONCAT(asset_folder, ' ', description, ' ', name) AS searchText, (LENGTH(CONCAT(asset_folder, ' ', description, ' ', name)) - LENGTH(REPLACE(CONCAT(asset_folder, ' ', description, ' ', name), '" . $QUERY . "', ''))) / LENGTH('" . $QUERY . "') AS match_count FROM m_products WHERE CONCAT(asset_folder, ' ', description, ' ', name) LIKE '%" . $QUERY . "%'"; // Example query
+    }
+
+
+    $result = $conn->query($sql);
+
+    $data = []; // Initialize an array to hold the rows
+
+    if ($result->num_rows > 0) {
+        // Fetch and store data of each row into the array
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    } else {
+        $data = []; // Send a message if no data is found
+    }
+
+    $conn->close(); // Close connection when done
+
+    // Set the header to indicate a JSON response
+    header('Content-Type: application/json');
+    // Return the data in JSON format
+    // return json_encode($data);
+    return $data;
+}
+
+
+
+function get_table_data($table_name)
+{
+    require '../config/db.php';
+
+    // Now you can run queries
+    $sql = "SELECT * FROM " . $table_name; // Example query
+    $result = $conn->query($sql);
+
+    $data = []; // Initialize an array to hold the rows
+
+    if ($result->num_rows > 0) {
+        // Fetch and store data of each row into the array
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    } else {
+        $data = ["message" => "0 results"]; // Send a message if no data is found
+    }
+
+    $conn->close(); // Close connection when done
+
+    // Set the header to indicate a JSON response
+    header('Content-Type: application/json');
+    // Return the data in JSON format
+    // return json_encode($data);
+    return json_encode($data);
+}
+
 
 
 
