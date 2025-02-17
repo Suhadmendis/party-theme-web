@@ -80,6 +80,9 @@
                                     <button onclick="increaseQuantity()">+</button>
                                 </div> -->
 
+
+                                <p class="date-text">Communicate with the team</p>
+
                                 <div class="actions">
                                     <!-- <button class="add-to-cart">Add to Cart</button> -->
                                     <a v-if="selectedDate != ''"
@@ -96,12 +99,35 @@
                                     </a>
 
 
+
+
+
+
+                                </div>
+
+
+                                <br>
+                                <br>
+
+                                <p class="date-text">Share</p>
+
+                                <div class="actions">
+
+
                                     <a :href="`https://www.facebook.com/sharer/sharer.php?u=${PRODUCT.image_secure_url}`"
                                         target="_blank">
                                         <button class="facebook-share">
                                             Facebook
-                                        <i class="fa-brands fa-facebook"></i>
-                                    </button>
+                                            <i class="fa-brands fa-facebook"></i>
+                                        </button>
+
+                                    </a>
+
+                                    <a target="_blank">
+                                        <button class="clipboard-share">
+                                            Copy Link
+                                            <i class="fa-regular fa-clipboard"></i>
+                                        </button>
 
                                     </a>
 
@@ -180,10 +206,9 @@
 
 
 
-<script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0"
-        nonce="ABC123">
-</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0"
+    nonce="ABC123">
+    </script>
 
 
 

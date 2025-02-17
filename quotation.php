@@ -11,10 +11,25 @@
                 <form class="form-inline">
                     <input id="search-bar-product" v-model="SEARCH_QUERY" @input="onSearchInput()" class="form-control"
                         type="search" placeholder="Search" aria-label="Search" />
+
                 </form>
 
-                <div class="quotation-table" v-show="false">
-                    <div class="item-box" v-for="product in fetchedData">
+                <div class="custom-dropdown" v-if="filteredResults.length">
+                    <div class="custom-dropdown-item" v-for="item in filteredResults"  @click="pickItem(item)">
+                        <div class="custom-dropdown-item-image-box">
+                            <img :src="item.secure_url" class="product-img" alt="Offer 1" />
+                        </div>
+                        <div class="custom-dropdown-item-info">
+                        
+                            <p class="custom-dropdown-item-info-name">{{ item.name }}</p>
+                            <p class="custom-dropdown-item-info-description">{{ getTruncatedDescription(item.description) }}</p>
+                            <p class="custom-dropdown-item-info-asset_folder">{{ item.asset_folder }}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="quotation-table" v-show="true">
+                    <div class="item-box" v-for="item in QUOTATION_ITEMS">
                         <div class="row">
 
                             <!-- First Box: Full Image -->

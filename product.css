@@ -242,6 +242,11 @@
   color: #fff;
 }
 
+.clipboard-share {
+  background-color: #909aa090;
+  color: #fff;
+}
+
 .info-product-bottom {
   /* margin-top: 1rem; */
   width: "100%";

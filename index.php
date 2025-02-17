@@ -7,12 +7,22 @@
 <link rel="stylesheet" href="_css/stripe-information.css" />
 <link rel="stylesheet" href="_css/parallax.css" />
 <link rel="stylesheet" href="_css/testimonial.css" />
+<link rel="stylesheet" href="_css/snowflakes.css" />
+<link rel="stylesheet" href="_css/explore-options.css" />
 
 <!-- <img
         src="your-image-url.jpg"
         alt="Description of image"
         class="float-image"
       /> -->
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❅</div>
+  <div class="snowflake">❆</div>
+  <div class="snowflake">❄</div>
+  <div class="snowflake">❅</div>
+  <div class="snowflake">❆</div>
+</div>
 
 <div id="app">
 
@@ -79,7 +89,39 @@
   </div>
 </section> -->
 
-  <br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br>
+  
+  <section id="explore-options" class="container my-5">
+    <div class="row">
+        <!-- Event Packages Card -->
+        <div class="col-md-6">
+            <div class="card">
+                <img src="./images/image-decor.jpg" class="service-card-img-top" alt="Event Packages">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Event Decor Packages</h5>
+                    <p class="card-text">Choose from a variety of tailored packages to make your event planning easy and memorable.</p>
+                    <a href="packages.html" class="btn btn-primary">View Event Packages</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decor Rentals Card -->
+        <div class="col-md-6">
+            <div class="card">
+                <img src="./images/image-rentals.webp" class="service-card-img-top" alt="Decor Rentals">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Decor Rentals</h5>
+                    <p class="card-text">Browse our collection of party decor items available for rent, perfect for any occasion.</p>
+                    <a href="products.html" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+  <br><br><br><br><br><br><br>
 
   <!-- About Us Section -->
   <section class="stripe-information-section py-5 text-center">
@@ -87,13 +129,14 @@
       <div class="row justify-content-center">
         <div class="col-md-8">
           <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
-            Discover the Magic
+            Transform Your Event with Our Products
           </h2>
           <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
-            Transform every celebration into a captivating experience with
-            Party Theme’s exquisite decor.
+            Whether you're planning a wedding, birthday, corporate event, or any special occasion, our wide range of
+            party decor rentals will bring your vision to life. Browse our collection to find everything from elegant
+            centerpieces to vibrant themes, tailored to make your event unforgettable.
           </p>
-          <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+          <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Products</a>
         </div>
       </div>
     </div>
@@ -139,10 +182,12 @@
       </p>
       <p class="client-name">- {{ SELECTED_TESTIMONIALS.name }}</p>
       <div class="arrow-area">
-        <div class="arrow" @click="navigate_testimonial('P', SELECTED_TESTIMONIALS.id)" v-if="SELECTED_TESTIMONIALS.id != 1">
+        <div class="arrow" @click="navigate_testimonial('P', SELECTED_TESTIMONIALS.id)"
+          v-if="SELECTED_TESTIMONIALS.id != 1">
           &#8592;
         </div>
-        <div class="arrow" @click="navigate_testimonial('N', SELECTED_TESTIMONIALS.id)" v-if="SELECTED_TESTIMONIALS.id != 5">
+        <div class="arrow" @click="navigate_testimonial('N', SELECTED_TESTIMONIALS.id)"
+          v-if="SELECTED_TESTIMONIALS.id != 5">
           &#8594;
         </div>
       </div>
@@ -244,24 +289,24 @@
 
 
 
-<br>
+  <br>
 
-<div class="about-section">
-  <h2>MAKE YOUR PARTIES POP!</h2>
-  <h1>ABOUT CHASING DREAMS EVENTS</h1>
-  <div class="underline"></div>
-  <p>
-    Chasing Dreams is a balloon decor specialist based in Ardsley, New
-    York (Westchester County). We use high-quality, 100% biodegradable,
-    natural latex balloons to construct beautiful garlands. Whether you
-    are looking for full decor for your next big event or a garland you
-    can hang yourself for your child’s birthday, we are here to fulfill
-    all of your balloon needs.
-  </p>
-</div>
+  <div class="about-section">
+    <h2>MAKE YOUR PARTIES POP!</h2>
+    <h1>ABOUT CHASING DREAMS EVENTS</h1>
+    <div class="underline"></div>
+    <p>
+      Chasing Dreams is a balloon decor specialist based in Ardsley, New
+      York (Westchester County). We use high-quality, 100% biodegradable,
+      natural latex balloons to construct beautiful garlands. Whether you
+      are looking for full decor for your next big event or a garland you
+      can hang yourself for your child’s birthday, we are here to fulfill
+      all of your balloon needs.
+    </p>
+  </div>
 
 
-<br><br><br>
+  <br><br><br>
 
 
 </div>

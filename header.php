@@ -13,9 +13,16 @@
   </script>
 
   <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
+    <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
+    <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="black">
-  <title>Party Theme</title>
+  
 
   <link rel="icon" type="image/png" href="logo_result.webp">
 

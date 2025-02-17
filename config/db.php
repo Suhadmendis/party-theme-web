@@ -4,12 +4,19 @@ $username = ""; // Database username
 $password = ""; // Database password
 $dbname = "";   // Database name
 
+if ($_SERVER['HTTP_HOST'] == '192.168.1.70') {
+    $servername = "localhost"; // Your database server
+    $username = "root"; // Database username
+    $password = ""; // Database password
+    $dbname = "party_theme_db";   // Database name
+}
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $servername = "localhost"; // Your database server
     $username = "root"; // Database username
     $password = ""; // Database password
     $dbname = "party_theme_db";   // Database name
 }
+
 if ($_SERVER['HTTP_HOST'] == 'localhost:8888') {
     $servername = "localhost"; // Your database server
     $username = "root"; // Database username

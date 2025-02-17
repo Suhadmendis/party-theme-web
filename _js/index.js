@@ -44,7 +44,7 @@ new Vue({
     ]
   },
   created() {
-    this.GoTo('SHOP');
+    // this.GoTo('SHOP');
 
     this.fetchCloudinaryData("GET_PRODUCTS");
     this.select_testimonial(1);

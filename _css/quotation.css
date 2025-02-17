@@ -56,3 +56,80 @@
 .input-box .close-btn:hover {
   background-color: #d32f2f;
 }
+
+#search-bar-product{
+  margin-bottom: 5px;
+}
+
+.custom-dropdown {
+  height: 200px;
+  max-width: 500px; /* Set max width to 500px */
+  
+  border: 1px solid #ccc; /* Optional: border for visual clarity */
+  background: #fff; /* Optional: background color */
+  overflow: auto;
+}
+
+.custom-dropdown-item{
+  overflow-y: auto;
+  max-height: 300px;
+  border-radius: 6px;
+  width: 490px;
+  
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Optional: Add styles for scrollbar visibility */
+.custom-dropdown-item::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-dropdown-item::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Round edges of the scrollbar thumb */
+}
+
+.custom-dropdown-item::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+.custom-dropdown-item-image-box{
+  width: 100px;
+  height: 120px;
+}
+
+
+.custom-dropdown-item-info{
+  position: relative;
+  padding: 10px;
+}
+
+.product-img {
+  width: 100%;
+  height: auto; /* Let height adjust automatically based on width */
+  aspect-ratio: 100 / 120; /* Maintain a 100:60 ratio */
+  object-fit: cover;
+  border-radius: 6px 0px 0px 6px;
+}
+
+
+.custom-dropdown-item-info-name{
+  margin-bottom: 0px;
+}
+.custom-dropdown-item-info-description{
+  margin-bottom: 0px;
+}
+.custom-dropdown-item-info-asset_folder{
+  font-size: 14px;
+  font-weight: 500;
+  color: #f867ca;
+  margin-bottom: 0px;
+  position: absolute;
+  bottom: 0;
+  left: 30;
+  right: 10;
+  margin-bottom: 0;
+}
