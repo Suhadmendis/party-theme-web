@@ -15,7 +15,7 @@ new Vue({
     setTimeout(() => {
       this.fetchCloudinaryData("ALL_FOLDERS");
 
-    }, 10);
+    }, 1000);
 
     // this.fetchCloudinaryData(); // Fetch Cloudinary data
   },
@@ -101,11 +101,14 @@ new Vue({
     },
     fetchDBDataSearch() {
 
+      console.log('fffff');
+      
       axios
         .get(
           `server/PRODUCTS.php?COMMAND=DB_PRODUCT_SEARCH&QUERY=${this.SEARCH_QUERY}`
         ) // Replace with your API endpoint
         .then((response) => {
+          console.log('fffff22222');
           this.pageVisibilityLock = false;
           this.fetchedData = response.data; // Set fetched data
           this.fetchedFilferdData = response.data; // Set fetched data
