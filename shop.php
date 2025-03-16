@@ -82,5 +82,5 @@
 
 
 
-<script src="_js/script.js?v=00000000001"></script>
+<script src="_js/script.js?v=00000000002"></script>
 <?php include 'footer.php'; ?>
