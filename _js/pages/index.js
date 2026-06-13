@@ -2,13 +2,7 @@ new Vue({
   el: "#app",
   data: {
     offer_title: "Special Offers Just for You!",
-    fetchedData: [], // This will hold the data fetched from the API
-    fetchedFilferdData: [], // This will hold the data fetched from the API
-    cloudinaryData: null, // This will hold the Cloudinary data
-    SEARCH_QUERY: "",
-    folderNames: [],
-    selectedFolderId: "",
-    pageVisibilityLock: true,
+    fetchedData: [],
     SELECTED_TESTIMONIALS: null,
     TESTIMONIALS: [
       {
@@ -41,62 +35,61 @@ new Vue({
         testimonial: "A fantastic experience from start to finish. The attention to detail is remarkable, and I appreciate the personalized service.",
         name: "Client Five"
       }
+    ],
+    faqItems: [
+      {
+        id: 1,
+        question: "What areas do you serve for balloon decor and party rentals?",
+        answer: "We are based in Ardsley, NY and serve Westchester County and surrounding areas. Contact us to confirm availability for your specific location.",
+        open: true
+      },
+      {
+        id: 2,
+        question: "What types of events do you provide decor for?",
+        answer: "We provide balloon decor and party rentals for birthdays, bridal showers, baby showers, gender reveals, weddings, corporate events, and more.",
+        open: false
+      },
+      {
+        id: 3,
+        question: "How do I book a balloon arch or event decor package?",
+        answer: "Browse our <a href=\"shop.html\">Shop</a> or <a href=\"packages.html\">Packages</a> page, select the items you want, and contact us via WhatsApp or our <a href=\"quotation.html\">Quotation</a> page to confirm your booking.",
+        open: false
+      },
+      {
+        id: 4,
+        question: "Are your balloons eco-friendly?",
+        answer: "Yes! We use 100% biodegradable, natural latex balloons to construct all our balloon garlands and arches.",
+        open: false
+      }
     ]
   },
   created() {
-    // this.GoTo('SHOP');
-
-    this.fetchCloudinaryData("GET_PRODUCTS");
+    this.fetchCloudinaryData();
     this.select_testimonial(1);
   },
   methods: {
     select_testimonial(id) {
-      const testimonial = this.TESTIMONIALS.filter(element => element.id == id);
-      console.log(testimonial);
-
-      this.SELECTED_TESTIMONIALS = testimonial[0];
+      this.SELECTED_TESTIMONIALS = this.TESTIMONIALS.find(t => t.id === id);
     },
     navigate_testimonial(direction, id) {
-      if (direction == "P") {
-        --id;
-        this.select_testimonial(id);
-      }
-
-      if (direction == "N") {
-        ++id;
-        this.select_testimonial(id);
-      }
-
+      if (direction === "P") this.select_testimonial(id - 1);
+      if (direction === "N") this.select_testimonial(id + 1);
     },
-    async fetchCloudinaryData(FLAG) {
-      if (FLAG == "GET_PRODUCTS") {
-        const folders = await fetchFolders();
-        const products = await fetchAllProducts(folders);
-        this.fetchedData = products;
-        this.fetchedFilferdData = products;
-      }
+    toggleFaq(id) {
+      this.faqItems.forEach(item => {
+        if (item.id === id) item.open = !item.open;
+        else item.open = false;
+      });
     },
-
-    // localFilter() {
-    //   // this.fetchedData.filter
-    // },
-    // onSearchInput() {
-    //   this.fetchCloudinaryDataSearch();
-    // },
-    // selectFolder(external_id) {
-    //   this.selectedFolderId = external_id;
-    //   // setTimeout(() => {
-    //   this.fetchCloudinaryData("GET_PRODUCTS");
-    //   // }, 400);
-    // },
-
+    async fetchCloudinaryData() {
+      const folders = await fetchFolders();
+      const products = await fetchAllProducts(folders);
+      this.fetchedData = products.slice(0, 6);
+    },
     GoTo(navigate, asset_id) {
-      if (navigate == "PRODUCT") {
+      if (navigate === "PRODUCT") {
         window.location.href = `product.html?asset_id=${asset_id}`;
       }
-      if (navigate == "SHOP") {
-        window.location.href = `shop.html`;
-      }
-    },
-  },
+    }
+  }
 });

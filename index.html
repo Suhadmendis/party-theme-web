@@ -180,12 +180,10 @@
       </div>
     </section>
 
-    <br><br><br><br><br><br>
-
+    <!-- Service Cards -->
     <section id="explore-options" class="container my-5">
       <div class="row">
-        <!-- Event Packages Card -->
-        <div class="col-md-6">
+        <div class="col-md-6 mb-4 mb-md-0">
           <div class="card">
             <img src="./images/image-decor.jpg" class="service-card-img-top" alt="Event decor packages — balloon arches and full event styling" loading="lazy">
             <div class="card-body text-center">
@@ -195,8 +193,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Decor Rentals Card -->
         <div class="col-md-6">
           <div class="card">
             <img src="./images/image-rentals.webp" class="service-card-img-top" alt="Party decor rentals — balloons, backdrops, and props for any event" loading="lazy">
@@ -210,47 +206,54 @@
       </div>
     </section>
 
-    <br><br><br><br><br><br><br>
-
+    <!-- Teal CTA Stripe -->
     <section class="stripe-information-section py-5 text-center">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8">
-            <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
-              Transform Your Event with Our Products
-            </h2>
-            <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
+            <h2 class="mb-4">Transform Your Event with Our Products</h2>
+            <p class="lead">
               Whether you're planning a wedding, birthday, corporate event, or any special occasion, our wide range of
               party decor rentals will bring your vision to life. Browse our collection to find everything from elegant
               centerpieces to vibrant themes, tailored to make your event unforgettable.
             </p>
-            <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Products</a>
+            <a href="shop.html" class="btn btn-light btn-lg mt-4">Explore Our Products</a>
           </div>
         </div>
       </div>
     </section>
 
-    <br><br>
-
-    <section class="stripe-information-section py-5 text-center">
+    <!-- How It Works -->
+    <section class="how-it-works-section py-5">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <h2 class="mb-4" style="font-weight: 900; font-size: 2.5rem">
-              Discover the Magic
-            </h2>
-            <p class="lead" style="font-size: 1.2rem; line-height: 1.6rem">
-              Transform every celebration into a captivating experience with
-              Party Theme's exquisite decor.
-            </p>
-            <a href="#" class="btn btn-light btn-lg mt-4" style="font-weight: 700">Explore Our Story</a>
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row text-center">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <div class="hiw-step">
+              <div class="hiw-icon"><i class="fa-solid fa-store"></i></div>
+              <h3>Browse &amp; Choose</h3>
+              <p>Explore our full collection of balloon arches, backdrops, props, and curated event packages.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0">
+            <div class="hiw-step">
+              <div class="hiw-icon"><i class="fa-solid fa-file-invoice"></i></div>
+              <h3>Request a Quote</h3>
+              <p>Select the items you love and send us a quick quotation request. We'll get back to you fast.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="hiw-step">
+              <div class="hiw-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+              <h3>We Bring the Magic</h3>
+              <p>Our team delivers and sets up your decor so you can focus entirely on celebrating.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <br><br><br><br><br>
-
+    <!-- Testimonials -->
     <section class="testimonial-section">
       <div class="testimonial-area">
         <h2>Kind Words From Clients</h2>
@@ -274,105 +277,66 @@
       </div>
     </section>
 
-    <br><br><br><br><br>
-
+    <!-- Parallax CTA -->
     <div class="parallax">
       <div class="container content">
         <h2 class="parallax-head-text">LET'S WORK TOGETHER</h2>
-        <p class="parallax-sub-text">Ready For A Website Worth Celebrating?</p>
-        <div class="parallax-button">
+        <p class="parallax-sub-text">Ready For A Celebration Worth Remembering?</p>
+        <a href="quotation.html" class="parallax-button">
           <p class="parallax-button-text">Inquire Now</p>
-        </div>
+        </a>
       </div>
     </div>
 
-    <br>
-
-    <section class="promotion-section py-5 text-center" style="background-color: #f8f9fa">
+    <!-- Special Offers (max 6 items) -->
+    <section class="promotion-section py-5 text-center">
       <div class="container">
         <h2 class="mb-4">{{ offer_title }}</h2>
-
         <div v-if="fetchedData.length" class="row">
-          <div v-for="(product, index) in fetchedData" :key="product.asset_id" class="col-md-4">
+          <div v-for="(product, index) in fetchedData" :key="product.asset_id" class="col-md-4 mb-4">
             <div class="card border-0 shadow" id="productCard">
               <img :src="product.url" class="card-img-top" :alt="product.metadata ? product.metadata.name + ' — party decor rental' : 'Party decor rental item'" loading="lazy" />
               <div class="card-body">
                 <h5 class="card-title" v-if="product.metadata">{{ product.metadata.name }}</h5>
-                <h5 class="card-title" v-else>no</h5>
+                <h5 class="card-title" v-else>Party Decor Item</h5>
                 <p class="card-text" v-if="product.metadata">
-                  {{ product.metadata.description.substring(0, 40) }}{{ product.metadata.description.length > 40 ? '...' : '' }}
+                  {{ product.metadata.description.substring(0, 60) }}{{ product.metadata.description.length > 60 ? '...' : '' }}
                 </p>
-                <p class="card-text" v-else>On selected party decor items.</p>
+                <p class="card-text" v-else>Available for rental at your next event.</p>
                 <div class="product-view-button-area">
-                  <button class="product-view-button" @click="GoTo('PRODUCT', product.asset_id)"><i
-                      class="fa-solid fa-eye" id="product-view-button-icon"></i></button>
+                  <button class="product-view-button" @click="GoTo('PRODUCT', product.asset_id)">
+                    <i class="fa-solid fa-eye" id="product-view-button-icon"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <br>
-
+    <!-- FAQ -->
     <section id="faq" class="container my-5">
       <h2 class="text-center mb-4">Frequently Asked Questions</h2>
-      <div class="accordion" id="faqAccordion">
-        <div class="card">
-          <div class="card-header" id="faq1">
-            <h3 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#faqAnswer1">
-                What areas do you serve for balloon decor and party rentals?
-              </button>
-            </h3>
-          </div>
-          <div id="faqAnswer1" class="collapse show" data-parent="#faqAccordion">
-            <div class="card-body">We are based in Ardsley, NY and serve Westchester County and surrounding areas. Contact us to confirm availability for your specific location.</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="faq2">
-            <h3 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#faqAnswer2">
-                What types of events do you provide decor for?
-              </button>
-            </h3>
-          </div>
-          <div id="faqAnswer2" class="collapse" data-parent="#faqAccordion">
-            <div class="card-body">We provide balloon decor and party rentals for birthdays, bridal showers, baby showers, gender reveals, weddings, corporate events, and more.</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="faq3">
-            <h3 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#faqAnswer3">
-                How do I book a balloon arch or event decor package?
-              </button>
-            </h3>
-          </div>
-          <div id="faqAnswer3" class="collapse" data-parent="#faqAccordion">
-            <div class="card-body">Browse our <a href="shop.html">Shop</a> or <a href="packages.html">Packages</a> page, select the items you want, and contact us via WhatsApp or our <a href="quotation.html">Quotation</a> page to confirm your booking.</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="faq4">
-            <h3 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#faqAnswer4">
-                Are your balloons eco-friendly?
-              </button>
-            </h3>
-          </div>
-          <div id="faqAnswer4" class="collapse" data-parent="#faqAccordion">
-            <div class="card-body">Yes! We use 100% biodegradable, natural latex balloons to construct all our balloon garlands and arches.</div>
+      <div class="faq-list">
+        <div
+          v-for="item in faqItems"
+          :key="item.id"
+          class="faq-item"
+          :class="{ 'faq-item--open': item.open }"
+        >
+          <button class="faq-question" @click="toggleFaq(item.id)" :aria-expanded="item.open.toString()">
+            <span>{{ item.question }}</span>
+            <i class="fa-solid fa-chevron-down faq-chevron"></i>
+          </button>
+          <div class="faq-answer" v-show="item.open">
+            <div class="faq-answer-inner" v-html="item.answer"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <br><br>
-
+    <!-- About -->
     <div id="about" class="about-section">
       <h3>MAKE YOUR PARTIES POP!</h3>
       <h2>ABOUT CHASING DREAMS EVENTS</h2>
@@ -386,8 +350,6 @@
         all of your balloon needs.
       </p>
     </div>
-
-    <br><br><br>
 
   </div>
 

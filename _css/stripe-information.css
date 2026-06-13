@@ -1,13 +1,8 @@
-/* Teal stripe */
+/* Teal CTA stripe */
 .stripe-information-section {
   background-color: #4ECDC4;
   color: #fff;
   position: relative;
-}
-
-/* Orange stripe — second occurrence */
-.stripe-information-section:nth-of-type(2) {
-  background-color: #FF8C42;
 }
 
 /* Scalloped top edge via SVG mask */
