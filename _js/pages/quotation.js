@@ -1,78 +1,131 @@
-
-
 new Vue({
-  el: "#quotation-section",
+  el: '#quotation-section',
   data: {
-    // PACKAGES: rentalPackages,
-    SEARCH_QUERY: "",
-    QUOTATION_ITEMS: [], // This will hold the data fetched from the API
-    filteredResults: [], // This will hold the data fetched from the API
-    pageVisibilityLock: true,
+    SEARCH_QUERY: '',
+    QUOTATION_ITEMS: [],
+    filteredResults: [],
+    customerName: '',
+    customerEmail: '',
+    saving: false,
+    saveSuccess: false,
+    saveError: null,
   },
-  created() {
-
+  computed: {
+    itemCount: function () {
+      return this.QUOTATION_ITEMS.length;
+    },
+    subtotal: function () {
+      return this.QUOTATION_ITEMS.reduce(function (sum, item) {
+        return sum + (parseFloat(item.subtotal) || 0);
+      }, 0);
+    },
+    grandTotal: function () {
+      return this.subtotal;
+    },
   },
   methods: {
-    onSearchInput() {
-      if (this.SEARCH_QUERY == '') {
+    onSearchInput: function () {
+      if (this.SEARCH_QUERY === '') {
         this.filteredResults = [];
         return;
       }
-
-      this.getProducts();
+      this.fetchDBDataSearch();
     },
-    fetchCloudinaryData(FLAG) { },
-    GoTo(navigate, asset_id) {
-      if (navigate == "PRODUCT") {
-        window.location.href = `product.html?asset_id=${asset_id}`;
-      }
-      if (navigate == "SHOP") {
-        window.location.href = `shop.html`;
-      }
-    },
-    getProducts() {
-
-      let resType = "DB";
-      if (resType == "DB") {
-        this.fetchDBDataSearch();
-      } else {
-        this.fetchCloudinaryDataSearch();
-      }
-    },
-    async fetchDBDataSearch() {
+    fetchDBDataSearch: async function () {
       const results = await searchProducts(this.SEARCH_QUERY);
       this.filteredResults = results;
-      this.pageVisibilityLock = false;
     },
-    getTruncatedDescription(description) {
-      return description.length > 50 ? description.slice(0, 50) + '...' : description;
+    getTruncatedDescription: function (description) {
+      if (!description) return '';
+      return description.length > 50 ? description.slice(0, 50) + '…' : description;
     },
-    resetSearch(){
+    resetSearch: function () {
       this.SEARCH_QUERY = '';
       this.filteredResults = [];
     },
-    isDuplicated(asset_id){
-      let isDuplicated = this.QUOTATION_ITEMS.filter(item => item.asset_id == asset_id);
-      console.log(isDuplicated);
-      
-      return isDuplicated.length == 0 ? false : true;
+    isDuplicated: function (asset_id) {
+      return this.QUOTATION_ITEMS.some(function (item) { return item.asset_id === asset_id; });
     },
-    pickItem(item) {
-console.log(item.asset_id);
-
-if (this.isDuplicated(item.asset_id)) {
-  alert('Already Added');
-  return;
-}
-
+    pickItem: function (item) {
+      if (this.isDuplicated(item.asset_id)) return;
       this.resetSearch();
+      const price = parseFloat(item.amount) || 0;
+      this.QUOTATION_ITEMS.push({
+        asset_id: item.asset_id || null,
+        item_name: item.name || item.display_name || 'Unnamed Item',
+        quantity: 1,
+        unit_price: price,
+        subtotal: price,
+      });
+    },
+    removeItem: function (index) {
+      this.QUOTATION_ITEMS.splice(index, 1);
+      this.saveSuccess = false;
+    },
+    updateSubtotal: function (item) {
+      item.subtotal = (parseFloat(item.quantity) || 0) * (parseFloat(item.unit_price) || 0);
+    },
+    formatAmount: function (val) {
+      const num = parseFloat(val) || 0;
+      return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    },
+    saveQuotation: async function () {
+      if (this.QUOTATION_ITEMS.length === 0) return;
+      this.saving = true;
+      this.saveError = null;
+      this.saveSuccess = false;
 
-      let array = this.QUOTATION_ITEMS;
-      array.push(item);
-      this.QUOTATION_ITEMS = array;
+      try {
+        const session = await getSellerSession();
+        if (!session) {
+          this.saveError = 'You must be logged in to save a quotation.';
+          return;
+        }
+
+        const { data: quot, error: quotErr } = await _supabase
+          .from('quotations')
+          .insert({
+            seller_id: session.user.id,
+            customer_name: this.customerName || null,
+            customer_email: this.customerEmail || null,
+            item_count: this.itemCount,
+            subtotal: this.subtotal,
+            grand_total: this.grandTotal,
+            status: 'saved',
+          })
+          .select()
+          .single();
+
+        if (quotErr) throw new Error(quotErr.message);
+
+        const itemRows = this.QUOTATION_ITEMS.map(function (item, idx) {
+          return {
+            quotation_id: quot.id,
+            asset_id: item.asset_id || null,
+            item_name: item.item_name,
+            quantity: parseFloat(item.quantity) || 1,
+            unit_price: parseFloat(item.unit_price) || 0,
+            subtotal: parseFloat(item.subtotal) || 0,
+            sort_order: idx,
+          };
+        });
+
+        const { error: itemsErr } = await _supabase
+          .from('quotation_items')
+          .insert(itemRows);
+
+        if (itemsErr) throw new Error(itemsErr.message);
+
+        this.saveSuccess = true;
+        this.QUOTATION_ITEMS = [];
+        this.customerName = '';
+        this.customerEmail = '';
+
+      } catch (e) {
+        this.saveError = e.message || 'An unexpected error occurred.';
+      } finally {
+        this.saving = false;
+      }
     },
   },
 });
-
-
-
