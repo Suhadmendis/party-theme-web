@@ -1,4 +1,5 @@
 #package-section {
+  flex: 1;
   background-color: black;
 }
 
@@ -37,7 +38,7 @@ ul > li {
   margin-bottom: 0.6rem;
 }
 #package-image {
-  width: '100%';
+  width: 100%;
 }
 
 .balloon-arch img {

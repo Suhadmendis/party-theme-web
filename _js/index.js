@@ -68,10 +68,12 @@ new Vue({
       }
 
     },
-    fetchCloudinaryData(FLAG) {
+    async fetchCloudinaryData(FLAG) {
       if (FLAG == "GET_PRODUCTS") {
-        this.fetchedData = STATIC_PRODUCTS;
-        this.fetchedFilferdData = STATIC_PRODUCTS;
+        const folders = await fetchFolders();
+        const products = await fetchAllProducts(folders);
+        this.fetchedData = products;
+        this.fetchedFilferdData = products;
       }
     },
 

@@ -3,8 +3,11 @@
 
 
 
+#app {
+  flex: 1;
+}
+
 #search-bar-product {
-  background-color: "red";
   height: 50px;
   margin-bottom: 50px;
   width: 600px;

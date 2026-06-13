@@ -193,3 +193,42 @@ Run this script manually whenever Cloudinary content changes to keep the DB in s
 | All `axios.get(server/...)` calls | Static data from `_js/static-data.js` |
 | Folder list from Cloudinary | `STATIC_FOLDERS` constant |
 | Product data from DB/Cloudinary | `STATIC_PRODUCTS` constant |
+
+---
+
+## Frontend Cloudinary Integration (`_js/cloudinary.js`)
+
+After the static phase, a frontend-only Cloudinary wrapper was added at `_js/cloudinary.js`. It calls the Cloudinary Admin API directly from the browser with HTTP Basic Auth, and falls back to `STATIC_*` constants when the API is unreachable (e.g., CORS blocks the request — the Admin API is server-intended).
+
+### Exported functions
+
+| Function | Cloudinary endpoint | Fallback |
+|----------|-------------------|---------|
+| `fetchFolders()` | `GET /folders` | `STATIC_FOLDERS` |
+| `fetchAllProducts(folders)` | `GET /resources/by_asset_folder` × N (parallel) | `STATIC_PRODUCTS` |
+| `fetchProductsByFolder(name)` | `GET /resources/by_asset_folder` | filtered `STATIC_PRODUCTS` |
+| `fetchProductById(assetId)` | `POST /resources/by_asset_ids` | matching `STATIC_PRODUCTS` entry |
+| `searchProducts(query)` | `GET /resources/search` | filtered `STATIC_PRODUCTS` |
+
+### Usage per page
+
+| Page | Functions used |
+|------|---------------|
+| `index.html` / `_js/index.js` | `fetchFolders`, `fetchAllProducts` |
+| `shop.html` / `_js/script.js` | `fetchFolders`, `fetchAllProducts` (on load); client-side filter for search |
+| `product.html` / `_js/product.js` | `fetchProductById`, `fetchProductsByFolder` |
+| `quotation.html` / `_js/quotation.js` | `searchProducts` |
+
+### CORS limitation
+
+The Cloudinary Admin API (`api.cloudinary.com`) does not include CORS headers for browser requests. Calls will be blocked with a network error in the browser console. All functions handle this transparently — the `catch` block logs a warning and returns static data, so the site works identically with or without live Cloudinary access.
+
+**To restore live data:** deploy a backend proxy (PHP, Node.js, etc.) that forwards requests to the Cloudinary Admin API and adds CORS headers, then point the `baseUrl` in `CLOUDINARY_CONFIG` to the proxy.
+
+### Restoring the PHP backend
+
+When the PHP backend is restored:
+1. Revert `_js/script.js`, `_js/index.js`, `_js/product.js`, `_js/quotation.js` to `axios.get('server/...')` calls.
+2. Remove `_js/cloudinary.js` from HTML pages.
+3. Restore `server/` and `config/` PHP files from git history.
+4. Ensure `party_theme_db` MySQL database is running and `m_products` is populated (run `server/akila596.php` to sync from Cloudinary).

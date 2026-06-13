@@ -14,7 +14,7 @@
 }
 
 .parallax {
-  background-image: url("../hero-bg.jpg");
+  background-image: url("../images/hero-bg.jpg");
 
   height: 500px;
   background-attachment: fixed;
