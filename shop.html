@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZBWWYY3GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-0ZBWWYY3GW');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
+  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
+  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <meta name="theme-color" content="black">
+
+  <link rel="icon" type="image/png" href="logo_result.webp">
+
+  <script src="_js/slim.min.js"></script>
+  <link rel="stylesheet" href="_css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="_js/axios.min.js"></script>
+  <script src="_js/vue.js"></script>
+  <script src="_js/static-data.js"></script>
+
+  <link rel="stylesheet" href="test.css" />
+  <link rel="stylesheet" href="_css/header.css" />
+  <link rel="stylesheet" href="_css/footer.css" />
+  <link rel="stylesheet" href="_css/index.css" />
+  <link rel="stylesheet" href="product.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+    <a id="logo-area" class="navbar-brand" href="index.html">
+      <img id="logo" src="logo_result.webp" width="30" height="30" alt="Party Theme Logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="shop.html">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="packages.html">Packages</a>
+        </li>
+        <li class="nav-item"></li>
+          <a class="nav-link" href="quotation.html">Quotation</a>
+        </li>
+      </ul>
+      <form class="form-inline justify-content-end">
+        <input id="search-bar" class="form-control custom-width" type="search" placeholder="Search"
+          aria-label="Search" />
+      </form>
+    </div>
+  </nav>
+
+  <!-- Promotion Section -->
+  <div id="app">
+    <section class="promotion-section py-5 text-center">
+
+      <div class="fullscreen-div" id="fullscreenDiv" v-show="pageVisibilityLock">
+        <img id="logo-spalsh" src="logo_result.webp" alt="Party Theme Logo" />
+      </div>
+
+      <div class="container">
+
+        <!-- Search Bar -->
+        <form class="form-inline">
+          <input id="search-bar-product" v-model="SEARCH_QUERY" @input="onSearchInput()" class="form-control"
+            type="search" placeholder="Search" aria-label="Search" />
+        </form>
+
+        <div class="folder-name-area">
+          <div v-for="name in folderNames"
+            v-if="getProductCountByFolder(name.name) !== 0"
+            :class="selectedFolderName == name.name ? 'folder-name folder-name-active' : 'folder-name'"
+            @click="selectFolder(name.name)">
+            <p :class="selectedFolderName == name.name ? 'folder-name-text folder-name-text-active' : 'folder-name-text'">
+              {{ name.name }} {{ getProductCountByFolder(name.name) }}</p>
+          </div>
+        </div>
+
+        <br>
+
+        <div v-if="fetchedFilferdData.length" class="row">
+          <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3" v-if="product.asset_folder == selectedFolderName">
+            <div class="card border-0 shadow" id="productCard">
+              <img :src="product.url" class="card-img-top" alt="Offer 1" />
+              <div class="card-body">
+                <h5 class="card-title" v-if="product.name">{{ product.name }}</h5>
+                <h5 class="card-title" v-else>no</h5>
+                <p class="card-text" v-if="product.metadata">
+                  {{ product.metadata.description.substring(0, 40) }}{{ product.metadata.description.length > 40 ? '...' : '' }}
+                </p>
+                <p class="card-text" v-else>On selected party decor items.</p>
+                <div class="product-view-button-area">
+                  <button class="product-view-button" @click="GoTo('PRODUCT', product.asset_id)"><i
+                      class="fa-solid fa-eye" id="product-view-button-icon"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <script src="_js/script.js"></script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-columns">
+      <div class="footer-column footer-logo">
+        <img src="logo_result.webp" alt="Company Logo" />
+        <p>
+          We provide luxury balloon decor for birthdays, bridal and baby
+          showers, gender reveals, corporate events, and more. Serving
+          Westchester County and surrounding areas.
+        </p>
+      </div>
+      <div class="footer-column footer-center">
+        <h4>Navigate</h4>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Services</li>
+          <li>Size Guide</li>
+          <li>FAQ</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <div class="contact-info">
+          <i class="fa fa-envelope"></i>
+          <a href="mailto:email@example.com" class="footer-link">Email Us</a>
+        </div>
+        <div class="contact-info">
+          <i class="fa fa-phone"></i>
+          <a href="tel:+1234567890" class="footer-link">Call or Text Me</a>
+        </div>
+        <div class="contact-info">
+          <i class="fa fa-map-marker"></i> 658/1A Havelock Rd, Colombo 00600
+        </div>
+        <br>
+        <a href="#top" class="to-top-btn">To Top</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="#">Privacy Policy</a> &amp;
+      <a href="#">Terms of Use</a>
+      <br />
+      Site by Party Theme
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
