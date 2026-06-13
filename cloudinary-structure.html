@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="_css/header.css" />
   <link rel="stylesheet" href="_css/footer.css" />
   <link rel="stylesheet" href="_css/cloudinary-structure.css" />
+  <link rel="stylesheet" href="_css/seller-login.css" />
 </head>
 
 <body>
@@ -63,7 +64,7 @@
         <li class="nav-item">
           <a class="nav-link" href="quotation.html">Quotation</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" style="display:none">
           <a class="nav-link" href="cloudinary-structure.html">Cloudinary Folder Structure</a>
         </li>
       </ul>
@@ -288,6 +289,8 @@
     <div class="footer-bottom">
       <a href="#">Privacy Policy</a> &amp;
       <a href="#">Terms of Use</a>
+      <span class="footer-seller-sep">·</span>
+      <a href="seller-login.html" class="footer-seller-login">Seller Login</a>
       <br />
       &copy; {{ company.company_name }}
     </div>
@@ -298,6 +301,7 @@
 
   <script src="_js/integrations/supabase.js"></script>
   <script src="_js/pages/footer.js"></script>
+  <script src="_js/pages/auth-guard.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
