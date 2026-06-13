@@ -32,7 +32,12 @@ body {
   padding-left: 1.6rem;
 }
 
+.custom-navbar .navbar-nav {
+  margin-left: 0 !important; /* nav links stay left; search handles its own right-alignment */
+}
+
 .custom-navbar .form-inline {
+  margin-left: auto;
   flex-shrink: 0;
 }
 
