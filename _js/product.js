@@ -38,19 +38,17 @@ new Vue({
       }, 1000);
     },
     fetchCloudinaryData() {
-      axios
-        .get(
-          `server/PRODUCTS.php?COMMAND=GET_PRODUCT&ASSET_ID=${this.asset_id}`
-        ) // Replace with your API endpoint
-        .then((response) => {
-          this.PRODUCT = this.refactorProduct(response.data); // Set fetched data
-          setTimeout(() => {
-            this.initCalendar();
-          }, 1000);
-        })
-        .catch((error) => {
-          console.error("There was an error fetching the data:", error);
-        });
+      const match = STATIC_PRODUCTS.find(p => p.asset_id === this.asset_id) || STATIC_PRODUCTS[0];
+      this.PRODUCT = this.refactorProduct({
+        asset_folder: match.asset_folder,
+        asset_id: match.asset_id,
+        secure_url: match.secure_url,
+        url: match.url,
+        metadata: match.metadata,
+        last_updated: { update_at: new Date().toISOString() },
+        created_at: new Date().toISOString()
+      });
+      setTimeout(() => { this.initCalendar(); }, 1000);
     },
     refactorProduct(product) {
       console.log(product);
@@ -69,23 +67,14 @@ new Vue({
       return refactoredProduct;
     },
     getRelatedProducts(FLAG, asset_folder) {
-      axios
-        .get(`server/PRODUCTS.php?COMMAND=${FLAG}&FOLDER_NAME=${asset_folder}`)
-        .then((response) => {
-          const re_pro = response.data.filter(
-            (element) => element.asset_id != this.PRODUCT.asset_id
-          );
-
-          // this.relatedProducts = re_pro;
-          this.relatedProducts = this.maximizeProducts(re_pro);
-        })
-        .catch((error) => {
-          console.error("There was an error fetching the data:", error);
-        });
+      const related = STATIC_PRODUCTS.filter(
+        p => p.asset_folder === asset_folder && p.asset_id !== this.PRODUCT.asset_id
+      );
+      this.relatedProducts = this.maximizeProducts(related);
     },
     GoTo(navigate) {
       if (navigate == "PRODUCT") {
-        window.location.href = "product.php";
+        window.location.href = "product.html";
       }
     },
     maximizeProducts(products) {
@@ -101,7 +90,7 @@ new Vue({
     },
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
-        window.location.href = `product.php?asset_id=${asset_id}`;
+        window.location.href = `product.html?asset_id=${asset_id}`;
       }
     },
     calculateDeliveryFee(){

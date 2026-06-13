@@ -14,7 +14,7 @@ new Vue({
       {
         id: 1,
         rating: 5,
-        testimonial: "Jelly-o gummi bears wafer. Oat cake cupcake bonbon toffee. Jelly tiramisu gummi bears jelly beans dragée dragée cupcake fruitcake. Jelly beans pastry toffee halvah caramels. Jujubes chocolate cake croissant powder marshmallow lemon drops jujubes gingerbread gingerbread. Gummi bears macaroon ice cream jujubes gingerbread sesame snaps sweet tootsie roll.",
+        testimonial: "Chasing Dreams made our daughter's birthday unforgettable! The balloon arch was stunning and exactly what we envisioned. Setup was seamless and the team was so professional.",
         name: "Client One"
       },
       {
@@ -70,23 +70,9 @@ new Vue({
     },
     fetchCloudinaryData(FLAG) {
       if (FLAG == "GET_PRODUCTS") {
-
-        const selectFolder = "Animals";
-
-        axios
-          .get(
-            `server/PRODUCTS.php?COMMAND=${FLAG}&FOLDER_NAME=${selectFolder}`
-          )
-          .then((response) => {
-            this.fetchedData = response.data; // Set fetched data
-            this.fetchedFilferdData = response.data; // Set fetched data
-          })
-          .catch((error) => {
-            console.error("There was an error fetching the data:", error);
-          });
+        this.fetchedData = STATIC_PRODUCTS;
+        this.fetchedFilferdData = STATIC_PRODUCTS;
       }
-
-
     },
 
     // localFilter() {
@@ -104,10 +90,10 @@ new Vue({
 
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
-        window.location.href = `product.php?asset_id=${asset_id}`;
+        window.location.href = `product.html?asset_id=${asset_id}`;
       }
       if (navigate == "SHOP") {
-        window.location.href = `shop.php`;
+        window.location.href = `shop.html`;
       }
     },
   },

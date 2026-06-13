@@ -47,16 +47,15 @@ new Vue({
     PACKAGES: rentalPackages,
   },
   created() {
-    this.GoTo('SHOP');
   },
   methods: {
     fetchCloudinaryData(FLAG) {},
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
-        window.location.href = `product.php?asset_id=${asset_id}`;
+        window.location.href = `product.html?asset_id=${asset_id}`;
       }
       if (navigate == "SHOP") {
-        window.location.href = `shop.php`;
+        window.location.href = `shop.html`;
       }
     },
 

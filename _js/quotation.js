@@ -24,10 +24,10 @@ new Vue({
     fetchCloudinaryData(FLAG) { },
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
-        window.location.href = `product.php?asset_id=${asset_id}`;
+        window.location.href = `product.html?asset_id=${asset_id}`;
       }
       if (navigate == "SHOP") {
-        window.location.href = `shop.php`;
+        window.location.href = `shop.html`;
       }
     },
     getProducts() {
@@ -40,19 +40,12 @@ new Vue({
       }
     },
     fetchDBDataSearch() {
-
-      axios
-        .get(
-          `server/PRODUCTS.php?COMMAND=DB_PRODUCT_SEARCH&OPERATION=QUOTATION&QUERY=${this.SEARCH_QUERY}`
-        ) // Replace with your API endpoint
-        .then((response) => {
-          console.log(response.data);
-          this.pageVisibilityLock = false;
-          this.filteredResults = response.data; // Set fetched data
-        })
-        .catch((error) => {
-          console.error("There was an error fetching the data:", error);
-        });
+      const query = this.SEARCH_QUERY.toLowerCase();
+      const results = STATIC_PRODUCTS.filter(p =>
+        (p.asset_folder + " " + p.description + " " + p.name).toLowerCase().includes(query)
+      ).slice(0, 10);
+      this.pageVisibilityLock = false;
+      this.filteredResults = results;
     },
     getTruncatedDescription(description) {
       return description.length > 50 ? description.slice(0, 50) + '...' : description;
