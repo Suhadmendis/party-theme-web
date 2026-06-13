@@ -88,6 +88,23 @@
   color: #ff3399;
 }
 
+.footer-seller-login {
+  background-color: transparent;
+  border: 2px solid #ff3399;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  color: #ff3399 !important;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.footer-seller-login:hover {
+  background-color: #ff3399;
+  color: white !important;
+}
+
 .contact-info {
   margin: 10px 0;
 }
