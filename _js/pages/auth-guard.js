@@ -40,14 +40,19 @@
   var navItems = document.querySelectorAll('.navbar-nav .nav-item');
   console.log('[AuthGuard] Total nav items found:', navItems.length);
   var NAV_PROTECTED = ['quotation.html', 'cloudinary-structure.html'];
-  navItems.forEach(function (item) {
+  navItems.forEach(function (item, index) {
     var link = item.querySelector('a.nav-link');
-    if (!link) return;
+    if (!link) {
+      console.log('[AuthGuard] Nav item', index, '— no a.nav-link found inside');
+      return;
+    }
     var href = link.getAttribute('href') || '';
+    console.log('[AuthGuard] Nav item', index, 'href="' + href + '" currentStyle="' + item.style.display + '"');
     var isNavProtected = NAV_PROTECTED.some(function (p) { return href.indexOf(p) !== -1; });
+    console.log('[AuthGuard] Nav item', index, 'isNavProtected:', isNavProtected);
     if (isNavProtected) {
       var newDisplay = isLoggedIn ? '' : 'none';
-      console.log('[AuthGuard] Nav item href="' + href + '" → display set to "' + newDisplay + '"');
+      console.log('[AuthGuard] Nav item', index, '→ setting display to "' + newDisplay + '"');
       item.style.display = newDisplay;
     }
   });
