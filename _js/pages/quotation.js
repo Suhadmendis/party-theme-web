@@ -72,13 +72,25 @@ new Vue({
     pickItem: function (item) {
       if (this.isDuplicated(item.asset_id)) return;
       this.resetSearch();
-      const price = parseFloat(item.amount) || 0;
+      const price      = parseFloat(item.amount) || 0;
+      const sourceName = item.name || item.display_name || 'Unnamed Item';
       this.QUOTATION_ITEMS.push({
-        asset_id: item.asset_id || null,
-        item_name: item.name || item.display_name || 'Unnamed Item',
-        quantity: 1,
-        unit_price: price,
-        subtotal: price,
+        asset_id:            item.asset_id || null,
+        item_name:           sourceName, // seller-editable display name
+        original_item_name:  sourceName, // preserved source name (read-only)
+        quantity:    1,
+        unit_price:  price,
+        subtotal:    price,
+      });
+    },
+    addManualItem: function () {
+      this.QUOTATION_ITEMS.push({
+        asset_id:           null,
+        item_name:          '',
+        original_item_name: null,
+        quantity:    1,
+        unit_price:  0,
+        subtotal:    0,
       });
     },
     removeItem: function (index) {
@@ -139,12 +151,13 @@ new Vue({
 
         const itemRows = this.QUOTATION_ITEMS.map(function (item, idx) {
           return {
-            quotation_id: quot.id,
-            asset_id: item.asset_id || null,
-            item_name: item.item_name,
-            quantity: parseFloat(item.quantity) || 1,
+            quotation_id:       quot.id,
+            asset_id:           item.asset_id || null,
+            item_name:          item.item_name || 'Unnamed Item',
+            original_item_name: item.original_item_name || null,
+            quantity:   parseFloat(item.quantity)   || 1,
             unit_price: parseFloat(item.unit_price) || 0,
-            subtotal: parseFloat(item.subtotal) || 0,
+            subtotal:   parseFloat(item.subtotal)   || 0,
             sort_order: idx,
           };
         });
@@ -290,8 +303,9 @@ new Vue({
       this.customerEmail = this.viewedQuotation.customer_email || '';
       this.QUOTATION_ITEMS = this.viewedItems.map(function (item) {
         return {
-          asset_id:   item.asset_id   || null,
-          item_name:  item.item_name,
+          asset_id:           item.asset_id || null,
+          item_name:          item.item_name, // inherit saved display name
+          original_item_name: item.original_item_name || item.item_name,
           quantity:   parseFloat(item.quantity)   || 1,
           unit_price: parseFloat(item.unit_price) || 0,
           subtotal:   parseFloat(item.subtotal)   || 0,

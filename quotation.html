@@ -217,7 +217,8 @@
                 role="button"
               >
                 <div class="qt-dropdown-thumb">
-                  <img :src="item.secure_url" :alt="item.name || 'Product'" loading="lazy" />
+                  <img v-if="item.secure_url" :src="item.secure_url" :alt="item.name || 'Product'" loading="lazy" />
+                  <i v-else class="fa-solid fa-box qt-no-image-icon"></i>
                 </div>
                 <div class="qt-dropdown-info">
                   <p class="qt-dropdown-name">{{ item.name || '(no name)' }}</p>
@@ -227,6 +228,12 @@
                 <i class="fa-solid fa-plus qt-dropdown-add"></i>
               </div>
             </div>
+          </div>
+          <div class="qt-manual-add-row">
+            <button type="button" class="qt-add-manual-btn" @click="addManualItem">
+              <i class="fa-solid fa-plus"></i> Add item manually
+            </button>
+            <span class="qt-manual-add-hint">for items not in the product catalog</span>
           </div>
         </section>
 
@@ -249,7 +256,7 @@
               <tbody>
                 <tr v-for="(item, index) in QUOTATION_ITEMS" :key="index" class="qt-row">
                   <td>
-                    <input type="text" class="qt-input qt-name-input" v-model="item.item_name" />
+                    <input type="text" class="qt-input qt-name-input" v-model="item.item_name" placeholder="Enter item name" title="Rename this item for the quotation — does not affect the original product" />
                   </td>
                   <td>
                     <input type="number" class="qt-input qt-num-input" v-model.number="item.quantity" @input="updateSubtotal(item)" min="1" step="1" />
