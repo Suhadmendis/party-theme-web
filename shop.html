@@ -13,10 +13,25 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
-  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
-  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <title>Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events</title>
+  <meta name="description" content="Browse our full collection of party decor rentals. Balloon arches, backdrops, light-up numbers, props, and table centerpieces available for events in Westchester County, NY.">
+  <meta name="keywords" content="party decor shop, balloon arch rental Westchester, backdrop rental NY, light up numbers rental, party props rental, table centerpiece rental, birthday party rentals">
   <meta name="theme-color" content="black">
+  <link rel="canonical" href="https://partytheme.lk/shop.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://partytheme.lk/shop.html">
+  <meta property="og:title" content="Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events">
+  <meta property="og:description" content="Browse balloon arches, backdrops, light-up numbers, props, and table centerpieces available for rental in Westchester County, NY.">
+  <meta property="og:image" content="https://partytheme.lk/images/logo_result.webp">
+  <meta property="og:site_name" content="Chasing Dreams Events">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events">
+  <meta name="twitter:description" content="Browse balloon arches, backdrops, light-up numbers, props, and table centerpieces available for rental in Westchester County, NY.">
+  <meta name="twitter:image" content="https://partytheme.lk/images/logo_result.webp">
 
   <link rel="icon" type="image/png" href="images/logo_result.webp">
 
@@ -102,7 +117,7 @@
         <div v-if="fetchedFilferdData.length" class="row">
           <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3" v-if="product.asset_folder == selectedFolderName">
             <div class="card border-0 shadow" id="productCard">
-              <img :src="product.url" class="card-img-top" alt="Offer 1" />
+              <img :src="product.url" class="card-img-top" :alt="product.name ? product.name + ' — party decor rental' : 'Party decor rental item'" loading="lazy" />
               <div class="card-body">
                 <h5 class="card-title" v-if="product.name">{{ product.name }}</h5>
                 <h5 class="card-title" v-else>no</h5>
@@ -140,12 +155,11 @@
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Size Guide</li>
-          <li>FAQ</li>
-          <li>Contact</li>
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="index.html#about" class="footer-link">About</a></li>
+          <li><a href="shop.html" class="footer-link">Shop</a></li>
+          <li><a href="packages.html" class="footer-link">Packages</a></li>
+          <li><a href="quotation.html" class="footer-link">Quotation</a></li>
         </ul>
       </div>
       <div class="footer-column">

@@ -13,10 +13,25 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
-  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
-  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <title>Party Decor Rental | Chasing Dreams Events — Westchester County, NY</title>
+  <meta name="description" content="View and book party decor rentals from Chasing Dreams Events. Balloon arches, backdrops, props, and more available for events in Westchester County, NY.">
+  <meta name="keywords" content="party decor rental, balloon arch rental, backdrop rental, event decor Westchester County, party props NY">
   <meta name="theme-color" content="black">
+  <link rel="canonical" href="https://partytheme.lk/product.html">
+
+  <!-- Open Graph (updated dynamically by Vue) -->
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://partytheme.lk/product.html">
+  <meta property="og:title" content="Party Decor Rental | Chasing Dreams Events">
+  <meta property="og:description" content="View and book party decor rentals from Chasing Dreams Events. Available for events in Westchester County, NY.">
+  <meta property="og:image" content="https://partytheme.lk/images/logo_result.webp">
+  <meta property="og:site_name" content="Chasing Dreams Events">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Party Decor Rental | Chasing Dreams Events">
+  <meta name="twitter:description" content="View and book party decor rentals from Chasing Dreams Events. Available for events in Westchester County, NY.">
+  <meta name="twitter:image" content="https://partytheme.lk/images/logo_result.webp">
 
   <link rel="icon" type="image/png" href="images/logo_result.webp">
 
@@ -88,7 +103,7 @@
           <div class="col-md-5">
             <div id="left">
               <div id="left-inner">
-                <img :src="PRODUCT.image_url" class="product-img" alt="Offer 1" />
+                <img :src="PRODUCT.image_url" class="product-img" :alt="PRODUCT.data.name ? PRODUCT.data.name + ' — party decor rental' : 'Party decor rental item'" />
               </div>
             </div>
           </div>
@@ -168,7 +183,7 @@
       <div class="slider-wrapper">
         <div class="slider">
           <div class="slider-image-wrapper" v-for="element in relatedProducts"
-            @click="GoTo('PRODUCT', element.asset_id)"><img :src="element.secure_url" alt="Photo 1" /></div>
+            @click="GoTo('PRODUCT', element.asset_id)"><img :src="element.secure_url" :alt="element.name ? element.name + ' — related party decor' : 'Related party decor item'" loading="lazy" /></div>
         </div>
       </div>
     </section>
@@ -200,12 +215,11 @@
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Size Guide</li>
-          <li>FAQ</li>
-          <li>Contact</li>
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="index.html#about" class="footer-link">About</a></li>
+          <li><a href="shop.html" class="footer-link">Shop</a></li>
+          <li><a href="packages.html" class="footer-link">Packages</a></li>
+          <li><a href="quotation.html" class="footer-link">Quotation</a></li>
         </ul>
       </div>
       <div class="footer-column">

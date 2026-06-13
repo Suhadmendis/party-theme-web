@@ -13,10 +13,25 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
-  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
-  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <title>Event Decor Packages — Balloon Arches &amp; Full Event Styling | Chasing Dreams Events</title>
+  <meta name="description" content="Choose from our curated event decor packages. Balloon arches, full event styling, and customizable add-ons for birthdays, weddings, baby showers, and corporate events in Westchester County, NY.">
+  <meta name="keywords" content="event decor packages, balloon arch packages Westchester, birthday party packages NY, wedding decor package, baby shower decor package, corporate event decor">
   <meta name="theme-color" content="black">
+  <link rel="canonical" href="https://partytheme.lk/packages.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://partytheme.lk/packages.html">
+  <meta property="og:title" content="Event Decor Packages — Balloon Arches &amp; Full Event Styling | Chasing Dreams Events">
+  <meta property="og:description" content="Curated event decor packages with balloon arches, full event styling, and customizable add-ons for Westchester County, NY events.">
+  <meta property="og:image" content="https://partytheme.lk/images/logo_result.webp">
+  <meta property="og:site_name" content="Chasing Dreams Events">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Event Decor Packages — Balloon Arches &amp; Full Event Styling | Chasing Dreams Events">
+  <meta name="twitter:description" content="Curated event decor packages with balloon arches, full event styling, and customizable add-ons for Westchester County, NY events.">
+  <meta name="twitter:image" content="https://partytheme.lk/images/logo_result.webp">
 
   <link rel="icon" type="image/png" href="images/logo_result.webp">
 
@@ -90,7 +105,7 @@
         </div>
         <div class="offset-lg-1 col-lg-4 order-lg-2 order-1 position-relative">
           <div class="balloon-arch">
-            <img id="package-image" :src="package.imageUrl" alt="Balloon Arch">
+            <img id="package-image" :src="package.imageUrl" :alt="package.packageName ? package.packageName + ' — event decor package' : 'Balloon arch event decor package'" loading="lazy">
           </div>
         </div>
       </div>
@@ -116,12 +131,11 @@
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Size Guide</li>
-          <li>FAQ</li>
-          <li>Contact</li>
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="index.html#about" class="footer-link">About</a></li>
+          <li><a href="shop.html" class="footer-link">Shop</a></li>
+          <li><a href="packages.html" class="footer-link">Packages</a></li>
+          <li><a href="quotation.html" class="footer-link">Quotation</a></li>
         </ul>
       </div>
       <div class="footer-column">

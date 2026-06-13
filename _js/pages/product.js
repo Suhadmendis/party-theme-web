@@ -40,7 +40,21 @@ new Vue({
     async fetchCloudinaryData() {
       const product = await fetchProductById(this.asset_id);
       this.PRODUCT = this.refactorProduct(product);
+      this.updatePageMeta(product);
       setTimeout(() => { this.initCalendar(); }, 500);
+    },
+    updatePageMeta(product) {
+      const name = (product.metadata && product.metadata.name) ? product.metadata.name : 'Party Decor';
+      const desc = (product.metadata && product.metadata.description) ? product.metadata.description : 'Party decor rental from Chasing Dreams Events, Westchester County NY.';
+      document.title = name + ' — Party Decor Rental | Chasing Dreams Events';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', desc + ' Available for events in Westchester County, NY.');
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', name + ' | Chasing Dreams Events');
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', desc);
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      if (ogImage && product.secure_url) ogImage.setAttribute('content', product.secure_url);
     },
     refactorProduct(product) {
       console.log(product);
