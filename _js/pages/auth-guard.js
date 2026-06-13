@@ -3,6 +3,14 @@
   const session = await getSellerSession();
   const isLoggedIn = !!session;
 
+  // Redirect unauthenticated users to home on protected pages
+  var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  var PROTECTED = ['quotation.html', 'cloudinary-structure.html'];
+  if (PROTECTED.indexOf(currentPage) !== -1 && !isLoggedIn) {
+    window.location.href = 'index.html';
+    return;
+  }
+
   // Show access banner on protected pages
   var banner = document.getElementById('auth-banner');
   if (banner) {
@@ -12,18 +20,6 @@
       banner.innerHTML = '<div class="auth-banner auth-banner-warning"><i class="fa-solid fa-triangle-exclamation"></i> You are not logged in. Some features on this page may be restricted.</div>';
     }
   }
-
-  // Show or hide seller-only nav items based on login state
-  var SELLER_PAGES = ['quotation.html', 'cloudinary-structure.html'];
-  document.querySelectorAll('.navbar-nav .nav-item').forEach(function (item) {
-    var link = item.querySelector('a.nav-link');
-    if (!link) return;
-    var href = link.getAttribute('href') || '';
-    var isProtected = SELLER_PAGES.some(function (p) { return href.indexOf(p) !== -1; });
-    if (isProtected) {
-      item.style.display = isLoggedIn ? '' : 'none';
-    }
-  });
 
   // Inject seller name + logout button when logged in
   if (isLoggedIn) {
