@@ -38,3 +38,50 @@
 28. Prefer loading media directly from Cloudinary rather than replacing existing Cloudinary-hosted assets with local files.
 29. Preserve Cloudinary-related functionality and update the implementation as needed so that media continues to be displayed correctly in the frontend-only version of the project.
 30. Document any Cloudinary configuration, dependencies, environment variables, and implementation details that are required to restore or extend the integration in the future.
+
+31. Review the styling and layout of the entire project to identify visual inconsistencies and layout issues.
+32. Ensure that shared layout components behave consistently across all pages.
+33. Verify that the footer is positioned correctly at the bottom of every page, including pages with limited content.
+34. Fix any CSS, layout, spacing, flexbox, grid, or responsive design issues that prevent the footer from remaining at the bottom of the page.
+35. Perform a general UI and styling review and correct any obvious layout issues discovered during the process.
+
+36. Identify the existing snow-falling visual effect, animation, or seasonal styling currently used in the project.
+37. Refactor the snow effect into a separate JavaScript module, component, or view file to keep the implementation isolated and maintainable.
+38. Ensure that the snow effect is not loaded globally throughout the year.
+39. Display the snow effect only during December based on the user's local date.
+40. Add conditional logic so that the snow-related JavaScript, styles, and assets are loaded only when required.
+41. Keep the implementation reusable so additional seasonal effects can be added in the future using the same pattern.
+42. Verify that the website behaves normally outside of December and that no snow-related resources are unnecessarily loaded during other months.
+43. Document the seasonal effect implementation and activation logic in the project documentation for future maintenance.
+
+44. Use Vue.js for the implementation of seasonal effects and any related frontend behavior introduced as part of this task.
+45. The snow effect should be implemented as a Vue component, Vue view, or Vue-managed module rather than plain JavaScript DOM manipulation.
+46. Follow the existing Vue.js architecture and project conventions when integrating seasonal functionality.
+
+47. Review the global search component in the header and ensure it is positioned correctly within the header layout.
+48. The global search should remain aligned to the top-right area of the header according to the intended design.
+49. Prevent the search component from expanding excessively or disrupting the overall header layout.
+50. Adjust styling, sizing, spacing, and responsive behavior as needed so the search feature remains compact, usable, and visually consistent across all screen sizes.
+51. Verify that header alignment and navigation elements remain properly positioned after the search component is updated.
+
+52. Add a new menu item next to the existing "Quotation" menu item.
+53. Name the new menu item "Cloudinary Folder Structure".
+54. Create a dedicated HTML page for this feature.
+55. Create a dedicated Vue.js file/component for this page and keep the implementation separate from existing pages.
+56. The page should display the Cloudinary folder hierarchy in a readable tree or row-based structure.
+57. Display folders, subfolders, and asset names so users can understand the organization of Cloudinary resources.
+58. Do not render or display the actual images on this page.
+59. Instead of showing image previews, display asset names, file names, paths, and folder relationships.
+60. Make the structure easy to browse and understand so it can be used as a reference when locating Cloudinary assets.
+61. Use data retrieved from Cloudinary where possible; otherwise, provide a structure that can be populated from Cloudinary data.
+62. Ensure the page follows the existing project styling, navigation, and Vue.js architecture.
+63. Make the page responsive and readable on both desktop and mobile devices.
+
+64. Review the entire JavaScript folder structure and reorganize it into a clear, maintainable architecture.
+65. Separate application-specific JavaScript written by developers from third-party libraries, vendor files, plugins, and downloaded dependencies.
+66. Create a consistent folder structure for custom application code, shared utilities, Vue components, seasonal features, integrations, and vendor assets.
+67. Group related JavaScript files according to their purpose and responsibility.
+68. Use clear naming conventions and directory structures that make it easy to identify which files are maintained by the development team and which files are external dependencies.
+69. If files are moved during the reorganization, update all script references, imports, exports, paths, build configurations, and related project settings accordingly.
+70. Verify that all JavaScript functionality continues to work correctly after the restructuring.
+71. Ensure that the new JavaScript architecture follows modern frontend development best practices and remains easy to maintain and extend in the future.
