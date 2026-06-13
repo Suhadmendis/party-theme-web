@@ -122,7 +122,7 @@
               @input="onQtSearchInput()"
               @blur="hideQtResultsDelayed()"
               @focus="showQtResults = qtSearchResults.length > 0"
-              placeholder="Search by reference, customer name or email…"
+              placeholder="Search by reference, customer name, email or date…"
               autocomplete="off"
             />
             <i class="fa-solid fa-circle-notch fa-spin qt-find-spinner" v-if="qtSearching"></i>
@@ -142,6 +142,7 @@
               <div class="qt-find-result-right">
                 <span class="qt-find-total">{{ formatAmount(result.grand_total) }}</span>
                 <span class="qt-find-date">{{ formatDate(result.created_at) }}</span>
+                <span class="qt-view-result-btn"><i class="fa-solid fa-eye"></i> View Quotation</span>
               </div>
             </div>
           </div>
@@ -406,11 +407,12 @@
               </p>
               <div class="qt-view-action-btns">
                 <button class="qt-resend-btn" @click="sendQuotation" :disabled="sendingEmail || !viewedQuotation.customer_email">
-                  <span v-if="!sendingEmail"><i class="fa-solid fa-paper-plane"></i> Send Quotation</span>
+                  <span v-if="!sendingEmail && viewedQuotation.last_sent_at"><i class="fa-solid fa-paper-plane"></i> Resend Quotation</span>
+                  <span v-else-if="!sendingEmail"><i class="fa-solid fa-paper-plane"></i> Send Quotation</span>
                   <span v-else><i class="fa-solid fa-circle-notch fa-spin"></i> Sending…</span>
                 </button>
                 <button class="qt-clone-btn" @click="cloneQuotation">
-                  <i class="fa-solid fa-copy"></i> Clone
+                  <i class="fa-solid fa-copy"></i> Clone Quotation
                 </button>
               </div>
             </div>

@@ -590,6 +590,20 @@
   color: #6c757d;
 }
 
+.qt-view-result-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a1a2e;
+  background: #e9ecef;
+  border-radius: 6px;
+  padding: 3px 9px;
+  pointer-events: none;
+}
+
 /* ── Page header with back button ── */
 .qt-page-header-row {
   display: flex;

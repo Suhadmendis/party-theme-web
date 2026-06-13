@@ -327,11 +327,23 @@
           class="faq-item"
           :class="{ 'faq-item--open': item.open }"
         >
-          <button class="faq-question" @click="toggleFaq(item.id)" :aria-expanded="item.open.toString()">
+          <button
+            class="faq-question"
+            :id="'faq-btn-' + item.id"
+            @click="toggleFaq(item.id)"
+            :aria-expanded="item.open.toString()"
+            :aria-controls="'faq-panel-' + item.id"
+          >
             <span>{{ item.question }}</span>
             <i class="fa-solid fa-chevron-down faq-chevron"></i>
           </button>
-          <div class="faq-answer" v-show="item.open">
+          <div
+            class="faq-answer"
+            v-show="item.open"
+            :id="'faq-panel-' + item.id"
+            role="region"
+            :aria-labelledby="'faq-btn-' + item.id"
+          >
             <div class="faq-answer-inner" v-html="item.answer"></div>
           </div>
         </div>
