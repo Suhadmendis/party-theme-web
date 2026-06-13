@@ -25,3 +25,16 @@
 17. Do not mention individual authors, contributors, or personal names in commit messages.
 18. Push the branch to the remote GitHub repository after the changes have been committed.
 19. Ensure the branch contains all project modifications, documentation updates, mock data additions, and frontend-only migration changes completed as part of this task.
+
+20. Review the overall project structure and organize files into a clear, maintainable folder hierarchy.
+21. The project currently contains files that may be scattered across multiple locations, including Markdown files, images, and other assets. Reorganize them where appropriate.
+22. Consolidate images and other static assets into dedicated asset folders whenever possible.
+23. Update all file paths, imports, references, and resource links throughout the project to match the new structure.
+24. Group related files together and follow a consistent directory structure to improve maintainability.
+25. Ensure that the reorganization does not break the application and verify that all resources continue to load correctly after the changes.
+
+26. Keep Cloudinary integration functional wherever possible, even after removing the backend.
+27. If Cloudinary assets can be accessed directly from the frontend, use the existing Cloudinary configuration and asset URLs to display images and media.
+28. Prefer loading media directly from Cloudinary rather than replacing existing Cloudinary-hosted assets with local files.
+29. Preserve Cloudinary-related functionality and update the implementation as needed so that media continues to be displayed correctly in the frontend-only version of the project.
+30. Document any Cloudinary configuration, dependencies, environment variables, and implementation details that are required to restore or extend the integration in the future.
