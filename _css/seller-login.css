@@ -1,0 +1,177 @@
+.seller-login-page {
+  flex: 1;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFF0F6 0%, #f0fffe 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem 3rem;
+}
+
+.seller-login-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 40px rgba(247, 37, 133, 0.12);
+  padding: 2.5rem 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.seller-login-logo {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+}
+
+.seller-login-title {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #F72585;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.seller-login-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.seller-login-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.seller-login-input {
+  width: 100%;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 0.75rem;
+  padding: 0.7rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 1.1rem;
+}
+
+.seller-login-input:focus {
+  border-color: #F72585;
+}
+
+.seller-login-btn {
+  width: 100%;
+  background: #F72585;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s;
+  margin-top: 0.5rem;
+}
+
+.seller-login-btn:hover:not(:disabled) {
+  background: #d61f72;
+  transform: translateY(-1px);
+}
+
+.seller-login-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.seller-login-error {
+  background: #fff3f3;
+  border: 1px solid #ffc5c5;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.83rem;
+  color: #c0392b;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seller-login-back {
+  display: block;
+  text-align: center;
+  margin-top: 1.25rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  color: #aaa;
+  text-decoration: none;
+}
+
+.seller-login-back:hover {
+  color: #F72585;
+}
+
+/* Seller name in navbar */
+#seller-nav-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: 0.75rem;
+}
+
+.seller-nav-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #F72585;
+}
+
+.seller-nav-logout {
+  background: none;
+  border: 1.5px solid #F72585;
+  border-radius: 2rem;
+  color: #F72585;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.seller-nav-logout:hover {
+  background: #F72585;
+  color: #fff;
+}
+
+/* Seller Login in footer */
+.footer-seller-sep {
+  margin: 0 0.5rem;
+  opacity: 0.4;
+}
+
+.footer-seller-login {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-seller-login:hover {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+}
