@@ -1,18 +1,7 @@
-// Cloudinary Admin API — direct frontend access with static-data fallback.
-// The Admin API is designed for server-to-server use; CORS may block these calls
-// in the browser. When blocked, every function falls back to STATIC_* constants
-// from static-data.js so the site continues to work without a backend.
+// Cloudinary access via Supabase Edge Function proxy (avoids Admin API CORS restriction).
+// Falls back to STATIC_* constants from static-data.js if the proxy is unreachable.
 
-const CLOUDINARY_CONFIG = {
-  cloudName: 'dic13326d',
-  apiKey: '933634414754845',
-  apiSecret: 'DunCWR1RWwNFH_hgfMaaPwl8rOs',
-  baseUrl: 'https://api.cloudinary.com/v1_1/dic13326d'
-};
-
-function _cloudinaryAuth() {
-  return 'Basic ' + btoa(CLOUDINARY_CONFIG.apiKey + ':' + CLOUDINARY_CONFIG.apiSecret);
-}
+const CLOUDINARY_PROXY = 'https://kynpexaoiiozglwxizas.supabase.co/functions/v1/cloudinary-proxy';
 
 function _normalizeResource(r) {
   const meta = r.metadata || {};
@@ -35,9 +24,7 @@ function _normalizeResource(r) {
 
 async function fetchFolders() {
   try {
-    const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/folders', {
-      headers: { Authorization: _cloudinaryAuth() }
-    });
+    const res = await axios.get(CLOUDINARY_PROXY + '?action=folders');
     const folders = res.data.folders || [];
     console.log('[Cloudinary] Loaded', folders.length, 'folders');
     return folders;
@@ -50,10 +37,7 @@ async function fetchFolders() {
 async function fetchAllProducts(folders) {
   try {
     const requests = folders.map(f =>
-      axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/by_asset_folder', {
-        params: { asset_folder: f.name, max_results: 50, with_field: 'metadata' },
-        headers: { Authorization: _cloudinaryAuth() }
-      })
+      axios.get(CLOUDINARY_PROXY + '?action=products&folder=' + encodeURIComponent(f.name))
     );
     const responses = await Promise.all(requests);
     const products = responses.flatMap(r => (r.data.resources || []).map(_normalizeResource));
@@ -67,10 +51,7 @@ async function fetchAllProducts(folders) {
 
 async function fetchProductsByFolder(folderName) {
   try {
-    const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/by_asset_folder', {
-      params: { asset_folder: folderName, max_results: 50, with_field: 'metadata' },
-      headers: { Authorization: _cloudinaryAuth() }
-    });
+    const res = await axios.get(CLOUDINARY_PROXY + '?action=products&folder=' + encodeURIComponent(folderName));
     const products = (res.data.resources || []).map(_normalizeResource);
     console.log('[Cloudinary] Loaded', products.length, 'products for folder', folderName);
     return products;
@@ -82,11 +63,7 @@ async function fetchProductsByFolder(folderName) {
 
 async function fetchProductById(assetId) {
   try {
-    const res = await axios.post(
-      CLOUDINARY_CONFIG.baseUrl + '/resources/by_asset_ids',
-      { asset_ids: [assetId] },
-      { headers: { Authorization: _cloudinaryAuth(), 'Content-Type': 'application/json' } }
-    );
+    const res = await axios.get(CLOUDINARY_PROXY + '?action=product&asset_id=' + encodeURIComponent(assetId));
     const resources = res.data.resources || [];
     if (resources.length > 0) {
       console.log('[Cloudinary] Loaded product', assetId);
@@ -103,14 +80,10 @@ async function fetchProductById(assetId) {
   };
 }
 
-// Returns raw Cloudinary resource objects (not normalised) so all fields are
-// available — used by the Cloudinary Folder Structure admin page.
+// Returns raw Cloudinary resource objects (not normalised) — used by the Cloudinary Folder Structure admin page.
 async function fetchFolderAssetsRaw(folderName) {
   try {
-    const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/by_asset_folder', {
-      params: { asset_folder: folderName, max_results: 50, with_field: 'metadata,tags' },
-      headers: { Authorization: _cloudinaryAuth() }
-    });
+    const res = await axios.get(CLOUDINARY_PROXY + '?action=raw_assets&folder=' + encodeURIComponent(folderName));
     console.log('[Cloudinary] Loaded raw assets for folder', folderName);
     return res.data.resources || [];
   } catch (e) {
@@ -121,14 +94,7 @@ async function fetchFolderAssetsRaw(folderName) {
 
 async function searchProducts(query) {
   try {
-    const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/search', {
-      params: {
-        expression: 'resource_type:image AND (metadata.name:' + query + '* OR metadata.description:' + query + '*)',
-        with_field: 'metadata',
-        max_results: 10
-      },
-      headers: { Authorization: _cloudinaryAuth() }
-    });
+    const res = await axios.get(CLOUDINARY_PROXY + '?action=search&query=' + encodeURIComponent(query));
     const products = (res.data.resources || []).map(_normalizeResource);
     console.log('[Cloudinary] Search returned', products.length, 'results');
     return products;
