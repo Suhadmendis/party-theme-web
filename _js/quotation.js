@@ -39,13 +39,10 @@ new Vue({
         this.fetchCloudinaryDataSearch();
       }
     },
-    fetchDBDataSearch() {
-      const query = this.SEARCH_QUERY.toLowerCase();
-      const results = STATIC_PRODUCTS.filter(p =>
-        (p.asset_folder + " " + p.description + " " + p.name).toLowerCase().includes(query)
-      ).slice(0, 10);
-      this.pageVisibilityLock = false;
+    async fetchDBDataSearch() {
+      const results = await searchProducts(this.SEARCH_QUERY);
       this.filteredResults = results;
+      this.pageVisibilityLock = false;
     },
     getTruncatedDescription(description) {
       return description.length > 50 ? description.slice(0, 50) + '...' : description;

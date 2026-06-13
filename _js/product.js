@@ -37,18 +37,10 @@ new Vue({
         this.fetchCloudinaryData(); // Fetch Cloudinary data
       }, 1000);
     },
-    fetchCloudinaryData() {
-      const match = STATIC_PRODUCTS.find(p => p.asset_id === this.asset_id) || STATIC_PRODUCTS[0];
-      this.PRODUCT = this.refactorProduct({
-        asset_folder: match.asset_folder,
-        asset_id: match.asset_id,
-        secure_url: match.secure_url,
-        url: match.url,
-        metadata: match.metadata,
-        last_updated: { update_at: new Date().toISOString() },
-        created_at: new Date().toISOString()
-      });
-      setTimeout(() => { this.initCalendar(); }, 1000);
+    async fetchCloudinaryData() {
+      const product = await fetchProductById(this.asset_id);
+      this.PRODUCT = this.refactorProduct(product);
+      setTimeout(() => { this.initCalendar(); }, 500);
     },
     refactorProduct(product) {
       console.log(product);
@@ -66,10 +58,9 @@ new Vue({
 
       return refactoredProduct;
     },
-    getRelatedProducts(FLAG, asset_folder) {
-      const related = STATIC_PRODUCTS.filter(
-        p => p.asset_folder === asset_folder && p.asset_id !== this.PRODUCT.asset_id
-      );
+    async getRelatedProducts(FLAG, asset_folder) {
+      const products = await fetchProductsByFolder(asset_folder);
+      const related = products.filter(p => p.asset_id !== this.PRODUCT.asset_id);
       this.relatedProducts = this.maximizeProducts(related);
     },
     GoTo(navigate) {

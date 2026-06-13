@@ -1,7 +1,6 @@
 new Vue({
   el: "#app",
   data: {
-    offer_title: "Special Offers Just for You!",
     fetchedData: [],
     fetchedFilferdData: [],
     SEARCH_QUERY: "",
@@ -9,36 +8,37 @@ new Vue({
     selectedFolderName: "",
     pageVisibilityLock: true,
   },
-  created() {
-    setTimeout(() => {
-      this.loadFolders();
-    }, 1000);
+  async created() {
+    await this.loadFolders();
   },
   methods: {
-    loadFolders() {
+    async loadFolders() {
+      const folders = await fetchFolders();
+      this.folderNames = folders;
+      this.selectedFolderName = folders.length > 0 ? folders[0].name : '';
+      const products = await fetchAllProducts(folders);
+      this.fetchedData = products;
+      this.fetchedFilferdData = products;
       this.pageVisibilityLock = false;
-      this.folderNames = STATIC_FOLDERS;
-      this.selectedFolderName = STATIC_FOLDERS[0].name;
-      this.getProducts();
+      this.selectUserFolder();
     },
     onSearchInput() {
       this.getProducts();
     },
     getProducts() {
-      const query = this.SEARCH_QUERY.toLowerCase();
-      const results = query === ""
-        ? STATIC_PRODUCTS
-        : STATIC_PRODUCTS.filter(p =>
-            (p.asset_folder + " " + p.description + " " + p.name).toLowerCase().includes(query)
-          );
-      this.pageVisibilityLock = false;
-      this.fetchedData = results;
-      this.fetchedFilferdData = results;
+      if (this.SEARCH_QUERY === '') {
+        this.fetchedFilferdData = this.fetchedData;
+      } else {
+        const q = this.SEARCH_QUERY.toLowerCase();
+        this.fetchedFilferdData = this.fetchedData.filter(p =>
+          (p.asset_folder + ' ' + p.description + ' ' + p.name).toLowerCase().includes(q)
+        );
+      }
       this.selectUserFolder();
     },
     selectUserFolder() {
       if (this.SEARCH_QUERY == "") {
-        this.selectFolder(this.folderNames[0].name);
+        if (this.folderNames.length > 0) this.selectFolder(this.folderNames[0].name);
       } else {
         let found = 0;
         const result = Object.groupBy(this.fetchedFilferdData, ({ asset_folder }) => asset_folder);
@@ -54,8 +54,6 @@ new Vue({
       this.selectedFolderName = name;
     },
     getProductCountByFolder(name) {
-      // let productCount = this.fetchedData.filter(product => product.asset_folder == name).length;
-      // return this.SEARCH_QUERY == "" ? "" : productCount;
     },
     GoTo(navigate, asset_id) {
       if (navigate == "PRODUCT") {
