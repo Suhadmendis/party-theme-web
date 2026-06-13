@@ -115,6 +115,7 @@
   <script src="_js/vendor/axios.min.js"></script>
   <script src="_js/vendor/vue.js"></script>
   <script src="_js/data/static-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
   <link rel="stylesheet" href="_css/test.css" />
   <link rel="stylesheet" href="_css/header.css" />
@@ -358,15 +359,11 @@
   <script src="_js/pages/index.js"></script>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer id="footer-app" class="footer">
     <div class="footer-columns">
       <div class="footer-column footer-logo">
-        <img src="images/logo_result.webp" alt="Company Logo" />
-        <p>
-          We provide luxury balloon decor for birthdays, bridal and baby
-          showers, gender reveals, corporate events, and more. Serving
-          Westchester County and surrounding areas.
-        </p>
+        <img src="images/logo_result.webp" :alt="company.company_name + ' Logo'" />
+        <p>{{ company.description }}</p>
       </div>
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
@@ -382,14 +379,16 @@
         <h4>Contact</h4>
         <div class="contact-info">
           <i class="fa fa-envelope"></i>
-          <a href="mailto:email@example.com" class="footer-link">Email Us</a>
+          <a v-if="company.email" :href="'mailto:' + company.email" class="footer-link">{{ company.email }}</a>
+          <span v-else class="footer-link">Email Us</span>
         </div>
         <div class="contact-info">
           <i class="fa fa-phone"></i>
-          <a href="tel:+1234567890" class="footer-link">Call or Text Me</a>
+          <a v-if="company.phone" :href="'tel:' + company.phone" class="footer-link">{{ company.phone }}</a>
+          <span v-else class="footer-link">Call or Text Us</span>
         </div>
         <div class="contact-info">
-          <i class="fa fa-map-marker"></i> 658/1A Havelock Rd, Colombo 00600
+          <i class="fa fa-map-marker"></i> {{ displayAddress }}
         </div>
         <br>
         <a href="#top" class="to-top-btn">To Top</a>
@@ -399,9 +398,12 @@
       <a href="#">Privacy Policy</a> &amp;
       <a href="#">Terms of Use</a>
       <br />
-      Site by Party Theme
+      &copy; {{ company.company_name }}
     </div>
   </footer>
+
+  <script src="_js/integrations/supabase.js"></script>
+  <script src="_js/pages/footer.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
