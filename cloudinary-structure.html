@@ -13,9 +13,8 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
-  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
-  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <meta name="description" content="Browse the Cloudinary folder hierarchy and asset structure for Party Theme.">
+  <title>Party Theme | Cloudinary Folder Structure</title>
   <meta name="theme-color" content="black">
 
   <link rel="icon" type="image/png" href="images/logo_result.webp">
@@ -31,8 +30,7 @@
   <link rel="stylesheet" href="_css/test.css" />
   <link rel="stylesheet" href="_css/header.css" />
   <link rel="stylesheet" href="_css/footer.css" />
-  <link rel="stylesheet" href="_css/index.css" />
-  <link rel="stylesheet" href="_css/package.css" />
+  <link rel="stylesheet" href="_css/cloudinary-structure.css" />
 </head>
 
 <body>
@@ -48,7 +46,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
         </li>
         <li class="nav-item">
@@ -60,7 +58,7 @@
         <li class="nav-item">
           <a class="nav-link" href="quotation.html">Quotation</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="cloudinary-structure.html">Cloudinary Folder Structure</a>
         </li>
       </ul>
@@ -71,36 +69,42 @@
     </div>
   </nav>
 
-  <div id="package-section">
-    <div class="container text-white" v-for="package in PACKAGES">
-      <br><br>
-      <div class="premium-title">{{ package.packageName }}</div>
+  <div id="cloudinary-structure">
+    <div class="container">
 
-      <div class="row">
-        <div class="col-lg-7 order-lg-1 order-2">
-          <ul class="product-details list-unstyled">
-            <li><strong>Design:</strong> Features a vibrant, enchanted garden scene with flowers, butterflies,
-              and fairy lights</li>
-            <li><strong>Material:</strong> {{ package.material }}</li>
-            <li><strong>Dimensions:</strong> 7 feet by 5 feet</li>
-            <li><strong>Available AddOns:</strong> </li>
-            <li style="margin-left: 20px; margin-bottom: 2px" v-for="addOn in package.availableAddOns">{{ addOn }}</li>
-          </ul>
-          <p>{{ package.description }}</p>
-        </div>
-        <div class="offset-lg-1 col-lg-4 order-lg-2 order-1 position-relative">
-          <div class="balloon-arch">
-            <img id="package-image" :src="package.imageUrl" alt="Balloon Arch">
+      <h1 class="cs-page-title">Cloudinary Folder Structure</h1>
+      <p class="cs-page-subtitle">Browse folders, subfolders, and asset names. No image previews — paths and identifiers only.</p>
+
+      <div class="cs-loading" v-if="loading">
+        <i class="fa fa-circle-notch fa-spin"></i> Loading structure...
+      </div>
+
+      <div v-else>
+        <div class="cs-folder" v-for="folder in folderTree" :key="folder.name">
+
+          <div class="cs-folder-header" @click="toggleFolder(folder.name)">
+            <i class="fa fa-folder cs-folder-icon" :class="openFolders[folder.name] ? 'fa-folder-open' : 'fa-folder'"></i>
+            <span class="cs-folder-name">{{ folder.name.replace(/_/g, ' ') }}</span>
+            <span class="cs-folder-count">{{ folder.assets.length }} asset{{ folder.assets.length !== 1 ? 's' : '' }}</span>
+            <i class="fa cs-folder-toggle" :class="openFolders[folder.name] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
           </div>
+
+          <div class="cs-asset-list" v-show="openFolders[folder.name]">
+            <div class="cs-asset-item" v-for="asset in folder.assets" :key="asset.asset_id">
+              <span class="cs-asset-name">{{ asset.name || '(unnamed)' }}</span>
+              <div class="cs-asset-meta">
+                <span class="cs-asset-id">ID: {{ asset.asset_id }}</span>
+                <span class="cs-asset-path">{{ assetPath(asset) }}</span>
+              </div>
+            </div>
+            <div class="cs-empty" v-if="folder.assets.length === 0">No assets in this folder</div>
+          </div>
+
         </div>
       </div>
-      <div class="product-price">LKR {{ package.amount }}.00</div>
-      <br>
+
     </div>
   </div>
-
-  <script src="_js/cloudinary.js"></script>
-  <script src="_js/package.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
@@ -148,6 +152,9 @@
       Site by Party Theme
     </div>
   </footer>
+
+  <script src="_js/cloudinary.js"></script>
+  <script src="_js/cloudinary-structure.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
