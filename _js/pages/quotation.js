@@ -201,7 +201,7 @@ new Vue({
         const { data, error } = await _supabase
           .from('quotations')
           .select('id, reference, customer_name, customer_email, grand_total, created_at, status, last_sent_at, last_sent_to')
-          .or('reference.ilike.%' + q + '%,customer_name.ilike.%' + q + '%,customer_email.ilike.%' + q + '%')
+          .or('reference.ilike.%' + q + '%,customer_name.ilike.%' + q + '%,customer_email.ilike.%' + q + '%,created_at::text.ilike.%' + q + '%')
           .order('created_at', { ascending: false })
           .limit(10);
         if (error) throw error;
