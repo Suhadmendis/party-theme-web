@@ -151,6 +151,16 @@
       <!-- ── NEW QUOTATION MODE ── -->
       <div v-if="pageMode === 'new'">
 
+        <!-- Clone Banner -->
+        <div class="qt-clone-banner" v-if="isClone && clonedFromReference">
+          <i class="fa-solid fa-copy"></i>
+          Cloned from <span class="qt-clone-source-ref">{{ clonedFromReference }}</span>
+          — modify as needed, then save to create a new quotation.
+          <button class="qt-clone-banner-dismiss" @click="isClone = false; clonedFromReference = null" title="Dismiss">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
         <!-- Save Success Banner -->
         <div class="qt-saved-banner" v-if="saveSuccess">
           <div class="qt-saved-banner-inner">
@@ -310,6 +320,10 @@
             <div class="qt-view-ref-meta">
               <span class="qt-view-status" :class="'qt-status-' + viewedQuotation.status">{{ viewedQuotation.status }}</span>
               <span class="qt-view-date">Created {{ formatDate(viewedQuotation.created_at) }}</span>
+              <div class="qt-view-cloned-from" v-if="viewedQuotation.cloned_from">
+                <i class="fa-solid fa-copy"></i>
+                Cloned from <span class="qt-clone-source-ref">{{ viewedQuotation.cloned_from }}</span>
+              </div>
             </div>
           </div>
 
@@ -388,7 +402,7 @@
                   <span v-if="!sendingEmail"><i class="fa-solid fa-paper-plane"></i> Send Quotation</span>
                   <span v-else><i class="fa-solid fa-circle-notch fa-spin"></i> Sending…</span>
                 </button>
-                <button class="qt-clone-btn" disabled title="Clone feature coming soon">
+                <button class="qt-clone-btn" @click="cloneQuotation">
                   <i class="fa-solid fa-copy"></i> Clone
                 </button>
               </div>

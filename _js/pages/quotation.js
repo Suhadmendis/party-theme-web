@@ -13,6 +13,8 @@ new Vue({
     saveSuccess: false,
     saveError: null,
     savedReference: null,
+    isClone: false,
+    clonedFromReference: null,
 
     // Quotation search (find existing)
     qtSearchQuery: '',
@@ -114,18 +116,23 @@ new Vue({
         const { data: reference, error: refErr } = await _supabase.rpc('next_quotation_reference');
         if (refErr) throw new Error('Could not generate quotation reference: ' + refErr.message);
 
+        const insertData = {
+          seller_id: session.user.id,
+          reference: reference,
+          customer_name: this.customerName || null,
+          customer_email: this.customerEmail || null,
+          item_count: this.itemCount,
+          subtotal: this.subtotal,
+          grand_total: this.grandTotal,
+          status: 'saved',
+        };
+        if (this.isClone && this.clonedFromReference) {
+          insertData.cloned_from = this.clonedFromReference;
+        }
+
         const { data: quot, error: quotErr } = await _supabase
           .from('quotations')
-          .insert({
-            seller_id: session.user.id,
-            reference: reference,
-            customer_name: this.customerName || null,
-            customer_email: this.customerEmail || null,
-            item_count: this.itemCount,
-            subtotal: this.subtotal,
-            grand_total: this.grandTotal,
-            status: 'saved',
-          })
+          .insert(insertData)
           .select()
           .single();
         if (quotErr) throw new Error(quotErr.message);
@@ -150,6 +157,8 @@ new Vue({
         this.QUOTATION_ITEMS = [];
         this.customerName = '';
         this.customerEmail = '';
+        this.isClone = false;
+        this.clonedFromReference = null;
       } catch (e) {
         this.saveError = e.message || 'An unexpected error occurred.';
       } finally {
@@ -159,6 +168,8 @@ new Vue({
     dismissSuccess: function () {
       this.saveSuccess = false;
       this.savedReference = null;
+      this.isClone = false;
+      this.clonedFromReference = null;
     },
 
     // ── Quotation search ────────────────────────────────────────────────────
@@ -233,6 +244,8 @@ new Vue({
       this.emailHistory = [];
       this.emailSuccess = false;
       this.emailError = null;
+      // QUOTATION_ITEMS, customerName, customerEmail, isClone, clonedFromReference
+      // are intentionally preserved so in-progress work survives a view round-trip
     },
 
     // ── Email ───────────────────────────────────────────────────────────────
@@ -266,6 +279,40 @@ new Vue({
         .eq('quotation_id', quotation_id)
         .order('sent_at', { ascending: false });
       this.emailHistory = data || [];
+    },
+
+    // ── Clone ───────────────────────────────────────────────────────────────
+    cloneQuotation: function () {
+      if (!this.viewedQuotation) return;
+
+      // Pre-fill new quotation form from the viewed quotation
+      this.customerName  = this.viewedQuotation.customer_name  || '';
+      this.customerEmail = this.viewedQuotation.customer_email || '';
+      this.QUOTATION_ITEMS = this.viewedItems.map(function (item) {
+        return {
+          asset_id:   item.asset_id   || null,
+          item_name:  item.item_name,
+          quantity:   parseFloat(item.quantity)   || 1,
+          unit_price: parseFloat(item.unit_price) || 0,
+          subtotal:   parseFloat(item.subtotal)   || 0,
+        };
+      });
+
+      this.isClone = true;
+      this.clonedFromReference = this.viewedQuotation.reference;
+
+      // Clear view-mode state and switch to new mode
+      this.pageMode        = 'new';
+      this.viewedQuotation = null;
+      this.viewedItems     = [];
+      this.emailHistory    = [];
+      this.emailSuccess    = false;
+      this.emailError      = null;
+      this.saveSuccess     = false;
+      this.saveError       = null;
+      this.savedReference  = null;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 });

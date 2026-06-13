@@ -686,19 +686,79 @@
 
 .qt-clone-btn {
   background: none;
-  color: #6c757d;
+  color: #495057;
   border: 1px solid #dee2e6;
   border-radius: 10px;
   padding: 12px 24px;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  cursor: not-allowed;
+  cursor: pointer;
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 8px;
-  opacity: 0.7;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.qt-clone-btn:hover {
+  border-color: #4ECDC4;
+  color: #1a1a2e;
+}
+
+/* ── Clone banner (shown when editing a cloned quotation) ── */
+.qt-clone-banner {
+  background: #f0f0ff;
+  border: 1px solid #c5c5ff;
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #3730a3;
+  flex-wrap: wrap;
+}
+
+.qt-clone-banner > i { flex-shrink: 0; }
+
+.qt-clone-source-ref {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+}
+
+.qt-clone-banner-dismiss {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+
+.qt-clone-banner-dismiss:hover {
+  color: #1a1a2e;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* ── Cloned-from info inside the dark reference card ── */
+.qt-view-cloned-from {
+  font-size: 12px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.qt-view-cloned-from .qt-clone-source-ref {
+  color: #d1d5db;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .qt-no-email-warning {
