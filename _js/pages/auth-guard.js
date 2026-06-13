@@ -15,7 +15,9 @@
   console.log('[AuthGuard] isLoggedIn:', isLoggedIn);
 
   // Redirect unauthenticated users to home on protected pages
-  var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  var rawPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Netlify strips .html from URLs, so normalise to always include it
+  var currentPage = rawPage.indexOf('.') === -1 ? rawPage + '.html' : rawPage;
   console.log('[AuthGuard] currentPage:', currentPage);
 
   var PROTECTED = ['quotation.html', 'cloudinary-structure.html'];
