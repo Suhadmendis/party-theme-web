@@ -451,6 +451,312 @@
   cursor: not-allowed;
 }
 
+/* ── Find quotation search ── */
+.qt-find-card {
+  margin-bottom: 20px;
+}
+
+.qt-find-wrap {
+  position: relative;
+}
+
+.qt-find-input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.qt-find-spinner {
+  position: absolute;
+  right: 14px;
+  color: #4ECDC4;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.qt-find-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 300;
+}
+
+.qt-find-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f3f5;
+  transition: background 0.15s;
+}
+
+.qt-find-result:last-child { border-bottom: none; }
+.qt-find-result:hover { background: #f0fffe; }
+
+.qt-find-result-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.qt-find-ref {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.qt-find-customer {
+  font-size: 13px;
+  color: #495057;
+}
+
+.qt-find-email {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.qt-find-result-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.qt-find-total {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.qt-find-date {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* ── Page header with back button ── */
+.qt-page-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.qt-back-btn {
+  background: none;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.qt-back-btn:hover {
+  border-color: #4ECDC4;
+  color: #1a1a2e;
+}
+
+/* ── Loading state ── */
+.qt-loading-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+.qt-loading-state i {
+  margin-right: 8px;
+  color: #4ECDC4;
+}
+
+/* ── View mode: reference card ── */
+.qt-view-ref-card {
+  background: #1a1a2e;
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.qt-view-ref-number {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+.qt-view-ref-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.qt-view-status {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.qt-status-saved { background: #e6f9f8; color: #1a7a74; }
+.qt-status-sent  { background: #e8f5e9; color: #2e7d32; }
+.qt-status-draft { background: #fff8e1; color: #7b5800; }
+
+.qt-view-date {
+  font-size: 13px;
+  color: #adb5bd;
+}
+
+/* ── View mode: read-only cells ── */
+.qt-view-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.qt-view-value {
+  font-size: 15px;
+  color: #1a1a2e;
+}
+
+.qt-view-cell {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  vertical-align: middle;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.qt-cell-center { text-align: center; }
+.qt-cell-right  { text-align: right; }
+
+/* ── View action buttons ── */
+.qt-view-action-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.qt-resend-btn {
+  background: #4ECDC4;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.qt-resend-btn:hover:not(:disabled) { background: #3ab5ac; }
+.qt-resend-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.qt-clone-btn {
+  background: none;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: not-allowed;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.7;
+}
+
+.qt-no-email-warning {
+  font-size: 13px;
+  color: #e65100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+/* ── Delivery history ── */
+.qt-delivery-card {
+  margin-top: 20px;
+}
+
+.qt-delivery-summary {
+  font-size: 14px;
+  color: #495057;
+  margin: 0 0 16px;
+}
+
+.qt-never-sent {
+  color: #adb5bd;
+}
+
+.qt-email-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qt-email-log {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.qt-log-status {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.qt-log-sent   { color: #2e7d32; }
+.qt-log-failed { color: #c62828; }
+
+.qt-log-meta {
+  font-size: 13px;
+  color: #6c757d;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   .qt-customer-grid {

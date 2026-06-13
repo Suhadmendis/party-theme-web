@@ -96,151 +96,330 @@
 
       <!-- Page Header -->
       <div class="qt-page-header">
-        <h1 class="qt-title">New Quotation</h1>
-        <p class="qt-subtitle">Add products, set quantities and pricing, then save.</p>
-      </div>
-
-      <!-- Save Success Banner -->
-      <div class="qt-saved-banner" v-if="saveSuccess">
-        <div class="qt-saved-banner-inner">
-          <i class="fa-solid fa-circle-check qt-saved-icon"></i>
-          <div class="qt-saved-body">
-            <div class="qt-saved-ref">{{ savedReference }}</div>
-            <p class="qt-saved-msg">Quotation saved successfully. Start below to create a new one.</p>
+        <div class="qt-page-header-row">
+          <div>
+            <h1 class="qt-title" v-if="pageMode === 'new'">New Quotation</h1>
+            <h1 class="qt-title" v-else>Quotation Details</h1>
+            <p class="qt-subtitle" v-if="pageMode === 'new'">Add products, set quantities and pricing, then save.</p>
           </div>
-        </div>
-        <button class="qt-dismiss-btn" @click="dismissSuccess" title="Dismiss">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <!-- Customer Information -->
-      <section class="qt-card">
-        <h2 class="qt-card-heading">
-          <i class="fa-solid fa-user"></i> Customer Information
-        </h2>
-        <div class="qt-customer-grid">
-          <div class="qt-field-group">
-            <label class="qt-label">Customer Name <span class="qt-optional">(optional)</span></label>
-            <input type="text" class="qt-input" v-model="customerName" placeholder="Full name" autocomplete="off" />
-          </div>
-          <div class="qt-field-group">
-            <label class="qt-label">Customer Email <span class="qt-optional">(optional)</span></label>
-            <input type="email" class="qt-input" v-model="customerEmail" placeholder="email@example.com" autocomplete="off" />
-          </div>
-        </div>
-      </section>
-
-      <!-- Product Search -->
-      <section class="qt-card">
-        <h2 class="qt-card-heading">
-          <i class="fa-solid fa-magnifying-glass"></i> Add Items
-        </h2>
-        <div class="qt-search-wrap">
-          <input
-            id="search-bar-product"
-            class="qt-input"
-            type="search"
-            v-model="SEARCH_QUERY"
-            @input="onSearchInput()"
-            placeholder="Search products by name or description…"
-            aria-label="Search products"
-            autocomplete="off"
-          />
-          <div class="qt-dropdown" v-if="filteredResults.length">
-            <div
-              class="qt-dropdown-item"
-              v-for="item in filteredResults"
-              :key="item.asset_id"
-              @click="pickItem(item)"
-              role="button"
-            >
-              <div class="qt-dropdown-thumb">
-                <img :src="item.secure_url" :alt="item.name || 'Product'" loading="lazy" />
-              </div>
-              <div class="qt-dropdown-info">
-                <p class="qt-dropdown-name">{{ item.name || '(no name)' }}</p>
-                <p class="qt-dropdown-desc">{{ getTruncatedDescription(item.description) }}</p>
-                <p class="qt-dropdown-folder">{{ item.asset_folder }}</p>
-              </div>
-              <i class="fa-solid fa-plus qt-dropdown-add"></i>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Quotation Items Table -->
-      <section class="qt-card" v-if="QUOTATION_ITEMS.length">
-        <h2 class="qt-card-heading">
-          <i class="fa-solid fa-list-check"></i> Quotation Items
-        </h2>
-        <div class="qt-table-wrap">
-          <table class="qt-table">
-            <thead>
-              <tr>
-                <th class="qt-col-name">Item Name</th>
-                <th class="qt-col-qty">Qty</th>
-                <th class="qt-col-price">Unit Price</th>
-                <th class="qt-col-sub">Subtotal</th>
-                <th class="qt-col-action"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in QUOTATION_ITEMS" :key="index" class="qt-row">
-                <td>
-                  <input type="text" class="qt-input qt-name-input" v-model="item.item_name" />
-                </td>
-                <td>
-                  <input type="number" class="qt-input qt-num-input" v-model.number="item.quantity" @input="updateSubtotal(item)" min="1" step="1" />
-                </td>
-                <td>
-                  <input type="number" class="qt-input qt-num-input" v-model.number="item.unit_price" @input="updateSubtotal(item)" min="0" step="0.01" />
-                </td>
-                <td class="qt-subtotal-cell">{{ formatAmount(item.subtotal) }}</td>
-                <td class="qt-action-cell">
-                  <button class="qt-remove-btn" @click="removeItem(index)" title="Remove item">
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Empty State -->
-      <div class="qt-empty-state" v-if="!QUOTATION_ITEMS.length">
-        <i class="fa-solid fa-receipt qt-empty-icon"></i>
-        <p>No items yet — search for products above to add them.</p>
-      </div>
-
-      <!-- Totals + Save -->
-      <div class="qt-footer-bar" v-if="QUOTATION_ITEMS.length">
-        <div class="qt-totals">
-          <div class="qt-totals-row">
-            <span class="qt-totals-label">Items</span>
-            <span class="qt-totals-value">{{ itemCount }}</span>
-          </div>
-          <div class="qt-totals-row">
-            <span class="qt-totals-label">Subtotal</span>
-            <span class="qt-totals-value">{{ formatAmount(subtotal) }}</span>
-          </div>
-          <div class="qt-totals-row qt-totals-grand">
-            <span class="qt-totals-label">Grand Total</span>
-            <span class="qt-totals-value">{{ formatAmount(grandTotal) }}</span>
-          </div>
-        </div>
-
-        <div class="qt-save-area">
-          <div class="qt-alert qt-alert-error" v-if="saveError">
-            <i class="fa-solid fa-circle-exclamation"></i> {{ saveError }}
-          </div>
-          <button class="qt-save-btn" @click="saveQuotation" :disabled="saving">
-            <span v-if="!saving"><i class="fa-solid fa-floppy-disk"></i> Save Quotation</span>
-            <span v-else><i class="fa-solid fa-circle-notch fa-spin"></i> Saving…</span>
+          <button class="qt-back-btn" v-if="pageMode === 'view'" @click="backToNew">
+            <i class="fa-solid fa-arrow-left"></i> New Quotation
           </button>
         </div>
       </div>
+
+      <!-- Find Existing Quotation -->
+      <div class="qt-card qt-find-card">
+        <h2 class="qt-card-heading">
+          <i class="fa-solid fa-clock-rotate-left"></i> Find Quotation
+        </h2>
+        <div class="qt-find-wrap">
+          <div class="qt-find-input-row">
+            <input
+              class="qt-input qt-find-input"
+              type="search"
+              v-model="qtSearchQuery"
+              @input="onQtSearchInput()"
+              @blur="hideQtResultsDelayed()"
+              @focus="showQtResults = qtSearchResults.length > 0"
+              placeholder="Search by reference, customer name or email…"
+              autocomplete="off"
+            />
+            <i class="fa-solid fa-circle-notch fa-spin qt-find-spinner" v-if="qtSearching"></i>
+          </div>
+          <div class="qt-find-results" v-if="showQtResults && qtSearchResults.length">
+            <div
+              class="qt-find-result"
+              v-for="result in qtSearchResults"
+              :key="result.id"
+              @mousedown.prevent="selectQuotation(result)"
+            >
+              <div class="qt-find-result-left">
+                <span class="qt-find-ref">{{ result.reference }}</span>
+                <span class="qt-find-customer" v-if="result.customer_name">{{ result.customer_name }}</span>
+                <span class="qt-find-email" v-if="result.customer_email">{{ result.customer_email }}</span>
+              </div>
+              <div class="qt-find-result-right">
+                <span class="qt-find-total">{{ formatAmount(result.grand_total) }}</span>
+                <span class="qt-find-date">{{ formatDate(result.created_at) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NEW QUOTATION MODE ── -->
+      <div v-if="pageMode === 'new'">
+
+        <!-- Save Success Banner -->
+        <div class="qt-saved-banner" v-if="saveSuccess">
+          <div class="qt-saved-banner-inner">
+            <i class="fa-solid fa-circle-check qt-saved-icon"></i>
+            <div class="qt-saved-body">
+              <div class="qt-saved-ref">{{ savedReference }}</div>
+              <p class="qt-saved-msg">Quotation saved successfully. Start below to create a new one.</p>
+            </div>
+          </div>
+          <button class="qt-dismiss-btn" @click="dismissSuccess" title="Dismiss">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Customer Information -->
+        <section class="qt-card">
+          <h2 class="qt-card-heading">
+            <i class="fa-solid fa-user"></i> Customer Information
+          </h2>
+          <div class="qt-customer-grid">
+            <div class="qt-field-group">
+              <label class="qt-label">Customer Name <span class="qt-optional">(optional)</span></label>
+              <input type="text" class="qt-input" v-model="customerName" placeholder="Full name" autocomplete="off" />
+            </div>
+            <div class="qt-field-group">
+              <label class="qt-label">Customer Email <span class="qt-optional">(optional)</span></label>
+              <input type="email" class="qt-input" v-model="customerEmail" placeholder="email@example.com" autocomplete="off" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Product Search -->
+        <section class="qt-card">
+          <h2 class="qt-card-heading">
+            <i class="fa-solid fa-magnifying-glass"></i> Add Items
+          </h2>
+          <div class="qt-search-wrap">
+            <input
+              id="search-bar-product"
+              class="qt-input"
+              type="search"
+              v-model="SEARCH_QUERY"
+              @input="onSearchInput()"
+              placeholder="Search products by name or description…"
+              aria-label="Search products"
+              autocomplete="off"
+            />
+            <div class="qt-dropdown" v-if="filteredResults.length">
+              <div
+                class="qt-dropdown-item"
+                v-for="item in filteredResults"
+                :key="item.asset_id"
+                @click="pickItem(item)"
+                role="button"
+              >
+                <div class="qt-dropdown-thumb">
+                  <img :src="item.secure_url" :alt="item.name || 'Product'" loading="lazy" />
+                </div>
+                <div class="qt-dropdown-info">
+                  <p class="qt-dropdown-name">{{ item.name || '(no name)' }}</p>
+                  <p class="qt-dropdown-desc">{{ getTruncatedDescription(item.description) }}</p>
+                  <p class="qt-dropdown-folder">{{ item.asset_folder }}</p>
+                </div>
+                <i class="fa-solid fa-plus qt-dropdown-add"></i>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quotation Items Table -->
+        <section class="qt-card" v-if="QUOTATION_ITEMS.length">
+          <h2 class="qt-card-heading">
+            <i class="fa-solid fa-list-check"></i> Quotation Items
+          </h2>
+          <div class="qt-table-wrap">
+            <table class="qt-table">
+              <thead>
+                <tr>
+                  <th class="qt-col-name">Item Name</th>
+                  <th class="qt-col-qty">Qty</th>
+                  <th class="qt-col-price">Unit Price</th>
+                  <th class="qt-col-sub">Subtotal</th>
+                  <th class="qt-col-action"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in QUOTATION_ITEMS" :key="index" class="qt-row">
+                  <td>
+                    <input type="text" class="qt-input qt-name-input" v-model="item.item_name" />
+                  </td>
+                  <td>
+                    <input type="number" class="qt-input qt-num-input" v-model.number="item.quantity" @input="updateSubtotal(item)" min="1" step="1" />
+                  </td>
+                  <td>
+                    <input type="number" class="qt-input qt-num-input" v-model.number="item.unit_price" @input="updateSubtotal(item)" min="0" step="0.01" />
+                  </td>
+                  <td class="qt-subtotal-cell">{{ formatAmount(item.subtotal) }}</td>
+                  <td class="qt-action-cell">
+                    <button class="qt-remove-btn" @click="removeItem(index)" title="Remove item">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Empty State -->
+        <div class="qt-empty-state" v-if="!QUOTATION_ITEMS.length">
+          <i class="fa-solid fa-receipt qt-empty-icon"></i>
+          <p>No items yet — search for products above to add them.</p>
+        </div>
+
+        <!-- Totals + Save -->
+        <div class="qt-footer-bar" v-if="QUOTATION_ITEMS.length">
+          <div class="qt-totals">
+            <div class="qt-totals-row">
+              <span class="qt-totals-label">Items</span>
+              <span class="qt-totals-value">{{ itemCount }}</span>
+            </div>
+            <div class="qt-totals-row">
+              <span class="qt-totals-label">Subtotal</span>
+              <span class="qt-totals-value">{{ formatAmount(subtotal) }}</span>
+            </div>
+            <div class="qt-totals-row qt-totals-grand">
+              <span class="qt-totals-label">Grand Total</span>
+              <span class="qt-totals-value">{{ formatAmount(grandTotal) }}</span>
+            </div>
+          </div>
+          <div class="qt-save-area">
+            <div class="qt-alert qt-alert-error" v-if="saveError">
+              <i class="fa-solid fa-circle-exclamation"></i> {{ saveError }}
+            </div>
+            <button class="qt-save-btn" @click="saveQuotation" :disabled="saving">
+              <span v-if="!saving"><i class="fa-solid fa-floppy-disk"></i> Save Quotation</span>
+              <span v-else><i class="fa-solid fa-circle-notch fa-spin"></i> Saving…</span>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /pageMode === 'new' -->
+
+      <!-- ── VIEW MODE ── -->
+      <div v-if="pageMode === 'view'">
+
+        <!-- Loading -->
+        <div class="qt-loading-state" v-if="loadingQuotation">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading quotation…
+        </div>
+
+        <div v-if="!loadingQuotation && viewedQuotation">
+
+          <!-- Reference card -->
+          <div class="qt-view-ref-card">
+            <div class="qt-view-ref-number">{{ viewedQuotation.reference }}</div>
+            <div class="qt-view-ref-meta">
+              <span class="qt-view-status" :class="'qt-status-' + viewedQuotation.status">{{ viewedQuotation.status }}</span>
+              <span class="qt-view-date">Created {{ formatDate(viewedQuotation.created_at) }}</span>
+            </div>
+          </div>
+
+          <!-- Customer Info (read-only) -->
+          <section class="qt-card">
+            <h2 class="qt-card-heading">
+              <i class="fa-solid fa-user"></i> Customer Information
+            </h2>
+            <div class="qt-customer-grid">
+              <div>
+                <div class="qt-view-label">Customer Name</div>
+                <div class="qt-view-value">{{ viewedQuotation.customer_name || '—' }}</div>
+              </div>
+              <div>
+                <div class="qt-view-label">Customer Email</div>
+                <div class="qt-view-value">{{ viewedQuotation.customer_email || '—' }}</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Items table (read-only) -->
+          <section class="qt-card" v-if="viewedItems.length">
+            <h2 class="qt-card-heading">
+              <i class="fa-solid fa-list-check"></i> Quotation Items
+            </h2>
+            <div class="qt-table-wrap">
+              <table class="qt-table">
+                <thead>
+                  <tr>
+                    <th class="qt-col-name">Item Name</th>
+                    <th class="qt-col-qty">Qty</th>
+                    <th class="qt-col-price">Unit Price</th>
+                    <th class="qt-col-sub">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in viewedItems" :key="item.id" class="qt-row">
+                    <td class="qt-view-cell">{{ item.item_name }}</td>
+                    <td class="qt-view-cell qt-cell-center">{{ item.quantity }}</td>
+                    <td class="qt-view-cell qt-cell-right">{{ formatAmount(item.unit_price) }}</td>
+                    <td class="qt-subtotal-cell qt-cell-right">{{ formatAmount(item.subtotal) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Totals + Actions -->
+          <div class="qt-footer-bar">
+            <div class="qt-totals">
+              <div class="qt-totals-row">
+                <span class="qt-totals-label">Items</span>
+                <span class="qt-totals-value">{{ viewedItems.length }}</span>
+              </div>
+              <div class="qt-totals-row">
+                <span class="qt-totals-label">Subtotal</span>
+                <span class="qt-totals-value">{{ formatAmount(viewedQuotation.subtotal) }}</span>
+              </div>
+              <div class="qt-totals-row qt-totals-grand">
+                <span class="qt-totals-label">Grand Total</span>
+                <span class="qt-totals-value">{{ formatAmount(viewedQuotation.grand_total) }}</span>
+              </div>
+            </div>
+            <div class="qt-save-area">
+              <div class="qt-alert qt-alert-success" v-if="emailSuccess">
+                <i class="fa-solid fa-circle-check"></i> Quotation sent successfully.
+              </div>
+              <div class="qt-alert qt-alert-error" v-if="emailError">
+                <i class="fa-solid fa-circle-exclamation"></i> {{ emailError }}
+              </div>
+              <p class="qt-no-email-warning" v-if="!viewedQuotation.customer_email">
+                <i class="fa-solid fa-triangle-exclamation"></i> No customer email — add one to send this quotation.
+              </p>
+              <div class="qt-view-action-btns">
+                <button class="qt-resend-btn" @click="sendQuotation" :disabled="sendingEmail || !viewedQuotation.customer_email">
+                  <span v-if="!sendingEmail"><i class="fa-solid fa-paper-plane"></i> Send Quotation</span>
+                  <span v-else><i class="fa-solid fa-circle-notch fa-spin"></i> Sending…</span>
+                </button>
+                <button class="qt-clone-btn" disabled title="Clone feature coming soon">
+                  <i class="fa-solid fa-copy"></i> Clone
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery History -->
+          <section class="qt-card qt-delivery-card">
+            <h2 class="qt-card-heading">
+              <i class="fa-solid fa-paper-plane"></i> Delivery History
+            </h2>
+            <p class="qt-delivery-summary" v-if="viewedQuotation.last_sent_at">
+              Last sent to <strong>{{ viewedQuotation.last_sent_to }}</strong> on {{ formatDate(viewedQuotation.last_sent_at) }}.
+            </p>
+            <p class="qt-delivery-summary qt-never-sent" v-else>
+              Not yet sent to customer.
+            </p>
+            <div class="qt-email-log-list" v-if="emailHistory.length">
+              <div class="qt-email-log" v-for="log in emailHistory" :key="log.id">
+                <span class="qt-log-status" :class="'qt-log-' + log.status">
+                  <i class="fa-solid fa-circle-check" v-if="log.status === 'sent'"></i>
+                  <i class="fa-solid fa-circle-xmark" v-else></i>
+                  {{ log.status === 'sent' ? 'Sent' : 'Failed' }}
+                </span>
+                <span class="qt-log-meta">to {{ log.sent_to }} · {{ formatDate(log.sent_at) }}</span>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div><!-- /pageMode === 'view' -->
 
     </div>
   </div>
