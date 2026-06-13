@@ -1,39 +1,61 @@
 # Seasonal Effects
 
-Seasonal effects are managed by `_js/seasonal.js`. The module uses a registry pattern — effects are registered with a target month and only activate when the user's local date matches that month. CSS and HTML are injected dynamically, so no seasonal resources are loaded during other months.
+Seasonal effects are managed by `_js/seasonal.js` using Vue.js components, following the same `new Vue({ el: '#...' })` pattern used throughout the project. Each effect is a registered Vue component that activates only in its configured month. CSS and HTML are injected only when needed, so no seasonal resources load during other months.
 
-## How it works
+## Architecture
 
-1. `registerSeasonalEffect(config)` adds an effect to the registry.
-2. `loadSeasonalEffects()` runs on `DOMContentLoaded`, checks `new Date().getMonth() + 1`, and activates any effects whose `month` matches.
-3. If an effect has a `css` path, a `<link>` element is injected into `<head>` at runtime.
-4. The effect's `activate()` function is called to inject any required HTML into the page.
+- Each seasonal effect is a **Vue component** registered with `Vue.component()`.
+- A dedicated Vue instance mounts to `<div id="seasonal-effects">` in `index.html`.
+- The component's `data()` checks `new Date().getMonth()` to determine whether it is active.
+- If active, the component's `created()` hook dynamically injects the effect's CSS `<link>` into `<head>`.
+- The component's `template` uses `v-if="active"` so no DOM nodes are created outside the active month.
 
 ## Current effects
 
-| Effect | Month | CSS file | Pages |
-|--------|-------|----------|-------|
-| Snow | 12 (December) | `_css/snowflakes.css` | `index.html` |
+| Effect | Month | Component | CSS file | Mount point |
+|--------|-------|-----------|----------|-------------|
+| Snow | 12 (December) | `<snow-effect>` | `_css/snowflakes.css` | `index.html` |
 
 ## Adding a new seasonal effect
 
-Add a `registerSeasonalEffect()` call in `_js/seasonal.js` before the `DOMContentLoaded` listener:
+**Step 1** — Register a Vue component in `_js/seasonal.js`:
 
 ```js
-registerSeasonalEffect({
-  month: 2,           // February
-  name: 'hearts',
-  css: '_css/hearts.css',   // optional — omit if no dedicated CSS needed
-  activate: function () {
-    // inject any HTML the effect needs
-    var el = document.createElement('div');
-    el.className = 'hearts-container';
-    document.body.appendChild(el);
-  }
+Vue.component('hearts-effect', {
+  data: function () {
+    return {
+      active: new Date().getMonth() === 1  // February
+    };
+  },
+  created: function () {
+    if (this.active) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '_css/hearts.css';
+      document.head.appendChild(link);
+    }
+  },
+  template: '<div v-if="active" class="hearts" aria-hidden="true"></div>'
 });
 ```
 
-Then include `_js/seasonal.js` on whichever pages should show the effect, and create the matching CSS file.
+**Step 2** — Add the component tag to the `#seasonal-effects` Vue instance template in `seasonal.js`:
+
+```js
+new Vue({
+  el: '#seasonal-effects',
+  template: `
+    <div>
+      <snow-effect></snow-effect>
+      <hearts-effect></hearts-effect>
+    </div>
+  `
+});
+```
+
+**Step 3** — Create the matching CSS file (e.g. `_css/hearts.css`).
+
+No changes to any HTML file are needed — the `<div id="seasonal-effects">` mount point in `index.html` handles all effects.
 
 ## Snowflake CSS (`_css/snowflakes.css`)
 

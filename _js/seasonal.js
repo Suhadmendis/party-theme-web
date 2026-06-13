@@ -1,51 +1,43 @@
-// Seasonal effects — each effect activates only in its configured month.
-// To add a new seasonal effect, call registerSeasonalEffect() before the
-// DOM loads, then loadSeasonalEffects() runs them all at DOMContentLoaded.
-//
-// Example — adding a hearts effect for February:
-//   registerSeasonalEffect({
-//     month: 2, name: 'hearts', css: '_css/hearts.css',
-//     activate() { /* inject HTML */ }
-//   });
+// Seasonal effects — each effect is a Vue component, activated by month.
+// To add a new seasonal effect:
+//   1. Register a Vue component below (e.g. Vue.component('hearts-effect', { ... }))
+//   2. Add <your-effect-component></your-effect-component> to the template
+//      of the #seasonal-effects Vue instance at the bottom of this file.
 
-const SEASONAL_EFFECTS = [];
-
-function registerSeasonalEffect(config) {
-  SEASONAL_EFFECTS.push(config);
-}
-
-function loadSeasonalEffects() {
-  const month = new Date().getMonth() + 1; // 1 = Jan, 12 = Dec
-  SEASONAL_EFFECTS.forEach(function (effect) {
-    if (effect.month === month) {
-      if (effect.css) {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = effect.css;
-        document.head.appendChild(link);
-      }
-      if (effect.activate) effect.activate();
+// Snow effect — active only in December (month index 11)
+Vue.component('snow-effect', {
+  data: function () {
+    return {
+      active: new Date().getMonth() === 11,
+      flakes: ['❄', '❅', '❆', '❄', '❅', '❆']
+    };
+  },
+  created: function () {
+    if (this.active) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '_css/snowflakes.css';
+      document.head.appendChild(link);
     }
-  });
-}
-
-// Snow effect — December only
-registerSeasonalEffect({
-  month: 12,
-  name: 'snow',
-  css: '_css/snowflakes.css',
-  activate: function () {
-    var container = document.createElement('div');
-    container.className = 'snowflakes';
-    container.setAttribute('aria-hidden', 'true');
-    ['❄', '❅', '❆', '❄', '❅', '❆'].forEach(function (flake) {
-      var div = document.createElement('div');
-      div.className = 'snowflake';
-      div.textContent = flake;
-      container.appendChild(div);
-    });
-    document.body.appendChild(container);
-  }
+  },
+  template: `
+    <div v-if="active" class="snowflakes" aria-hidden="true">
+      <div v-for="flake in flakes" class="snowflake">{{ flake }}</div>
+    </div>
+  `
 });
 
-document.addEventListener('DOMContentLoaded', loadSeasonalEffects);
+// Mount a dedicated Vue instance to manage all seasonal effects.
+// This follows the same new Vue({ el: '#...' }) pattern used on every page.
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('seasonal-effects');
+  if (!el) return;
+  new Vue({
+    el: '#seasonal-effects',
+    template: `
+      <div>
+        <snow-effect></snow-effect>
+      </div>
+    `
+  });
+});
