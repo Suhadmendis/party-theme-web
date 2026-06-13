@@ -103,6 +103,22 @@ async function fetchProductById(assetId) {
   };
 }
 
+// Returns raw Cloudinary resource objects (not normalised) so all fields are
+// available — used by the Cloudinary Folder Structure admin page.
+async function fetchFolderAssetsRaw(folderName) {
+  try {
+    const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/by_asset_folder', {
+      params: { asset_folder: folderName, max_results: 50, with_field: 'metadata,tags' },
+      headers: { Authorization: _cloudinaryAuth() }
+    });
+    console.log('[Cloudinary] Loaded raw assets for folder', folderName);
+    return res.data.resources || [];
+  } catch (e) {
+    console.warn('[Cloudinary] fetchFolderAssetsRaw failed — using static data.', e.message);
+    return STATIC_PRODUCTS.filter(p => p.asset_folder === folderName);
+  }
+}
+
 async function searchProducts(query) {
   try {
     const res = await axios.get(CLOUDINARY_CONFIG.baseUrl + '/resources/search', {

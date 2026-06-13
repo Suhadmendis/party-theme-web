@@ -51,7 +51,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+          <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="shop.html">Shop</a>
@@ -76,35 +76,173 @@
   <div id="cloudinary-structure">
     <div class="container">
 
-      <h1 class="cs-page-title">Cloudinary Folder Structure</h1>
-      <p class="cs-page-subtitle">Browse folders, subfolders, and asset names. No image previews — paths and identifiers only.</p>
+      <!-- ── FOLDER LIST VIEW ── -->
+      <div v-if="!selectedFolder">
 
-      <div class="cs-loading" v-if="loading">
-        <i class="fa fa-circle-notch fa-spin"></i> Loading structure...
+        <div class="cs-page-header">
+          <h1 class="cs-page-title">Cloudinary Folder Structure</h1>
+          <p class="cs-page-subtitle">Select a folder to browse its assets. No images are displayed — file metadata and identifiers only.</p>
+        </div>
+
+        <!-- Loading -->
+        <div class="cs-loading" v-if="loadingFolders">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading folders…
+        </div>
+
+        <!-- Error -->
+        <div class="cs-error" v-else-if="error">
+          <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+        </div>
+
+        <!-- Empty -->
+        <div class="cs-empty-state" v-else-if="folders.length === 0">
+          No folders found in Cloudinary.
+        </div>
+
+        <!-- Folder cards -->
+        <div v-else class="cs-folder-grid">
+          <div
+            v-for="folder in folders"
+            :key="folder.name"
+            class="cs-folder-card"
+            @click="selectFolder(folder)"
+            role="button"
+            :aria-label="'Open folder ' + folder.name"
+          >
+            <div class="cs-folder-card-icon">
+              <i class="fa-solid fa-folder"></i>
+            </div>
+            <div class="cs-folder-card-info">
+              <span class="cs-folder-card-name">{{ folder.name }}</span>
+              <span class="cs-folder-card-path">{{ folder.path }}</span>
+            </div>
+            <i class="fa-solid fa-chevron-right cs-folder-card-arrow"></i>
+          </div>
+        </div>
+
       </div>
 
-      <div v-else>
-        <div class="cs-folder" v-for="folder in folderTree" :key="folder.name">
+      <!-- ── ASSET DETAIL VIEW ── -->
+      <div v-if="selectedFolder">
 
-          <div class="cs-folder-header" @click="toggleFolder(folder.name)">
-            <i class="fa fa-folder cs-folder-icon" :class="openFolders[folder.name] ? 'fa-folder-open' : 'fa-folder'"></i>
-            <span class="cs-folder-name">{{ folder.name.replace(/_/g, ' ') }}</span>
-            <span class="cs-folder-count">{{ folder.assets.length }} asset{{ folder.assets.length !== 1 ? 's' : '' }}</span>
-            <i class="fa cs-folder-toggle" :class="openFolders[folder.name] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        <div class="cs-asset-header">
+          <button class="cs-back-btn" @click="goBack()">
+            <i class="fa-solid fa-arrow-left"></i> All Folders
+          </button>
+          <div class="cs-asset-header-title">
+            <i class="fa-solid fa-folder-open cs-folder-icon-open"></i>
+            <h1 class="cs-page-title">{{ selectedFolder.name }}</h1>
           </div>
-
-          <div class="cs-asset-list" v-show="openFolders[folder.name]">
-            <div class="cs-asset-item" v-for="asset in folder.assets" :key="asset.asset_id">
-              <span class="cs-asset-name">{{ asset.name || '(unnamed)' }}</span>
-              <div class="cs-asset-meta">
-                <span class="cs-asset-id">ID: {{ asset.asset_id }}</span>
-                <span class="cs-asset-path">{{ assetPath(asset) }}</span>
-              </div>
-            </div>
-            <div class="cs-empty" v-if="folder.assets.length === 0">No assets in this folder</div>
-          </div>
-
         </div>
+
+        <!-- Loading assets -->
+        <div class="cs-loading" v-if="loadingAssets">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading assets…
+        </div>
+
+        <!-- Error -->
+        <div class="cs-error" v-else-if="error">
+          <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+        </div>
+
+        <!-- Empty folder -->
+        <div class="cs-empty-state" v-else-if="folderAssets.length === 0">
+          This folder contains no assets.
+        </div>
+
+        <!-- Asset list -->
+        <div v-else>
+          <p class="cs-asset-count">{{ folderAssets.length }} asset{{ folderAssets.length !== 1 ? 's' : '' }}</p>
+
+          <div v-for="asset in folderAssets" :key="asset.asset_id" class="cs-asset-card">
+
+            <div class="cs-asset-card-title">
+              <i class="fa-regular fa-file-image cs-asset-icon"></i>
+              <span>{{ assetDisplayName(asset) }}</span>
+            </div>
+
+            <div class="cs-meta-grid">
+
+              <div class="cs-meta-group">
+                <h6 class="cs-meta-group-title">Identifiers</h6>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Asset ID</span>
+                  <span class="cs-meta-value cs-mono">{{ asset.asset_id || '—' }}</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Public ID</span>
+                  <span class="cs-meta-value cs-mono">{{ asset.public_id || '—' }}</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Folder</span>
+                  <span class="cs-meta-value">{{ asset.asset_folder || selectedFolder.name }}</span>
+                </div>
+                <div class="cs-meta-row" v-if="asset.display_name">
+                  <span class="cs-meta-label">Display Name</span>
+                  <span class="cs-meta-value">{{ asset.display_name }}</span>
+                </div>
+              </div>
+
+              <div class="cs-meta-group">
+                <h6 class="cs-meta-group-title">File Info</h6>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Format</span>
+                  <span class="cs-meta-value">{{ asset.format ? asset.format.toUpperCase() : '—' }}</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Resource Type</span>
+                  <span class="cs-meta-value">{{ asset.resource_type || '—' }}</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Dimensions</span>
+                  <span class="cs-meta-value" v-if="asset.width && asset.height">{{ asset.width }} × {{ asset.height }} px</span>
+                  <span class="cs-meta-value" v-else>—</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">File Size</span>
+                  <span class="cs-meta-value">{{ formatBytes(asset.bytes) }}</span>
+                </div>
+              </div>
+
+              <div class="cs-meta-group">
+                <h6 class="cs-meta-group-title">Dates</h6>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Created</span>
+                  <span class="cs-meta-value">{{ formatDate(asset.created_at) }}</span>
+                </div>
+                <div class="cs-meta-row">
+                  <span class="cs-meta-label">Updated</span>
+                  <span class="cs-meta-value">{{ formatDate(asset.last_updated || asset.updated_at) }}</span>
+                </div>
+              </div>
+
+              <div class="cs-meta-group" v-if="asset.metadata && (metaVal(asset, 'name') || metaVal(asset, 'description') || metaVal(asset, 'amount'))">
+                <h6 class="cs-meta-group-title">Product Metadata</h6>
+                <div class="cs-meta-row" v-if="metaVal(asset, 'name')">
+                  <span class="cs-meta-label">Name</span>
+                  <span class="cs-meta-value">{{ metaVal(asset, 'name') }}</span>
+                </div>
+                <div class="cs-meta-row" v-if="metaVal(asset, 'description')">
+                  <span class="cs-meta-label">Description</span>
+                  <span class="cs-meta-value">{{ metaVal(asset, 'description') }}</span>
+                </div>
+                <div class="cs-meta-row" v-if="metaVal(asset, 'amount')">
+                  <span class="cs-meta-label">Amount</span>
+                  <span class="cs-meta-value">{{ metaVal(asset, 'amount') }}</span>
+                </div>
+              </div>
+
+              <div class="cs-meta-group" v-if="asset.tags && asset.tags.length">
+                <h6 class="cs-meta-group-title">Tags</h6>
+                <div class="cs-tag-list">
+                  <span v-for="tag in asset.tags" :key="tag" class="cs-tag">{{ tag }}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
