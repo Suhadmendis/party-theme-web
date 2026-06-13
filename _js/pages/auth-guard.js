@@ -47,8 +47,11 @@
       return;
     }
     var href = link.getAttribute('href') || '';
-    console.log('[AuthGuard] Nav item', index, 'href="' + href + '" currentStyle="' + item.style.display + '"');
-    var isNavProtected = NAV_PROTECTED.some(function (p) { return href.indexOf(p) !== -1; });
+    // Normalise href the same way as currentPage: strip path prefix, add .html if missing
+    var hrefPage = href.split('/').pop() || '';
+    var hrefNorm = hrefPage.indexOf('.') === -1 ? hrefPage + '.html' : hrefPage;
+    console.log('[AuthGuard] Nav item', index, 'href="' + href + '" hrefNorm="' + hrefNorm + '" currentStyle="' + item.style.display + '"');
+    var isNavProtected = NAV_PROTECTED.indexOf(hrefNorm) !== -1;
     console.log('[AuthGuard] Nav item', index, 'isNavProtected:', isNavProtected);
     if (isNavProtected) {
       var newDisplay = isLoggedIn ? '' : 'none';
