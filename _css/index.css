@@ -5,6 +5,71 @@
 
 #app {
   flex: 1;
+  background-color: #fff;
+}
+
+/* Promotion / featured products section */
+.promotion-section {
+  background-color: #FFF0F6 !important;
+}
+
+.promotion-section h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: #F72585;
+  margin-bottom: 2rem;
+}
+
+/* FAQ section */
+#faq {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+#faq h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: #F72585;
+  margin-bottom: 2rem;
+}
+
+#faqAccordion .card {
+  border: none;
+  border-radius: 1rem !important;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 12px rgba(247,37,133,0.07);
+  overflow: hidden;
+}
+
+#faqAccordion .card-header {
+  background-color: #FFF0F6;
+  border: none;
+  padding: 0;
+}
+
+#faqAccordion .btn-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d2d2d;
+  text-decoration: none;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  text-align: left;
+}
+
+#faqAccordion .btn-link:hover {
+  color: #F72585;
+}
+
+#faqAccordion .card-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.7;
+  background-color: #fff;
 }
 
 #search-bar-product {
@@ -82,45 +147,49 @@
 }
 
 .folder-name {
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
-  height: 40px;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  height: 38px;
   border-radius: 2rem;
   margin-right: 0.5rem;
-  background-color: #e7e7e7;
-  display: flex; /* Use Flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  background-color: #fff;
+  border: 2px solid #f5d6e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  white-space: nowrap; /* Prevent line break */
-  -webkit-box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
-  -moz-box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
-  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
+  white-space: nowrap;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .folder-name-text {
-  color: black;
-  text-align: center; /* Just in case, for text alignment */
-  margin-bottom: 0px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 0;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
-  white-space: nowrap; /* Prevent line break */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .folder-name:hover {
-  background-color: #f867ca;
+  background-color: #F72585;
+  border-color: #F72585;
 }
 .folder-name:hover .folder-name-text {
-  color: white; /* Change to the desired hover color */
+  color: #fff;
 }
 
 .folder-name-active {
-  background-color: #f867ca;
+  background-color: #F72585;
+  border-color: #F72585;
 }
 
 .folder-name-text-active {
-  color: white;
+  color: #fff;
 }
 
 /*------------------------ folder names ------------------------*/

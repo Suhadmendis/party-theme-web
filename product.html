@@ -13,23 +13,41 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rent beautiful party decor items for your event. Perfect for individuals and party planners. We also offer event management services to make your day memorable.">
-  <meta name="keywords" content="party decor rental, event management, party rentals, wedding decor, birthday party decor, event planning">
-  <title>Party Theme | Party Decor Rentals & Event Management Services</title>
+  <title>Party Decor Rental | Chasing Dreams Events — Westchester County, NY</title>
+  <meta name="description" content="View and book party decor rentals from Chasing Dreams Events. Balloon arches, backdrops, props, and more available for events in Westchester County, NY.">
+  <meta name="keywords" content="party decor rental, balloon arch rental, backdrop rental, event decor Westchester County, party props NY">
   <meta name="theme-color" content="black">
+  <link rel="canonical" href="https://partytheme.lk/product.html">
 
+  <!-- Open Graph (updated dynamically by Vue) -->
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://partytheme.lk/product.html">
+  <meta property="og:title" content="Party Decor Rental | Chasing Dreams Events">
+  <meta property="og:description" content="View and book party decor rentals from Chasing Dreams Events. Available for events in Westchester County, NY.">
+  <meta property="og:image" content="https://partytheme.lk/images/logo_result.webp">
+  <meta property="og:site_name" content="Chasing Dreams Events">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Party Decor Rental | Chasing Dreams Events">
+  <meta name="twitter:description" content="View and book party decor rentals from Chasing Dreams Events. Available for events in Westchester County, NY.">
+  <meta name="twitter:image" content="https://partytheme.lk/images/logo_result.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="images/logo_result.webp">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <script src="_js/slim.min.js"></script>
+  <script src="_js/vendor/slim.min.js"></script>
   <link rel="stylesheet" href="_css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <script src="_js/axios.min.js"></script>
-  <script src="_js/vue.js"></script>
-  <script src="_js/static-data.js"></script>
+  <script src="_js/vendor/axios.min.js"></script>
+  <script src="_js/vendor/vue.js"></script>
+  <script src="_js/data/static-data.js"></script>
 
   <link rel="stylesheet" href="_css/test.css" />
   <link rel="stylesheet" href="_css/header.css" />
@@ -63,6 +81,9 @@
         <li class="nav-item">
           <a class="nav-link" href="quotation.html">Quotation</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cloudinary-structure.html">Cloudinary Folder Structure</a>
+        </li>
       </ul>
       <form class="form-inline justify-content-end">
         <input id="search-bar" class="form-control custom-width" type="search" placeholder="Search"
@@ -85,7 +106,7 @@
           <div class="col-md-5">
             <div id="left">
               <div id="left-inner">
-                <img :src="PRODUCT.image_url" class="product-img" alt="Offer 1" />
+                <img :src="PRODUCT.image_url" class="product-img" :alt="PRODUCT.data.name ? PRODUCT.data.name + ' — party decor rental' : 'Party decor rental item'" />
               </div>
             </div>
           </div>
@@ -165,7 +186,7 @@
       <div class="slider-wrapper">
         <div class="slider">
           <div class="slider-image-wrapper" v-for="element in relatedProducts"
-            @click="GoTo('PRODUCT', element.asset_id)"><img :src="element.secure_url" alt="Photo 1" /></div>
+            @click="GoTo('PRODUCT', element.asset_id)"><img :src="element.secure_url" :alt="element.name ? element.name + ' — related party decor' : 'Related party decor item'" loading="lazy" /></div>
         </div>
       </div>
     </section>
@@ -177,8 +198,8 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0"
     nonce="ABC123"></script>
 
-  <script src="_js/cloudinary.js"></script>
-  <script src="_js/product.js"></script>
+  <script src="_js/integrations/cloudinary.js"></script>
+  <script src="_js/pages/product.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClBKRU9iKfSLnXVTvdv11RvKwpCrfdoQI&callback=initMap" async
     defer></script>
@@ -197,12 +218,11 @@
       <div class="footer-column footer-center">
         <h4>Navigate</h4>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li>Size Guide</li>
-          <li>FAQ</li>
-          <li>Contact</li>
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="index.html#about" class="footer-link">About</a></li>
+          <li><a href="shop.html" class="footer-link">Shop</a></li>
+          <li><a href="packages.html" class="footer-link">Packages</a></li>
+          <li><a href="quotation.html" class="footer-link">Quotation</a></li>
         </ul>
       </div>
       <div class="footer-column">

@@ -1,26 +1,38 @@
 #package-section {
   flex: 1;
-  background-color: black;
+  background-color: #FFF0F6;
+  padding-bottom: 4rem;
 }
 
 .premium-title {
-  font-size: 3rem;
-  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
   text-align: center;
-  margin-bottom: 5rem;
+  color: #F72585;
+  margin-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .product-details {
-  font-size: 1.2rem;
-  /* height: 40rem; */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.8;
+}
+
+.product-details strong {
+  color: #F72585;
 }
 
 .product-price {
-  height: 10rem;
-  font-size: 3rem;
-  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #F72585;
   text-align: start;
-  margin-top: 50px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .right {
@@ -28,90 +40,68 @@
 }
 
 .balloon-arch {
-  /* position: absolute; */
-  /* top: 50%; */
-  /* transform: translateY(-50%); */
-  /* right: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 ul > li {
   margin-bottom: 0.6rem;
 }
+
 #package-image {
   width: 100%;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 40px rgba(247,37,133,0.15);
 }
 
 .balloon-arch img {
   width: 100%;
 }
 
-
-
+/* Divider between packages */
+#package-section .container {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgba(247,37,133,0.08);
+  margin-bottom: 2rem;
+}
 
 @media (max-width: 992px) {
-  #package-section{
+  #package-section {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem;
   }
-
   .balloon-arch img {
-    width: 90%;
-    margin-bottom: 5rem;
+    width: 80%;
+    margin-bottom: 2rem;
   }
-  .product-price{
+  .product-price {
     text-align: center;
-    font-size: 3rem;
   }
-
 }
-
-
 
 @media (max-width: 600px) {
-  #package-section{
-    text-align: center;
-    padding: 2rem;
+  #package-section {
+    padding: 1rem;
   }
-
   .balloon-arch img {
     width: 90%;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
-  .product-price{
-    text-align: center;
-    font-size: 2.4rem;
-  }
-
 }
 
-
 @media (max-width: 395px) {
-  #package-section{
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .premium-title{
-
+  .premium-title {
     font-size: 1.8rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
-
-  .product-details{
+  .product-details {
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
-
   .balloon-arch img {
     width: 100%;
-    margin-bottom: 2rem;
   }
-  .product-price{
-    color: white;
-    text-align: center;
-    font-size: 2rem;
-  }
-
 }

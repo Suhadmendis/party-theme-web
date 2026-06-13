@@ -1,4 +1,57 @@
-.stripe-information-section{
-  background: linear-gradient(135deg, #e77fc6, #be3f96);
-  color: white;
+/* Teal stripe */
+.stripe-information-section {
+  background-color: #4ECDC4;
+  color: #fff;
+  position: relative;
+}
+
+/* Orange stripe — second occurrence */
+.stripe-information-section:nth-of-type(2) {
+  background-color: #FF8C42;
+}
+
+/* Scalloped top edge via SVG mask */
+.stripe-information-section::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 48px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48'%3E%3Cpath d='M0,48 L0,24 Q30,0 60,24 Q90,48 120,24 Q150,0 180,24 Q210,48 240,24 Q270,0 300,24 Q330,48 360,24 Q390,0 420,24 Q450,48 480,24 Q510,0 540,24 Q570,48 600,24 Q630,0 660,24 Q690,48 720,24 Q750,0 780,24 Q810,48 840,24 Q870,0 900,24 Q930,48 960,24 Q990,0 1020,24 Q1050,48 1080,24 Q1110,0 1140,24 Q1170,48 1200,24 L1200,48 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-size: 1200px 48px;
+  background-repeat: repeat-x;
+  margin-top: -1px;
+}
+
+.stripe-information-section h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.stripe-information-section p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.7;
+}
+
+.stripe-information-section .btn-light {
+  background-color: #fff;
+  color: #F72585;
+  border: none;
+  border-radius: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7rem 2rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.stripe-information-section .btn-light:hover {
+  background-color: #F72585;
+  color: #fff;
 }

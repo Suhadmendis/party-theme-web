@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /cloudinary-structure.html
+Disallow: /docs/
+
+Sitemap: https://partytheme.lk/sitemap.xml

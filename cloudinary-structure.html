@@ -13,25 +13,10 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events</title>
-  <meta name="description" content="Browse our full collection of party decor rentals. Balloon arches, backdrops, light-up numbers, props, and table centerpieces available for events in Westchester County, NY.">
-  <meta name="keywords" content="party decor shop, balloon arch rental Westchester, backdrop rental NY, light up numbers rental, party props rental, table centerpiece rental, birthday party rentals">
+  <title>Cloudinary Asset Structure | Chasing Dreams Events</title>
+  <meta name="description" content="Internal reference for Cloudinary folder hierarchy and asset structure.">
+  <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="black">
-  <link rel="canonical" href="https://partytheme.lk/shop.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://partytheme.lk/shop.html">
-  <meta property="og:title" content="Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events">
-  <meta property="og:description" content="Browse balloon arches, backdrops, light-up numbers, props, and table centerpieces available for rental in Westchester County, NY.">
-  <meta property="og:image" content="https://partytheme.lk/images/logo_result.webp">
-  <meta property="og:site_name" content="Chasing Dreams Events">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Shop Party Decor Rentals — Balloons, Backdrops &amp; More | Chasing Dreams Events">
-  <meta name="twitter:description" content="Browse balloon arches, backdrops, light-up numbers, props, and table centerpieces available for rental in Westchester County, NY.">
-  <meta name="twitter:image" content="https://partytheme.lk/images/logo_result.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,8 +34,7 @@
   <link rel="stylesheet" href="_css/test.css" />
   <link rel="stylesheet" href="_css/header.css" />
   <link rel="stylesheet" href="_css/footer.css" />
-  <link rel="stylesheet" href="_css/index.css" />
-  <link rel="stylesheet" href="_css/product.css" />
+  <link rel="stylesheet" href="_css/cloudinary-structure.css" />
 </head>
 
 <body>
@@ -66,7 +50,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
         </li>
         <li class="nav-item">
@@ -78,7 +62,7 @@
         <li class="nav-item">
           <a class="nav-link" href="quotation.html">Quotation</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="cloudinary-structure.html">Cloudinary Folder Structure</a>
         </li>
       </ul>
@@ -89,60 +73,42 @@
     </div>
   </nav>
 
-  <!-- Promotion Section -->
-  <div id="app">
-    <section class="promotion-section py-5 text-center">
+  <div id="cloudinary-structure">
+    <div class="container">
 
-      <div class="fullscreen-div" id="fullscreenDiv" v-show="pageVisibilityLock">
-        <img id="logo-spalsh" src="images/logo_result.webp" alt="Party Theme Logo" />
+      <h1 class="cs-page-title">Cloudinary Folder Structure</h1>
+      <p class="cs-page-subtitle">Browse folders, subfolders, and asset names. No image previews — paths and identifiers only.</p>
+
+      <div class="cs-loading" v-if="loading">
+        <i class="fa fa-circle-notch fa-spin"></i> Loading structure...
       </div>
 
-      <div class="container">
+      <div v-else>
+        <div class="cs-folder" v-for="folder in folderTree" :key="folder.name">
 
-        <!-- Search Bar -->
-        <form class="form-inline">
-          <input id="search-bar-product" v-model="SEARCH_QUERY" @input="onSearchInput()" class="form-control"
-            type="search" placeholder="Search" aria-label="Search" />
-        </form>
-
-        <div class="folder-name-area">
-          <div v-for="name in folderNames"
-            v-if="getProductCountByFolder(name.name) !== 0"
-            :class="selectedFolderName == name.name ? 'folder-name folder-name-active' : 'folder-name'"
-            @click="selectFolder(name.name)">
-            <p :class="selectedFolderName == name.name ? 'folder-name-text folder-name-text-active' : 'folder-name-text'">
-              {{ name.name }} {{ getProductCountByFolder(name.name) }}</p>
+          <div class="cs-folder-header" @click="toggleFolder(folder.name)">
+            <i class="fa fa-folder cs-folder-icon" :class="openFolders[folder.name] ? 'fa-folder-open' : 'fa-folder'"></i>
+            <span class="cs-folder-name">{{ folder.name.replace(/_/g, ' ') }}</span>
+            <span class="cs-folder-count">{{ folder.assets.length }} asset{{ folder.assets.length !== 1 ? 's' : '' }}</span>
+            <i class="fa cs-folder-toggle" :class="openFolders[folder.name] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
           </div>
-        </div>
 
-        <br>
-
-        <div v-if="fetchedFilferdData.length" class="row">
-          <div v-for="(product, index) in fetchedFilferdData" :key="product.asset_id" class="col-md-3" v-if="product.asset_folder == selectedFolderName">
-            <div class="card border-0 shadow" id="productCard">
-              <img :src="product.url" class="card-img-top" :alt="product.name ? product.name + ' — party decor rental' : 'Party decor rental item'" loading="lazy" />
-              <div class="card-body">
-                <h5 class="card-title" v-if="product.name">{{ product.name }}</h5>
-                <h5 class="card-title" v-else>no</h5>
-                <p class="card-text" v-if="product.metadata">
-                  {{ product.metadata.description.substring(0, 40) }}{{ product.metadata.description.length > 40 ? '...' : '' }}
-                </p>
-                <p class="card-text" v-else>On selected party decor items.</p>
-                <div class="product-view-button-area">
-                  <button class="product-view-button" @click="GoTo('PRODUCT', product.asset_id)"><i
-                      class="fa-solid fa-eye" id="product-view-button-icon"></i></button>
-                </div>
+          <div class="cs-asset-list" v-show="openFolders[folder.name]">
+            <div class="cs-asset-item" v-for="asset in folder.assets" :key="asset.asset_id">
+              <span class="cs-asset-name">{{ asset.name || '(unnamed)' }}</span>
+              <div class="cs-asset-meta">
+                <span class="cs-asset-id">ID: {{ asset.asset_id }}</span>
+                <span class="cs-asset-path">{{ assetPath(asset) }}</span>
               </div>
             </div>
+            <div class="cs-empty" v-if="folder.assets.length === 0">No assets in this folder</div>
           </div>
+
         </div>
-
       </div>
-    </section>
-  </div>
 
-  <script src="_js/integrations/cloudinary.js"></script>
-  <script src="_js/pages/script.js"></script>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
@@ -189,6 +155,9 @@
       Site by Party Theme
     </div>
   </footer>
+
+  <script src="_js/integrations/cloudinary.js"></script>
+  <script src="_js/pages/cloudinary-structure.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
