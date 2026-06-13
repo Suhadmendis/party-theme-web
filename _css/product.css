@@ -69,17 +69,18 @@
 }
 
 #product {
+  flex: 1;
 }
 
 /*---------------------------------- product-area ---------------------------------*/
 
 #product-area {
-  width: "100%";
+  width: 100%;
   /* height: 50rem; */
 }
 
 #left {
-  width: "100%";
+  width: 100%;
 
   background-color: white;
   border-radius: 2rem;
@@ -98,14 +99,14 @@
 }
 
 #left-inner {
-  width: "100%";
+  width: 100%;
 
   border-radius: 2rem;
   background-color: rgb(228, 228, 228);
 }
 
 #right {
-  width: "100%";
+  width: 100%;
 
   border-radius: 2rem 2rem 0 0;
   background-color: rgb(241, 241, 241);
@@ -249,7 +250,7 @@
 
 .info-product-bottom {
   /* margin-top: 1rem; */
-  width: "100%";
+  width: 100%;
   height: 50px;
   background-color: #be519c;
   border-radius: 0 0 2rem 2rem;
