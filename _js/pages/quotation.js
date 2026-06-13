@@ -9,6 +9,7 @@ new Vue({
     saving: false,
     saveSuccess: false,
     saveError: null,
+    savedReference: null,
   },
   computed: {
     itemCount: function () {
@@ -74,6 +75,7 @@ new Vue({
       this.saving = true;
       this.saveError = null;
       this.saveSuccess = false;
+      this.savedReference = null;
 
       try {
         const session = await getSellerSession();
@@ -82,10 +84,16 @@ new Vue({
           return;
         }
 
+        // Generate unique reference atomically via database function
+        const { data: reference, error: refErr } = await _supabase
+          .rpc('next_quotation_reference');
+        if (refErr) throw new Error('Could not generate quotation reference: ' + refErr.message);
+
         const { data: quot, error: quotErr } = await _supabase
           .from('quotations')
           .insert({
             seller_id: session.user.id,
+            reference: reference,
             customer_name: this.customerName || null,
             customer_email: this.customerEmail || null,
             item_count: this.itemCount,
@@ -116,6 +124,7 @@ new Vue({
 
         if (itemsErr) throw new Error(itemsErr.message);
 
+        this.savedReference = reference;
         this.saveSuccess = true;
         this.QUOTATION_ITEMS = [];
         this.customerName = '';
@@ -126,6 +135,10 @@ new Vue({
       } finally {
         this.saving = false;
       }
+    },
+    dismissSuccess: function () {
+      this.saveSuccess = false;
+      this.savedReference = null;
     },
   },
 });

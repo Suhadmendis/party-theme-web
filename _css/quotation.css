@@ -13,6 +13,71 @@
   padding: 0 20px;
 }
 
+/* Saved Banner */
+.qt-saved-banner {
+  background: #e6f9f8;
+  border: 1px solid #b2ebe9;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.qt-saved-banner-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.qt-saved-icon {
+  font-size: 28px;
+  color: #1a7a74;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.qt-saved-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qt-saved-ref {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: 0.04em;
+}
+
+.qt-saved-msg {
+  font-size: 14px;
+  color: #1a7a74;
+  margin: 0;
+}
+
+.qt-dismiss-btn {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.qt-dismiss-btn:hover {
+  color: #1a1a2e;
+  background: rgba(0,0,0,0.06);
+}
+
 /* Page Header */
 .qt-page-header {
   padding: 32px 0 24px;

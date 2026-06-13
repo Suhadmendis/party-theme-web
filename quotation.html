@@ -100,6 +100,20 @@
         <p class="qt-subtitle">Add products, set quantities and pricing, then save.</p>
       </div>
 
+      <!-- Save Success Banner -->
+      <div class="qt-saved-banner" v-if="saveSuccess">
+        <div class="qt-saved-banner-inner">
+          <i class="fa-solid fa-circle-check qt-saved-icon"></i>
+          <div class="qt-saved-body">
+            <div class="qt-saved-ref">{{ savedReference }}</div>
+            <p class="qt-saved-msg">Quotation saved successfully. Start below to create a new one.</p>
+          </div>
+        </div>
+        <button class="qt-dismiss-btn" @click="dismissSuccess" title="Dismiss">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
       <!-- Customer Information -->
       <section class="qt-card">
         <h2 class="qt-card-heading">
@@ -218,9 +232,6 @@
         </div>
 
         <div class="qt-save-area">
-          <div class="qt-alert qt-alert-success" v-if="saveSuccess">
-            <i class="fa-solid fa-circle-check"></i> Quotation saved successfully.
-          </div>
           <div class="qt-alert qt-alert-error" v-if="saveError">
             <i class="fa-solid fa-circle-exclamation"></i> {{ saveError }}
           </div>
