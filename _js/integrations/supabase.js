@@ -53,6 +53,8 @@ async function signOutSeller() {
 
 async function getSellerSession() {
   const { data } = await _supabase.auth.getSession();
+  console.log('[Supabase] Session checked');
+  console.log(data);
   return data.session;
 }
 
