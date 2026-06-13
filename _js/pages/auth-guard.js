@@ -3,6 +3,16 @@
   const session = await getSellerSession();
   const isLoggedIn = !!session;
 
+  // Show access banner on protected pages
+  var banner = document.getElementById('auth-banner');
+  if (banner) {
+    if (isLoggedIn) {
+      banner.innerHTML = '<div class="auth-banner auth-banner-success"><i class="fa-solid fa-circle-check"></i> You are logged in and allowed to access this page.</div>';
+    } else {
+      banner.innerHTML = '<div class="auth-banner auth-banner-warning"><i class="fa-solid fa-triangle-exclamation"></i> You are not logged in. Some features on this page may be restricted.</div>';
+    }
+  }
+
   // Inject seller name + logout button when logged in
   if (isLoggedIn) {
     var sellerName = (session.user.user_metadata && session.user.user_metadata.name)
